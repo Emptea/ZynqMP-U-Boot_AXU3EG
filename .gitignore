@@ -1,0 +1,4 @@
+/zynq
+*.jou
+*.log
+.Xil
