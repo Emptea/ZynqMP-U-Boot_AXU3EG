@@ -49,12 +49,16 @@ in_node { print }
 
 echo "Updated $PCW_FILE successfully. Backup saved as $PCW_FILE.bak"
 
-cat system.dts system-top.dts > temp.dts && \
+cat system-top.dts system.dts  > zynqmp.dts && \
     gcc -E -nostdinc -undef -x assembler-with-cpp \
     -o system-merged.dts \
-    temp.dts
-rm temp.dts
+    zynqmp.dts
+rm zynqmp.dts
 cp system-merged.dts ../zynqmp.dts
+
+cd ..
+echo $(pwd)
+dtc -I dts -O dtb -o zynqmp.dtb zynqmp.dts
 
 echo "Successfully built dts. Output written to $(pwd)/output/"
 exit 0
