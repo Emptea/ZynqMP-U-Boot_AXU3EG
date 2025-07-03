@@ -2,7 +2,7 @@
 BL31_DEST="$(pwd)/output"
 # Check if a path argument was provided
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 /path/to/file"
+    echo "Usage: $0 /path/to/arm-trusted-firmware"
     exit 1
 fi
 
