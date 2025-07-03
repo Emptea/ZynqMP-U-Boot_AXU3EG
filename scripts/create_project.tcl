@@ -128,7 +128,7 @@ set constraints_files [glob -nocomplain -directory $constraints_dir *.xdc]
 
 # Import constraints into constrs_1 fileset
 if {[llength $constraints_files] > 0} {
-    add_files -fileset constrs_1 -norecurse F:/work/RLS_mini/ZynqMP-U-Boot_AXU3EG/constrains/gpio.xdc
+    add_files -fileset constrs_1 -norecurse ./constrains/gpio.xdc
     import_files -fileset constrs_1 $constraints_files
     puts "Successfully added constraints: $constraints_files"
 } else {
