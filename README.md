@@ -81,5 +81,21 @@ Connect your board to Xilinx Programmer via JTAG and run:
 
 ```bash
 cd output
-bootgen -image boot.bif -o BOOT.bin -arch zynqmp```
+bootgen -image boot.bif -o BOOT.bin -arch zynqmp
+```
 
+## Linux kernel
+
+Clone [linux-xlnx.git](https://github.com/Xilinx/linux-xlnx.git) to any folder you like, checkout to your Vivado version (mine was 2019.1, so I did `git checkout -b xilinx-v4.19`).
+
+Install dependencies:
+```sudo apt install libncurses-dev```
+
+Run script:
+
+```./scripts/build_kernel.sh /path/to/linux-xlnx```
+
+In Kernel Configuration menu turn on overlay filesystem support (File systems -> Overlay filesystem support) like on screen and save your configuration:
+![kernel linux configuration](image.png)
+
+If you have problem with multiple yylloc definition than add `extern` type to `YYLTYPE yylloc` in `dtc-lexer.l`.
