@@ -70,3 +70,16 @@ Clone [u-boot-xlnx](https://github.com/Xilinx/u-boot-xlnx.git) to any folder you
 Run:
 
 ```./scripts/build_u_boot.sh path/to/u-boot-xlnx/ ./output/zynqmp.dtb```
+
+## Verify U-boot
+
+Connect your board to Xilinx Programmer via JTAG and run:
+
+```xsct ./scripts/jtagload.tcl```
+
+## Generate BOOT.bin
+
+```bash
+cd output
+bootgen -image boot.bif -o BOOT.bin -arch zynqmp```
+
