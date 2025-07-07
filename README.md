@@ -99,3 +99,13 @@ In Kernel Configuration menu turn on overlay filesystem support (File systems ->
 ![kernel linux configuration](image.png)
 
 If you have problem with multiple yylloc definition than add `extern` type to `YYLTYPE yylloc` in `dtc-lexer.l`.
+
+## Buildroot
+
+Clone buildroot to any folder you like and run:
+
+```./scripts/br_config.sh /path/to/buildroot```
+
+It opens buildroot configuration menu, you can configure as you like. I used settings from this [Russian article](https://habr.com/ru/articles/805171/).
+
+`.config` file using this setting is stored in `output/buildroot` folder.
