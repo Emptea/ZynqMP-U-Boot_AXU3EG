@@ -1,3 +1,5 @@
+connect 
+
 #Disable Security gates to view PMU MB target
 targets -set -filter {name =~ "PSU"}
 

@@ -73,15 +73,26 @@ Run:
 
 ## Verify U-boot
 
-Connect your board to Xilinx Programmer via JTAG and run:
+Connect your board to Xilinx Programmer via JTAG (and make sure your board is running in JTAG mode), UART port to PC, connect to Serial Monitor and run:
 
-```xsct ./scripts/jtagload.tcl```
+```xsct ./scripts/jtag_load.tcl```
+
+In Serial Monitor you should see PMUFW, FSBL and board information.
 
 ## Generate BOOT.bin
 
 ```bash
 cd output
-bootgen -image boot.bif -o BOOT.bin -arch zynqmp
+bootgen -image boot.bif -o BOOT.bin -arch zynqmp -w
+```
+
+Than run in output folder:
+
+```bash
+xsct
+connect
+program_flash -f BOOT.bin -flash_type qspi-x4-single -fsbl zynqmp_fsbl.elf -verify    
+exit
 ```
 
 ## Linux kernel
