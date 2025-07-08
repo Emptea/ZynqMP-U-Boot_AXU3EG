@@ -13,7 +13,13 @@ set app_dir           [file join $sdk_workspace $app_name]
 set app_release_dir   [file join [pwd] ".." "output" ]
 set app_release_elf   "zynqmp_fsbl.elf"
 
-set hw_design         [hsi::open_hw_design [file join $sdk_workspace $hwspec_file]]
+hsi::open_hw_design [file join $sdk_workspace $hwspec_file]
 
-hsi::generate_app -hw $hw_design -os standalone -proc $proc_name -app $app_type -compile -dir $app_dir
+set sw_fsbl [hsi::create_sw_design $app_name -proc $proc_name -app $app_type]
+
+common::set_property -name APP_COMPILER_FLAGS -value "-DFSBL_NAND_EXCLUDE_VAL=1" -objects $sw_fsbl
+hsi::generate_app -sw $sw_fsbl -compile -dir $app_dir
 file copy -force [file join $app_dir "executable.elf"] [file join $app_release_dir $app_release_elf]
+
+set design_name [hsi::current_hw_design]
+hsi::close_hw_design $design_name

@@ -13,8 +13,13 @@ set app_release_dir   [file join [pwd] ".." "output"]
 set app_release_elf   "zynqmp_pmufw.elf"
 set hw_design         [hsi::open_hw_design [file join $sdk_workspace $hwspec_file]]
 
-hsi::generate_app -hw $hw_design -os standalone -proc $proc_name -app $app_type -dir $app_dir
+hsi::open_hw_design [file join $sdk_workspace $hwspec_file]
 
-exec make -C $app_dir all >&@ stdout
+set sw_pmufw [hsi::create_sw_design $app_name -proc $proc_name -app $app_type]
 
+common::set_property -name APP_COMPILER_FLAGS -value "-DENABLE_EM" -objects $sw_pmufw
+hsi::generate_app -sw $sw_pmufw -compile -dir $app_dir
 file copy -force [file join $app_dir "executable.elf"] [file join $app_release_dir $app_release_elf]
+
+set design_name [hsi::current_hw_design]
+hsi::close_hw_design $design_name
