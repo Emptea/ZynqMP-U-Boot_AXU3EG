@@ -17,7 +17,10 @@ hsi::open_hw_design [file join $sdk_workspace $hwspec_file]
 
 set sw_fsbl [hsi::create_sw_design $app_name -proc $proc_name -app $app_type]
 
-common::set_property -name APP_COMPILER_FLAGS -value "-DFSBL_NAND_EXCLUDE_VAL=1" -objects $sw_fsbl
+common::set_property -name APP_COMPILER_FLAGS -value "-DFSBL_DEBUG=1" -objects $sw_fsbl
+common::set_property -name APP_COMPILER_FLAGS -value "-DFSBL_DEBUG_INFO=1" -objects $sw_fsbl
+common::set_property -name APP_COMPILER_FLAGS -value "-DFSBL_DEBUG_DETAILED=1" -objects $sw_fsbl
+
 hsi::generate_app -sw $sw_fsbl -compile -dir $app_dir
 file copy -force [file join $app_dir "executable.elf"] [file join $app_release_dir $app_release_elf]
 
