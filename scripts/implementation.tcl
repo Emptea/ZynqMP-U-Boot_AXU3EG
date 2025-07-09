@@ -16,6 +16,7 @@ set project_name [get_property name [current_project]]
 #
 # Run Synthesis
 #
+reset_run synth_1
 launch_runs synth_1 -job 4
 wait_on_run synth_1
 #
