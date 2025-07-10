@@ -5,7 +5,7 @@ Requirements: Vivado 2019.1, Vivado SDK 2019.1
 
 ## Build Zynq US+ MPSoC FPGA
 
-### Create project:
+### Create project
 
 ```vivado -mode batch -source ./scripts/create_project.tcl```
 
@@ -19,11 +19,11 @@ Requirements: Vivado 2019.1, Vivado SDK 2019.1
 
 ## Build FSBL
 
-```xsct ./scripts/build_zynqmp_fsbl.tcl```
+```xsct ./scripts/fsbl_build.tcl```
 
 ## Build PMU Firmware
 
-```xsct ./scripts/build_zynqmp_pmufw.tcl```
+```xsct ./scripts/pmufw_build.tcl```
 
 ## Build ARM trusted firmware
 
@@ -40,10 +40,10 @@ From folder with this git repo call:
 Clone [device-tree-xlnx](https://github.com/Xilinx/device-tree-xlnx.git) to any folder you like, checkout to your Vivado version (mine was 2019.1, so I did `git checkout -b xilinx-v2019.1`).
 
 For old Vivado versions:
-```./scripts/generate_dtc.sh ./path/to/project.hwdef /path/to/device-tree-xlnx/```
+```./scripts/dts_gen.sh ./path/to/project.hwdef /path/to/device-tree-xlnx/```
 
 For new Vivado versions:
-```./scripts/generate_dtc.sh ./path/to/project.xsa /path/to/device-tree-xlnx/```
+```./scripts/dts_gen.sh ./path/to/project.xsa /path/to/device-tree-xlnx/```
 
 ## U-boot
 
@@ -69,7 +69,7 @@ Clone [u-boot-xlnx](https://github.com/Xilinx/u-boot-xlnx.git) to any folder you
 
 Run:
 
-```./scripts/build_u_boot.sh path/to/u-boot-xlnx/ ./output/zynqmp.dtb```
+```./scripts/uboot_build.sh path/to/u-boot-xlnx/ ./output/zynqmp.dtb```
 
 ## Verify U-boot
 
@@ -104,7 +104,7 @@ Install dependencies:
 
 Run script:
 
-```./scripts/build_kernel.sh /path/to/linux-xlnx```
+```./scripts/kernel_build.sh /path/to/linux-xlnx```
 
 In Kernel Configuration menu turn on overlay filesystem support (File systems -> Overlay filesystem support) like on screen and save your configuration:
 ![kernel linux configuration](image.png)
