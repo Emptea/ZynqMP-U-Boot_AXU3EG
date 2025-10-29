@@ -1,4 +1,3 @@
-
 # README
 
 Requirements: Vivado 2019.1, Vivado SDK 2019.1
@@ -20,6 +19,8 @@ Requirements: Vivado 2019.1, Vivado SDK 2019.1
 ## Build FSBL
 
 ```xsct ./scripts/fsbl_build.tcl```
+    
+Get ```zynqmp_fsbl.elf```
 
 ## Build PMU Firmware
 
@@ -42,8 +43,9 @@ Clone [device-tree-xlnx](https://github.com/Xilinx/device-tree-xlnx.git) to any 
 For old Vivado versions:
 ```./scripts/dts_gen.sh ./path/to/project.hwdef /path/to/device-tree-xlnx/```
 
-For new Vivado versions:
 ```./scripts/dts_gen.sh ./path/to/project.xsa /path/to/device-tree-xlnx/```
+    
+Get ```pmufw.elf```
 
 ## U-boot
 
@@ -71,6 +73,8 @@ Run:
 
 ```./scripts/uboot_build.sh path/to/u-boot-xlnx/ ./output/zynqmp.dtb```
 
+Get ```zynqmp.dtb```
+
 ## Verify U-boot
 
 Connect your board to Xilinx Programmer via JTAG (and make sure your board is running in JTAG mode), UART port to PC, connect to Serial Monitor and run:
@@ -82,41 +86,152 @@ In Serial Monitor you should see PMUFW, FSBL and board information.
 ## Generate BOOT.bin
 
 ```bash
-cd output
-bootgen -image boot.bif -o BOOT.bin -arch zynqmp -w
+    cd output
+    bootgen -image boot.bif -o BOOT.bin -arch zynqmp -w
+```
+    
+<details><summary>boot.bif</summary>
+
+   the_ROM_image:
+{
+  [pmufw_image]                                      /home/user/ZynqMP-U-Boot_AXU3EG/output/pmufw/pmufw.elf
+  [bootloader, destination_cpu=a53-0]                /home/user/ZynqMP-U-Boot_AXU3EG/output/fsbl/zynqmp_fsbl.elf
+  [destination_cpu=a53-0, exception_level=el-3, trustzone] /home/user/ZynqMP-U-Boot_AXU3EG/output/atf/bl31.elf
+  [destination_cpu=a53-0, exception_level=el-2]      /home/user/ZynqMP-U-Boot_AXU3EG/output/uboot/u-boot.elf
+}
+
+</details>
+    
+    
+## Linux Kernel
+    
+```git ls-remote -h https://github.com/Xilinx/linux-xlnx git clone --depth 1 --branch "xlnx_rebase_v6.6_LTS" https://github.com/Xilinx/linux-xlnx```
+       
+```git checkout xilinx-v2025.1  export ARCH=arm64 export CROSS_COMPILE=aarch64-linux-gnu-```
+        
+```make xilinx_zynqmp_defconfig```
+    
+```make menuconfig```
+    
+    Target options  ---> Target Architecture (AArch64 (little endian))
+    Toolchain ---> Toolchain type (Buildroot toolchain),  C library (glibc) 
+    System configuration  ---> (root) System hostname, [*] Enable root login with password (root) Root password 
+    Filesystem images  ---> 
+    [*] ext2/3/4 root filesystem ext2/3/4 variant (ext4)
+    
+```make -j$(nproc) Image dtbs```
+
+```dtc -@ -I dts -O dtb \ -i <path_to_includes> \ -o system.dtb system-top.dts```
+    
+<details><summary>system-top.dts</summary>
+
+/dts-v1/;  
+/include/ "zynqmp.dtsi"
+/include/ "zynqmp-clk-ccf.dtsi"
+
+/ {
+	model = "Alynx AXU3EGB";
+	compatible = "alinx,axu3egb", "xlnx,zynqmp";
+
+	aliases {
+		ethernet0 = &gem3;
+		serial0   = &uart0;
+		spi0      = &qspi;
+		mmc0      = &sdhci1;
+	};
+
+	chosen {
+		bootargs    = "earlycon";
+		stdout-path = "serial0:115200n8";
+	};
+
+	memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x0 0x0 0x80000000>;
+	};
+};
+
+&gem3  { phy-mode = "rgmii-id"; status = "okay"; };
+&uart0 { status = "okay"; u-boot,dm-pre-reloc;  };
+&sdhci1 {
+ 		xlnx,mio_bank = <1>;
+	status       = "okay";
+	bus-width    = <4>;
+	clock-names  = "clk_xin", "clk_ahb";
+	clocks       = <&zynqmp_clk 55>, <&zynqmp_clk 47>;
+	no-1-8-v; disable-wp;
+	u-boot,dm-pre-reloc;
+};
+&qspi   { status = "okay"; is-dual = <1>; num-cs = <2>; };
+&usb0 {
+    status  = "okay";
+    dr_mode = "host";
+};
+&dwc3_0 {
+    status = "okay";
+};
+
+&usb1 {
+    status  = "okay";
+    dr_mode = "host";
+};
+&dwc3_1 {
+    status = "okay";
+};
+
+</details>
+    
+    
+##SD
+     
+```lsblk``` ex. dev/sda
+     
+```sudo fdisk /dev/sda```
+     
+```
+sudo parted /dev/sda --script \
+    mklabel msdos \
+    mkpart primary fat32 1MiB 100MiB \
+    mkpart primary ext4 100MiB 100%
+```
+    
+```
+sudo mkfs.vfat -F32 -n boot /dev/sda1
+sudo mkfs.ext4 -L rootfs /dev/sda2
 ```
 
-Than run in output folder:
-
-```bash
-xsct
-connect
-program_flash -f BOOT.bin -flash_type qspi-x4-single -fsbl zynqmp_fsbl.elf -verify    
-exit
+```
+sudo mkfs.ext4 -O ^64bit,^metadata_csum /dev/sda2
+```
+    
+```
+mkdir -p mnt/boot mnt/rootfs
+sudo mount /dev/sda1 mnt/boot
+sudo mount /dev/sda2 mnt/rootfs
 ```
 
-## Linux kernel
+Copy to boot folder : BOOT.bin Image system.dtb, create folder /boot/extlinux put file extlinux.conf there
+    
+<details><summary>extlinux.conf</summary>
 
-Clone [linux-xlnx.git](https://github.com/Xilinx/linux-xlnx.git) to any folder you like, checkout to your Vivado version (mine was 2019.1, so I did `git checkout -b xilinx-v4.19`).
+label linux
+  kernel /Image
+  devicetree /system.dtb
+  append console=ttyPS0,115200 root=/dev/mmcblk0p2 rw rootwait rootfstype=ext4 rootdelay=5 earlycon ignore_loglevel loglevel=8
 
-Install dependencies:
-```sudo apt install libncurses-dev```
+</details>
+    
+```
+sudo dd if=output/images/rootfs.ext4 of=/dev/sda2 bs=4M status=progress conv=fsync
+sync
+```
 
-Run script:
+#Run
 
-```./scripts/kernel_build.sh /path/to/linux-xlnx```
-
-In Kernel Configuration menu turn on overlay filesystem support (File systems -> Overlay filesystem support) like on screen and save your configuration:
-![kernel linux configuration](image.png)
-
-If you have problem with multiple yylloc definition than add `extern` type to `YYLTYPE yylloc` in `dtc-lexer.l`.
-
-## Buildroot
-
-Clone buildroot to any folder you like and run:
-
-```./scripts/br_config.sh /path/to/buildroot```
-
-It opens buildroot configuration menu, you can configure as you like. I used settings from this [Russian article](https://habr.com/ru/articles/805171/).
-
-`.config` file using this setting is stored in `output/buildroot` folder.
+```
+picocom -b 115200 /dev/ttyUSB0
+``` 
+    
+    
+    
+    
