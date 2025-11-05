@@ -14,7 +14,7 @@ Requirements: Vivado 2019.1, Vivado SDK 2019.1
 
 ### Export hardware
 
-```vivado -mode batch -source ./scripts/export_hadware.tcl```
+```vivado -mode batch -source ./scripts/export_hardware.tcl```
 
 ## Build FSBL
 
@@ -34,7 +34,7 @@ You should create enviromental variable `VIVADO_SDK_PATH` that looks like:
 Clone [arm-trusted-firmware](https://github.com/Xilinx/arm-trusted-firmware.git) to any folder you like, checkout to your Vivado version (mine was 2019.1, so I did `git checkout -b xilinx-v2019.1`).
 
 From folder with this git repo call:
-```./scripts/build_arm_tfw.sh /path/to/arm-trusted-firmware```
+```./scripts/arm_tfw_build.sh /path/to/arm-trusted-firmware```
 
 ## Build device tree
 
@@ -45,7 +45,13 @@ For old Vivado versions:
 
 ```./scripts/dts_gen.sh ./path/to/project.xsa /path/to/device-tree-xlnx/```
     
-Get ```pmufw.elf```
+Get `zynqmp.dts`
+
+## Build device tree blob
+
+```./scripts/dtb_gen.sh /path/to/device-tree-xlnx/ path/to/dts/files```
+
+Get `zynqmp.dtb`
 
 ## U-boot
 
@@ -73,7 +79,7 @@ Run:
 
 ```./scripts/uboot_build.sh path/to/u-boot-xlnx/ ./output/zynqmp.dtb```
 
-Get ```zynqmp.dtb```
+Get `u-boot.elf`
 
 ## Verify U-boot
 
