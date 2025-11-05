@@ -10,8 +10,8 @@ BL31_DIR=$(pwd)/output
 DTB_DIR="$(pwd)/output/uboot/arch/arm/dts/"
 mkdir -p $DTB_DIR
 
-echo $DTB_PATH $DTB_DIR
-cp $DTB_PATH $DTB_DIR
+echo $DTB_PATH $DTB_DIR/$DTB_FILENAME
+cp -r $DTB_PATH $DTB_DIR/$DTB_FILENAME
 
 make -C $UBOOT_DIR distclean
 
