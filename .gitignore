@@ -6,4 +6,6 @@ uboot
 dts
 kernel
 buildroot
-
+rootfs*
+*.pb
+/output/backup*
