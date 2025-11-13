@@ -11,3 +11,6 @@ DEVICE_TREE="zynqmp" \
 BL31=$BL31_DIR/bl31.elf
 
 cp $BUILD_DIR/u-boot.elf $BL31_DIR/u-boot.elf
+
+cd $BL31_DIR
+bootgen -image boot.bif -w -o i BOOT.bin -arch zynqmp -log info -w on
