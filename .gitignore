@@ -9,3 +9,5 @@ buildroot
 rootfs*
 *.pb
 /output/backup*
+*dump*
+*.zip
