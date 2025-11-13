@@ -1,0 +1,16 @@
+mdio write eth0 1 0 0x9140
+mdio read eth0 1 4        
+mdio write eth0 1 4 0xde1
+mdio read eth0 1 9 
+mdio write eth0 1 9 0x300
+mdio read eth0 1 0       
+mdio write eth0 1 0 0x1340
+mdio read eth0 1 0 
+mdio write eth0 1 0x1f 0xa43    
+mdio read eth0 1 0x1a
+mdio write eth0 1 0x1f 0xd04
+mdio write eth0 1 0x10 0xae01
+mdio write eth0 1 0x1f 0x1000
+mdio write eth0 1 0x14 0x704
+mdio write eth0 1 0x1f 0    
+mii info

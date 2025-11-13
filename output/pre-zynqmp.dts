@@ -1497,6 +1497,69 @@
  clocks = <&zynqmp_clk 41>;
 };
 # 11 "zynqmp.dts" 2
+# 1 "pl.dtsi" 1
+
+
+
+
+
+
+
+/ {
+ amba_pl: amba_pl@0 {
+  #address-cells = <2>;
+  #size-cells = <2>;
+  compatible = "simple-bus";
+  ranges ;
+  axi_dma_0: dma@80001000 {
+   #dma-cells = <1>;
+   clock-names = "s_axi_lite_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk";
+   clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>;
+   compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+   interrupt-names = "mm2s_introut", "s2mm_introut";
+   interrupt-parent = <&gic>;
+   interrupts = <0 89 4 0 90 4>;
+   reg = <0x0 0x80001000 0x0 0x1000>;
+   xlnx,addrwidth = <0x20>;
+   xlnx,sg-length-width = <0xe>;
+   dma-channel@80001000 {
+    compatible = "xlnx,axi-dma-mm2s-channel";
+    dma-channels = <0x1>;
+    interrupts = <0 89 4>;
+    xlnx,datawidth = <0x20>;
+    xlnx,device-id = <0x0>;
+   };
+   dma-channel@80001030 {
+    compatible = "xlnx,axi-dma-s2mm-channel";
+    dma-channels = <0x1>;
+    interrupts = <0 90 4>;
+    xlnx,datawidth = <0x20>;
+    xlnx,device-id = <0x0>;
+   };
+  };
+  axi_gpio_0: gpio@80000000 {
+   #gpio-cells = <3>;
+   clock-names = "s_axi_aclk";
+   clocks = <&zynqmp_clk 71>;
+   compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+   gpio-controller ;
+   reg = <0x0 0x80000000 0x0 0x1000>;
+   xlnx,all-inputs = <0x0>;
+   xlnx,all-inputs-2 = <0x0>;
+   xlnx,all-outputs = <0x1>;
+   xlnx,all-outputs-2 = <0x0>;
+   xlnx,dout-default = <0x00000000>;
+   xlnx,dout-default-2 = <0x00000000>;
+   xlnx,gpio-width = <0x1>;
+   xlnx,gpio2-width = <0x20>;
+   xlnx,interrupt-present = <0x0>;
+   xlnx,is-dual = <0x0>;
+   xlnx,tri-default = <0xFFFFFFFF>;
+   xlnx,tri-default-2 = <0xFFFFFFFF>;
+  };
+ };
+};
+# 12 "zynqmp.dts" 2
 # 1 "pcw.dtsi" 1
 
 
@@ -1594,9 +1657,6 @@
  clock-frequency = <187498123>;
  status = "okay";
  xlnx,mio_bank = <0x1>;
- disable-wp;
- no-1-8-v;
- u-boot,dm-pre-reloc;
 };
 &serdes {
  status = "okay";
@@ -1608,13 +1668,23 @@
  status = "okay";
  u-boot,dm-pre-reloc ;
 };
+&usb0 {
+ status = "okay";
+ xlnx,tz-nonsecure = <0x1>;
+ xlnx,usb-polarity = <0x0>;
+ xlnx,usb-reset-io = <0x1f>;
+ xlnx,usb-reset-mode = <0x1>;
+};
+&dwc3_0 {
+ status = "okay";
+};
 &ams_ps {
  status = "okay";
 };
 &ams_pl {
  status = "okay";
 };
-# 12 "zynqmp.dts" 2
+# 13 "zynqmp.dts" 2
 / {
  chosen {
   bootargs = "earlycon clk_ignore_unused";
@@ -1631,11 +1701,43 @@
  };
 };
 
+
+
+
+
+
+
 &gem3 {
  local-mac-address = [00 0a 35 00 00 00];
+};
+
+
+
+
+
+
+
+&gic {
+ num_cpus = <2>;
+ num_interrupts = <96>;
+};
+&xilinx_ams {
+ status = "okay";
+};
+&gem3 {
  phy-mode = "rgmii-id";
  status = "okay";
  xlnx,ptp-enet-clock = <0x0>;
+};
+&gpio {
+ emio-gpio-width = <32>;
+ gpio-mask-high = <0x0>;
+ gpio-mask-low = <0x5600>;
+ status = "okay";
+};
+&gpu {
+ status = "okay";
+ xlnx,tz-nonsecure = <0x1>;
 };
 &qspi {
  is-dual = <0>;
@@ -1644,13 +1746,21 @@
  spi-tx-bus-width = <2>;
  status = "okay";
 };
+&rtc {
+ status = "okay";
+};
+&sdhci0 {
+ clock-frequency = <187498123>;
+ status = "okay";
+ xlnx,mio_bank = <0x0>;
+};
 &sdhci1 {
  clock-frequency = <187498123>;
  status = "okay";
  xlnx,mio_bank = <0x1>;
- disable-wp;
- no-1-8-v;
- u-boot,dm-pre-reloc;
+};
+&serdes {
+ status = "okay";
 };
 &uart0 {
  cts-override ;
@@ -1658,4 +1768,211 @@
  port-number = <0>;
  status = "okay";
  u-boot,dm-pre-reloc ;
+};
+&usb0 {
+ status = "okay";
+ xlnx,tz-nonsecure = <0x1>;
+ xlnx,usb-polarity = <0x0>;
+ xlnx,usb-reset-io = <0x1f>;
+ xlnx,usb-reset-mode = <0x1>;
+};
+&dwc3_0 {
+ status = "okay";
+};
+&ams_ps {
+ status = "okay";
+};
+&ams_pl {
+ status = "okay";
+};
+
+
+
+
+
+
+
+/ {
+ amba_pl: amba_pl@0 {
+  #address-cells = <2>;
+  #size-cells = <2>;
+  compatible = "simple-bus";
+  ranges ;
+  axidmatest_1: axidmatest@1 {
+                      compatible ="xlnx,axi-dma-test-1.00.a";
+                      dmas = <&axi_dma_0 0
+                              &axi_dma_0 1>;
+                      dma-names = "axidma0", "axidma1";
+  };
+  axi_dma_0: dma@80001000 {
+   #dma-cells = <1>;
+   clock-names = "s_axi_lite_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk";
+   clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>;
+   compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+   interrupt-names = "mm2s_introut", "s2mm_introut";
+   interrupt-parent = <&gic>;
+   interrupts = <0 89 4 0 90 4>;
+   reg = <0x0 0x80001000 0x0 0x1000>;
+   xlnx,addrwidth = <0x20>;
+   xlnx,sg-length-width = <0xe>;
+   dma-channel@80001000 {
+    compatible = "xlnx,axi-dma-mm2s-channel";
+    dma-channels = <0x1>;
+    interrupts = <0 89 4>;
+    xlnx,datawidth = <0x20>;
+    xlnx,device-id = <0x0>;
+   };
+   dma-channel@80001030 {
+    compatible = "xlnx,axi-dma-s2mm-channel";
+    dma-channels = <0x1>;
+    interrupts = <0 90 4>;
+    xlnx,datawidth = <0x20>;
+    xlnx,device-id = <0x0>;
+   };
+  };
+  axi_gpio_0: gpio@80000000 {
+   #gpio-cells = <3>;
+   clock-names = "s_axi_aclk";
+   clocks = <&zynqmp_clk 71>;
+   compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+   gpio-controller ;
+   reg = <0x0 0x80000000 0x0 0x1000>;
+   xlnx,all-inputs = <0x0>;
+   xlnx,all-inputs-2 = <0x0>;
+   xlnx,all-outputs = <0x1>;
+   xlnx,all-outputs-2 = <0x0>;
+   xlnx,dout-default = <0x00000000>;
+   xlnx,dout-default-2 = <0x00000000>;
+   xlnx,gpio-width = <0x1>;
+   xlnx,gpio2-width = <0x20>;
+   xlnx,interrupt-present = <0x0>;
+   xlnx,is-dual = <0x0>;
+   xlnx,tri-default = <0xFFFFFFFF>;
+   xlnx,tri-default-2 = <0xFFFFFFFF>;
+  };
+ };
+};
+# 1 "/home/emptea/tools/linux-xlnx//include/dt-bindings/pinctrl/pinctrl-zynqmp.h" 1
+# 181 "zynqmp.dts" 2
+
+&gem3 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_gem3_default>;
+
+ mdio: mdio {
+  #address-cells = <1>;
+  #size-cells = <0>;
+  phy0: ethernet-phy@1 {
+   reg = <0x1>;
+   device_type = "ethernet-phy";
+  };
+ };
+};
+
+&sdhci1 {
+ disable-wp;
+ no-1-8-v;
+ u-boot,dm-pre-reloc;
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_sdhci1_default>;
+};
+
+&uart0 {
+ pinctrl-names = "default";
+ pinctrl-0 = <&pinctrl_uart0_default>;
+};
+
+&usb0 {
+    dr_mode = "host";
+};
+&dwc3_0 {
+    status = "okay";
+ dr_mode = "host";
+};
+&usb1 {
+    dr_mode = "host";
+};
+&dwc3_1 {
+    status = "okay";
+ dr_mode = "host";
+};
+
+&pinctrl0 {
+ status = "okay";
+ u-boot,dm-pre-reloc;
+
+ pinctrl_gem3_default: gem3-default{
+  mux {
+   function = "ethernet3";
+   groups = "ethernet3_0_grp";
+  };
+
+  conf {
+   groups = "ethernet3_0_grp";
+   slew-rate = <1>;
+   io-standard = <1>;
+  };
+
+  conf-rx {
+   pins = "MIO70", "MIO71", "MIO72", "MIO73", "MIO74", "MIO75";
+   bias-high-impedance;
+   low-power-disable;
+  };
+
+  conf-tx {
+   pins = "MIO64", "MIO65", "MIO66", "MIO67", "MIO68", "MIO69";
+   bias-disable;
+   low-power-enable;
+  };
+ };
+
+ pinctrl_uart0_default: uart0-default {
+  mux {
+   groups = "uart0_10_grp";
+   function = "uart0";
+  };
+
+  conf {
+   groups = "uart0_10_grp";
+   slew-rate = <1>;
+   io-standard = <1>;
+  };
+
+  conf-rx {
+   pins = "MIO42";
+   bias-high-impedance;
+  };
+
+  conf-tx {
+   pins = "MIO43";
+   bias-disable;
+  };
+ };
+
+  pinctrl_sdhci1_default: sdhci1-default {
+  mux {
+   groups = "sdio1_4bit_0_0_grp";
+   function = "sdio1";
+  };
+
+  conf {
+   groups = "sdio1_4bit_0_0_grp";
+   slew-rate = <1>;
+   power-source = <1>;
+   bias-disable;
+  };
+
+  mux-cd {
+   groups = "sdio1_cd_0_grp";
+   function = "sdio1_cd";
+  };
+
+  conf-cd {
+   groups = "sdio1_cd_0_grp";
+   bias-high-impedance;
+   bias-pull-up;
+   slew-rate = <1>;
+   power-source = <1>;
+  };
+ };
 };

@@ -1,0 +1,132 @@
+#include <dt-bindings/pinctrl/pinctrl-zynqmp.h>
+
+&gem3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_gem3_default>;
+
+	mdio: mdio {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		phy0: ethernet-phy@1 {
+			reg = <0x1>;
+			device_type = "ethernet-phy";
+		};
+	};
+};
+
+&sdhci1 {
+	disable-wp;
+	no-1-8-v;
+	u-boot,dm-pre-reloc;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_sdhci1_default>;
+};
+
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart0_default>;
+};
+
+&usb0 {
+    dr_mode = "host";
+};
+&dwc3_0 {
+    status = "okay";
+	dr_mode = "host";
+};
+&usb1 {
+    dr_mode = "host";
+};
+&dwc3_1 {
+    status = "okay";
+	dr_mode = "host";
+};
+
+&pinctrl0 {
+	status = "okay";
+	u-boot,dm-pre-reloc;
+
+	pinctrl_gem3_default: gem3-default{
+		mux {
+			function = "ethernet3";
+			groups = "ethernet3_0_grp";
+		};
+
+		conf {
+			groups = "ethernet3_0_grp";
+			slew-rate = <SLEW_RATE_SLOW>;
+			io-standard = <IO_STANDARD_LVCMOS18>;
+		};
+		
+		conf-rx {
+			pins = "MIO70", "MIO71", "MIO72", "MIO73", "MIO74", "MIO75";
+			bias-high-impedance;
+			low-power-disable;
+		};
+
+		conf-tx {
+			pins = "MIO64", "MIO65", "MIO66", "MIO67", "MIO68", "MIO69";
+			bias-disable;
+			low-power-enable;
+		};
+	};
+
+	pinctrl_uart0_default: uart0-default {
+		mux {
+			groups = "uart0_10_grp";
+			function = "uart0";
+		};
+
+		conf {
+			groups = "uart0_10_grp";
+			slew-rate = <SLEW_RATE_SLOW>;
+			io-standard = <IO_STANDARD_LVCMOS18>;
+		};
+
+		conf-rx {
+			pins = "MIO42";
+			bias-high-impedance;
+		};
+
+		conf-tx {
+			pins = "MIO43";
+			bias-disable;
+		};
+	};
+
+		pinctrl_sdhci1_default: sdhci1-default {
+		mux {
+			groups = "sdio1_4bit_0_0_grp";
+			function = "sdio1";
+		};
+
+		conf {
+			groups = "sdio1_4bit_0_0_grp";
+			slew-rate = <SLEW_RATE_SLOW>;
+			power-source = <IO_STANDARD_LVCMOS18>;
+			bias-disable;
+		};
+
+		mux-cd {
+			groups = "sdio1_cd_0_grp";
+			function = "sdio1_cd";
+		};
+
+		conf-cd {
+			groups = "sdio1_cd_0_grp";
+			bias-high-impedance;
+			bias-pull-up;
+			slew-rate = <SLEW_RATE_SLOW>;
+			power-source = <IO_STANDARD_LVCMOS18>;
+		};
+	};
+};
+
+amba_pl: amba_pl@0 {
+	axidmatest_1: axidmatest@1 {
+                      compatible ="xlnx,axi-dma-test-1.00.a";
+                      dmas = <&axi_dma_1 0
+                              &axi_dma_1 1>;
+                      dma-names = "axidma0", "axidma1";
+	};
+};
