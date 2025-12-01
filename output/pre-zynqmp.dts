@@ -1513,21 +1513,23 @@
   ranges ;
   axi_dma_0: dma@80001000 {
    #dma-cells = <1>;
-   clock-names = "s_axi_lite_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk";
-   clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>;
+   clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk";
+   clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>;
    compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
    interrupt-names = "mm2s_introut", "s2mm_introut";
    interrupt-parent = <&gic>;
    interrupts = <0 89 4 0 90 4>;
    reg = <0x0 0x80001000 0x0 0x1000>;
-   xlnx,addrwidth = <0x20>;
-   xlnx,sg-length-width = <0xe>;
+   xlnx,addrwidth = <0x40>;
+   xlnx,include-sg ;
+   xlnx,sg-length-width = <0x11>;
    dma-channel@80001000 {
     compatible = "xlnx,axi-dma-mm2s-channel";
     dma-channels = <0x1>;
     interrupts = <0 89 4>;
     xlnx,datawidth = <0x20>;
     xlnx,device-id = <0x0>;
+    xlnx,include-dre ;
    };
    dma-channel@80001030 {
     compatible = "xlnx,axi-dma-s2mm-channel";
@@ -1535,6 +1537,7 @@
     interrupts = <0 90 4>;
     xlnx,datawidth = <0x20>;
     xlnx,device-id = <0x0>;
+    xlnx,include-dre ;
    };
   };
   axi_gpio_0: gpio@80000000 {
@@ -1721,6 +1724,30 @@
  num_cpus = <2>;
  num_interrupts = <96>;
 };
+&lpd_dma_chan1 {
+ status = "okay";
+};
+&lpd_dma_chan2 {
+ status = "okay";
+};
+&lpd_dma_chan3 {
+ status = "okay";
+};
+&lpd_dma_chan4 {
+ status = "okay";
+};
+&lpd_dma_chan5 {
+ status = "okay";
+};
+&lpd_dma_chan6 {
+ status = "okay";
+};
+&lpd_dma_chan7 {
+ status = "okay";
+};
+&lpd_dma_chan8 {
+ status = "okay";
+};
 &xilinx_ams {
  status = "okay";
 };
@@ -1728,6 +1755,30 @@
  phy-mode = "rgmii-id";
  status = "okay";
  xlnx,ptp-enet-clock = <0x0>;
+};
+&fpd_dma_chan1 {
+ status = "okay";
+};
+&fpd_dma_chan2 {
+ status = "okay";
+};
+&fpd_dma_chan3 {
+ status = "okay";
+};
+&fpd_dma_chan4 {
+ status = "okay";
+};
+&fpd_dma_chan5 {
+ status = "okay";
+};
+&fpd_dma_chan6 {
+ status = "okay";
+};
+&fpd_dma_chan7 {
+ status = "okay";
+};
+&fpd_dma_chan8 {
+ status = "okay";
 };
 &gpio {
  emio-gpio-width = <32>;
@@ -1798,29 +1849,25 @@
   #size-cells = <2>;
   compatible = "simple-bus";
   ranges ;
-  axidmatest_1: axidmatest@1 {
-                      compatible ="xlnx,axi-dma-test-1.00.a";
-                      dmas = <&axi_dma_0 0
-                              &axi_dma_0 1>;
-                      dma-names = "axidma0", "axidma1";
-  };
   axi_dma_0: dma@80001000 {
    #dma-cells = <1>;
-   clock-names = "s_axi_lite_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk";
-   clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>;
+   clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk", "m_axi_s2mm_aclk";
+   clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>;
    compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
    interrupt-names = "mm2s_introut", "s2mm_introut";
    interrupt-parent = <&gic>;
    interrupts = <0 89 4 0 90 4>;
    reg = <0x0 0x80001000 0x0 0x1000>;
-   xlnx,addrwidth = <0x20>;
-   xlnx,sg-length-width = <0xe>;
+   xlnx,addrwidth = <0x40>;
+   xlnx,include-sg ;
+   xlnx,sg-length-width = <0x11>;
    dma-channel@80001000 {
     compatible = "xlnx,axi-dma-mm2s-channel";
     dma-channels = <0x1>;
     interrupts = <0 89 4>;
     xlnx,datawidth = <0x20>;
     xlnx,device-id = <0x0>;
+    xlnx,include-dre ;
    };
    dma-channel@80001030 {
     compatible = "xlnx,axi-dma-s2mm-channel";
@@ -1828,6 +1875,7 @@
     interrupts = <0 90 4>;
     xlnx,datawidth = <0x20>;
     xlnx,device-id = <0x0>;
+    xlnx,include-dre ;
    };
   };
   axi_gpio_0: gpio@80000000 {
@@ -1853,7 +1901,7 @@
  };
 };
 # 1 "/home/emptea/tools/linux-xlnx//include/dt-bindings/pinctrl/pinctrl-zynqmp.h" 1
-# 181 "zynqmp.dts" 2
+# 226 "zynqmp.dts" 2
 
 &gem3 {
  pinctrl-names = "default";
@@ -1975,4 +2023,14 @@
    power-source = <1>;
   };
  };
+};
+
+&axi_dma_0 {
+    dma-coherent;
+ dma_proxy {
+  compatible ="xlnx,dma_proxy";
+  dmas = <&axi_dma_0 0 &axi_dma_0 1>;
+  dma-names = "dma_proxy_tx", "dma_proxy_rx";
+  dma-coherent;
+ } ;
 };
