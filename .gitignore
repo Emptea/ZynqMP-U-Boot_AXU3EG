@@ -11,3 +11,4 @@ rootfs*
 /output/backup*
 *dump*
 *.zip
+/output/ubuntu-core/*

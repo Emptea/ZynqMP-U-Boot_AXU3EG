@@ -28,18 +28,19 @@
 };
 
 &usb0 {
+    status  = "okay";
     dr_mode = "host";
 };
 &dwc3_0 {
     status = "okay";
-	dr_mode = "host";
 };
+
 &usb1 {
+    status  = "okay";
     dr_mode = "host";
 };
 &dwc3_1 {
     status = "okay";
-	dr_mode = "host";
 };
 
 &pinctrl0 {
