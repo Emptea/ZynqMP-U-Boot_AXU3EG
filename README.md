@@ -6,50 +6,90 @@ Requirements: Vivado 2019.1, Vivado SDK 2019.1
 
 ### Create project
 
-```vivado -mode batch -source ./scripts/create_project.tcl```
+```
+vivado -mode batch -source ./scripts/create_project.tcl
+```
 
 ### Implementation + synthesis
 
-```vivado -mode batch -source ./scripts/implementation.tcl```
+```
+vivado -mode batch -source ./scripts/implementation.tcl
+```
 
 ### Export hardware
 
-```vivado -mode batch -source ./scripts/export_hardware.tcl```
+```
+vivado -mode batch -source ./scripts/export_hardware.tcl
+```
 
 ## Build FSBL
 
-```xsct ./scripts/fsbl_build.tcl```
-    
+On Linux:
+
+```
+xsct ./scripts/fsbl_build.tcl
+```
+
+On Windows open Xilinx SDK and open xsct console in it (Xilinx -> XSCT Console), than:
+
+```
+cd path/to/your/folder
+source ./scripts/fsbl_build.tcl
+```
+
 Get ```zynqmp_fsbl.elf```
 
 ## Build PMU Firmware
 
-```xsct ./scripts/pmufw_build.tcl```
+On Linux:
+
+```
+xsct ./scripts/pmufw_build.tcl
+```
+
+On Windows open Xilinx SDK and open xsct console in it (Xilinx -> XSCT Console), than:
+
+```
+cd path/to/your/folder
+source ./scripts/pmufw_build.tcl
+```
+
+Hint: if you used fsbl scripts before you should do `cd ..` because your pwd will be changed to `path/to/your/folder/zynq`.
 
 ## Build ARM trusted firmware
 
-You should create enviromental variable `VIVADO_SDK_PATH` that looks like:
+You should create enviromental variable `VIVADO_SDK_PATH` that looks like
 ```VIVADO_SDK_PATH="path/to/Xilinx/folder/SDK/{version}"```
 
 Clone [arm-trusted-firmware](https://github.com/Xilinx/arm-trusted-firmware.git) to any folder you like, checkout to your Vivado version (mine was 2019.1, so I did `git checkout -b xilinx-v2019.1`).
 
 From folder with this git repo call:
-```./scripts/arm_tfw_build.sh /path/to/arm-trusted-firmware```
+```
+./scripts/arm_tfw_build.sh /path/to/arm-trusted-firmware
+```
 
 ## Build device tree
 
 Clone [device-tree-xlnx](https://github.com/Xilinx/device-tree-xlnx.git) to any folder you like, checkout to your Vivado version (mine was 2019.1, so I did `git checkout -b xilinx-v2019.1`).
 
 For old Vivado versions:
-```./scripts/dts_gen.sh ./path/to/project.hwdef /path/to/device-tree-xlnx/```
+```
+./scripts/dts_gen.sh ./path/to/project.hwdef /path/to/device-tree-xlnx/
+```
 
-```./scripts/dts_gen.sh ./path/to/project.xsa /path/to/device-tree-xlnx/```
+```
+./scripts/dts_gen.sh ./path/to/project.xsa /path/to/device-tree-xlnx/
+```
     
-Get `zynqmp.dts`
+Get `zynqmp.dts`.
+
+Generated device tree is not comprehensive one so I recommend you to create `user.dts` file in output folder with your additions for generated dts. You can see example of `user,.dts` in output folder of this repository and how it is added to `zynqmp.dts` after running `dtb_gen.sh`.
 
 ## Build device tree blob
 
-```./scripts/dtb_gen.sh /path/to/device-tree-xlnx/ path/to/dts/files```
+```
+./scripts/dtb_gen.sh /path/to/device-tree-xlnx/ path/to/dts/files
+```
 
 Get `zynqmp.dtb`
 
@@ -96,16 +136,17 @@ In Serial Monitor you should see PMUFW, FSBL and board information.
     bootgen -image boot.bif -o BOOT.bin -arch zynqmp -w
 ```
     
-<details><summary>boot.bif</summary>
+<details><summary>boot.bif (example)</summary>
 
-   the_ROM_image:
-{
-  [pmufw_image]                                      /home/user/ZynqMP-U-Boot_AXU3EG/output/pmufw/pmufw.elf
-  [bootloader, destination_cpu=a53-0]                /home/user/ZynqMP-U-Boot_AXU3EG/output/fsbl/zynqmp_fsbl.elf
-  [destination_cpu=a53-0, exception_level=el-3, trustzone] /home/user/ZynqMP-U-Boot_AXU3EG/output/atf/bl31.elf
-  [destination_cpu=a53-0, exception_level=el-2]      /home/user/ZynqMP-U-Boot_AXU3EG/output/uboot/u-boot.elf
-}
-
+    //arch = zynqmp; split = false; format = BIN
+    the_ROM_image:
+    {
+        [bootloader, destination_cpu = a53-0]zynqmp_fsbl.elf
+        [pmufw_image]zynqmp_pmufw.elf
+        [destination_device = pl] zynq_wrapper.bit
+        [destination_cpu = a53-0, exception_level = el-3, trustzone]bl31.elf
+        [destination_cpu = a53-0, exception_level = el-2]u-boot.elf
+    }
 </details>
     
     
@@ -114,81 +155,10 @@ In Serial Monitor you should see PMUFW, FSBL and board information.
 ```git ls-remote -h https://github.com/Xilinx/linux-xlnx git clone --depth 1 --branch "xlnx_rebase_v6.6_LTS" https://github.com/Xilinx/linux-xlnx```
        
 ```git checkout xilinx-v2025.1  export ARCH=arm64 export CROSS_COMPILE=aarch64-linux-gnu-```
-        
-```make xilinx_zynqmp_defconfig```
-    
-```make menuconfig```
-    
-    Target options  ---> Target Architecture (AArch64 (little endian))
-    Toolchain ---> Toolchain type (Buildroot toolchain),  C library (glibc) 
-    System configuration  ---> (root) System hostname, [*] Enable root login with password (root) Root password 
-    Filesystem images  ---> 
-    [*] ext2/3/4 root filesystem ext2/3/4 variant (ext4)
-    
-```make -j$(nproc) Image dtbs```
 
-```dtc -@ -I dts -O dtb \ -i <path_to_includes> \ -o system.dtb system-top.dts```
-    
-<details><summary>system-top.dts</summary>
-
-/dts-v1/;  
-/include/ "zynqmp.dtsi"
-/include/ "zynqmp-clk-ccf.dtsi"
-
-/ {
-	model = "Alynx AXU3EGB";
-	compatible = "alinx,axu3egb", "xlnx,zynqmp";
-
-	aliases {
-		ethernet0 = &gem3;
-		serial0   = &uart0;
-		spi0      = &qspi;
-		mmc0      = &sdhci1;
-	};
-
-	chosen {
-		bootargs    = "earlycon";
-		stdout-path = "serial0:115200n8";
-	};
-
-	memory@0 {
-		device_type = "memory";
-		reg = <0x0 0x0 0x0 0x80000000>;
-	};
-};
-
-&gem3  { phy-mode = "rgmii-id"; status = "okay"; };
-&uart0 { status = "okay"; u-boot,dm-pre-reloc;  };
-&sdhci1 {
- 		xlnx,mio_bank = <1>;
-	status       = "okay";
-	bus-width    = <4>;
-	clock-names  = "clk_xin", "clk_ahb";
-	clocks       = <&zynqmp_clk 55>, <&zynqmp_clk 47>;
-	no-1-8-v; disable-wp;
-	u-boot,dm-pre-reloc;
-};
-&qspi   { status = "okay"; is-dual = <1>; num-cs = <2>; };
-&usb0 {
-    status  = "okay";
-    dr_mode = "host";
-};
-&dwc3_0 {
-    status = "okay";
-};
-
-&usb1 {
-    status  = "okay";
-    dr_mode = "host";
-};
-&dwc3_1 {
-    status = "okay";
-};
-
-</details>
     
     
-##SD
+## SD
      
 ```lsblk``` ex. dev/sda
      
