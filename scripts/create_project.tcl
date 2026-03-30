@@ -852,6 +852,7 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets axis_data_fifo_0_M_AXIS] [get_bd
 
   validate_bd_design
   save_bd_design
+
 }
 # End of create_root_design()
 
@@ -861,5 +862,7 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets axis_data_fifo_0_M_AXIS] [get_bd
 ##################################################################
 
 create_root_design ""
+make_wrapper -files [get_files ./${_xil_proj_name_}/${_xil_proj_name_}.srcs/sources_1/bd/${design_name}/${design_name}.bd] -top
+add_files -norecurse ./${_xil_proj_name_}/${_xil_proj_name_}.srcs/sources_1/bd/${design_name}/hdl/${design_name}_wrapper.v
 
 
