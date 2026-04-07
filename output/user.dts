@@ -135,13 +135,15 @@
 		dma-names = "dma_proxy_tx", "dma_proxy_rx";  
 		dma-coherent;
 	};
+};
 
+/ {
 	leds {
 		compatible = "gpio-leds";
 
 		pl-led {
 			label = "pl_led";
-			gpios = <&axi_gpio_pl 0 0 0>;
+			gpios = <&axi_gpio_0 0 0 0>;
 			default-state = "on";
 			linux,default-trigger = "none";
 		};
@@ -152,9 +154,29 @@
 			default-state = "on";
 			linux,default-trigger = "none";
 		};
-    };
+	};
+};
+
+&amba{
+	ps_gpio: gpio@ff0a0000 {
+		compatible = "xlnx,zynqmp-gpio-1.0";
+		status = "okay";
+		#gpio-cells = <0x02>;
+		gpio-controller;
+		interrupt-parent = <0x04>;
+		interrupts = <0x00 0x10 0x04>;
+		interrupt-controller;
+		#interrupt-cells = <0x02>;
+		reg = <0x00 0xff0a0000 0x00 0x1000>;
+		power-domains = <0x0c 0x2e>;
+		clocks = <0x03 0x1f>;
+		emio-gpio-width = <0x20>;
+		gpio-mask-high = <0x00>;
+		gpio-mask-low = <0x5600>;
+		phandle = <0x54>;
+	};
 };
 
 &axi_gpio_0{
 	label = "axi_gpio_pl";
-}
+};
