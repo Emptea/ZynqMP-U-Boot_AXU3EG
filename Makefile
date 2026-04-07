@@ -3,16 +3,21 @@ XSCT ?= xsct
 BOOTGEN ?= bootgen
 NPROC ?= $(shell nproc)
 
-VIVADO_SDK_PATH ?=
-ARM_TFW_DIR ?=
-DEVICE_TREE_XLNX_DIR ?=
-U_BOOT_XLNX_DIR ?=
-LINUX_XLNX_DIR ?=
+VIVADO_SDK_PATH ?= /tools/Xilinx/SDK/2019.1/
+ARM_TFW_DIR ?= /home/a/tools/arm-trusted-firmware/
+DEVICE_TREE_XLNX_DIR ?= /home/a/tools/device-tree-xlnx/
+U_BOOT_XLNX_DIR ?= /home/a/tools/u-boot-xlnx/
+LINUX_XLNX_PATH ?= /home/a/tools/linux-xlnx/
 OUTPUT_DIR ?= output
 SCRIPTS_DIR ?= scripts
 
-XSA ?= $(OUTPUT_DIR)/project.xsa
-HWDEF ?= $(OUTPUT_DIR)/project.hwdef
+export VIVADO_SDK_PATH
+export ARM_TFW_DIR
+export DEVICE_TREE_XLNX_DIR
+export U_BOOT_XLNX_DIR
+
+XSA ?= $(OUTPUT_DIR)/d_1_wrapper.xsa
+HWDEF ?= $(OUTPUT_DIR)/d_1_wrapper.hwdef
 DT_SRC ?= $(OUTPUT_DIR)/zynqmp.dts
 DTB ?= $(OUTPUT_DIR)/zynqmp.dtb
 UBOOT_DTB ?= $(DTB)
@@ -53,12 +58,13 @@ dts:
 		echo "Neither $(XSA) nor $(HWDEF) exists"; exit 1; \
 	fi
 
-dtb: dts
-	@test -d "$(DEVICE_TREE_XLNX_DIR)" || (echo "DEVICE_TREE_XLNX_DIR is required"; exit 1)
-	./$(SCRIPTS_DIR)/dtb_gen.sh $(DEVICE_TREE_XLNX_DIR) $(OUTPUT_DIR)
+dtb:
+	@test -d "$(LINUX_XLNX_PATH)" || (echo "LINUX_XLNX_DIR is required"; exit 1)
+	./$(SCRIPTS_DIR)/dtb_gen.sh $(LINUX_XLNX_PATH) $(OUTPUT_DIR)/dts
 
 uboot:
 	@test -n "$(U_BOOT_XLNX_DIR)" || (echo "U_BOOT_XLNX_DIR is required"; exit 1)
+	./$(SCRIPTS_DIR)/uboot_config.sh $(U_BOOT_XLNX_DIR) $(UBOOT_DTB)
 	./$(SCRIPTS_DIR)/uboot_build.sh $(U_BOOT_XLNX_DIR) $(UBOOT_DTB)
 
 bootbin:
