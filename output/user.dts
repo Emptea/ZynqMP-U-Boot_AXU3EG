@@ -95,7 +95,7 @@
 		};
 	};
 
-		pinctrl_sdhci1_default: sdhci1-default {
+	pinctrl_sdhci1_default: sdhci1-default {
 		mux {
 			groups = "sdio1_4bit_0_0_grp";
 			function = "sdio1";
@@ -125,10 +125,36 @@
 
 &axi_dma_0 {
     dma-coherent;
+};
+
+&amba_pl {
+
 	dma_proxy {  
 		compatible ="xlnx,dma_proxy";
 		dmas = <&axi_dma_0 0  &axi_dma_0 1>;
 		dma-names = "dma_proxy_tx", "dma_proxy_rx";  
 		dma-coherent;
-	} ;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		pl-led {
+			label = "pl_led";
+			gpios = <&axi_gpio_pl 0 0 0>;
+			default-state = "on";
+			linux,default-trigger = "none";
+		};
+
+		ps-led{
+			label = "ps_led";
+			gpios = <&ps_gpio 40 0>;
+			default-state = "on";
+			linux,default-trigger = "none";
+		};
+    };
 };
+
+&axi_gpio_0{
+	label = "axi_gpio_pl";
+}

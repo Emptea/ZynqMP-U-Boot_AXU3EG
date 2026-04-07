@@ -4,7 +4,7 @@ the_ROM_image:
         [init] regs.int
         [bootloader, destination_cpu = a53-0]zynqmp_fsbl.elf
         [pmufw_image]zynqmp_pmufw.elf
-        [destination_device = pl] zynq_wrapper.bit
+        [destination_device = pl] d_1_wrapper.bit
         [destination_cpu = a53-0, exception_level = el-3, trustzone]bl31.elf
         [destination_cpu = a53-0, exception_level = el-2]u-boot.elf
 }

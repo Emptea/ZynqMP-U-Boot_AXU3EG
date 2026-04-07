@@ -1,6 +1,6 @@
-# 0 "zynqmp.dts"
-# 0 "<built-in>"
-# 0 "<command-line>"
+# 1 "zynqmp.dts"
+# 1 "<built-in>"
+# 1 "<command-line>"
 # 1 "zynqmp.dts"
 
 
@@ -1522,14 +1522,13 @@
    reg = <0x0 0x80001000 0x0 0x1000>;
    xlnx,addrwidth = <0x40>;
    xlnx,include-sg ;
-   xlnx,sg-length-width = <0x11>;
+   xlnx,sg-length-width = <0x1a>;
    dma-channel@80001000 {
     compatible = "xlnx,axi-dma-mm2s-channel";
     dma-channels = <0x1>;
     interrupts = <0 89 4>;
-    xlnx,datawidth = <0x20>;
+    xlnx,datawidth = <0x80>;
     xlnx,device-id = <0x0>;
-    xlnx,include-dre ;
    };
    dma-channel@80001030 {
     compatible = "xlnx,axi-dma-s2mm-channel";
@@ -1537,7 +1536,6 @@
     interrupts = <0 90 4>;
     xlnx,datawidth = <0x20>;
     xlnx,device-id = <0x0>;
-    xlnx,include-dre ;
    };
   };
   axi_gpio_0: gpio@80000000 {
@@ -1860,14 +1858,13 @@
    reg = <0x0 0x80001000 0x0 0x1000>;
    xlnx,addrwidth = <0x40>;
    xlnx,include-sg ;
-   xlnx,sg-length-width = <0x11>;
+   xlnx,sg-length-width = <0x1a>;
    dma-channel@80001000 {
     compatible = "xlnx,axi-dma-mm2s-channel";
     dma-channels = <0x1>;
     interrupts = <0 89 4>;
-    xlnx,datawidth = <0x20>;
+    xlnx,datawidth = <0x80>;
     xlnx,device-id = <0x0>;
-    xlnx,include-dre ;
    };
    dma-channel@80001030 {
     compatible = "xlnx,axi-dma-s2mm-channel";
@@ -1875,7 +1872,6 @@
     interrupts = <0 90 4>;
     xlnx,datawidth = <0x20>;
     xlnx,device-id = <0x0>;
-    xlnx,include-dre ;
    };
   };
   axi_gpio_0: gpio@80000000 {
@@ -1900,8 +1896,8 @@
   };
  };
 };
-# 1 "/home/emptea/tools/linux-xlnx//include/dt-bindings/pinctrl/pinctrl-zynqmp.h" 1
-# 226 "zynqmp.dts" 2
+# 1 "/home/a/tools/linux-xlnx//include/dt-bindings/pinctrl/pinctrl-zynqmp.h" 1
+# 224 "zynqmp.dts" 2
 
 &gem3 {
  pinctrl-names = "default";
@@ -1998,7 +1994,7 @@
   };
  };
 
-  pinctrl_sdhci1_default: sdhci1-default {
+ pinctrl_sdhci1_default: sdhci1-default {
   mux {
    groups = "sdio1_4bit_0_0_grp";
    function = "sdio1";
@@ -2028,10 +2024,13 @@
 
 &axi_dma_0 {
     dma-coherent;
+};
+
+&amba_pl {
  dma_proxy {
   compatible ="xlnx,dma_proxy";
   dmas = <&axi_dma_0 0 &axi_dma_0 1>;
   dma-names = "dma_proxy_tx", "dma_proxy_rx";
   dma-coherent;
- } ;
+ };
 };
