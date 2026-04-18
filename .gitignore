@@ -12,3 +12,4 @@ rootfs*
 *dump*
 *.zip
 /output/ubuntu-core/*
+psu*
