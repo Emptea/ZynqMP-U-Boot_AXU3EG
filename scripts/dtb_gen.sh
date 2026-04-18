@@ -17,7 +17,7 @@ INCDIR=$LINUX_XLNX_PATH/include
 DTSHDIR=$LINUX_XLNX_PATH/arch/arm64/boot/dts/
 DTSDIR=$LINUX_XLNX_PATH/arch/arm64/boot/dts/xilinx/
 
-cpp -nostdinc -I${INCDIR} -I${DTSHDIR} -I${DTSDIR} -undef -x assembler-with-cpp -o pre-zynqmp.dts zynqmp.dts
+cpp -nostdinc -I${INCDIR} -I${DTSHDIR} -I${DTSDIR} -undef -x assembler-with-cpp -o pre-zynqmp.dts axu3eg.dts
 
 cp pre-zynqmp.dts $OUTPUT_DIR/pre-zynqmp.dts
 cd $OUTPUT_DIR
