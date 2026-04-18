@@ -74,4 +74,4 @@ clean:
 	rm -rf $(OUTPUT_DIR)/*
 
 help:
-	@echo "Targets: all vivado_project vivado_impl export_hardware fsbl pmufw arm_tfw dts dtb uboot verify_boot bootbin  clean"
+	@echo "Targets: all vivado_project vivado_impl export_hardware fsbl pmufw arm_tfw dts dtb uboot bootbin  clean"
