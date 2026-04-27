@@ -1492,6 +1492,8 @@
 # 4 "axu3eg.dts" 2
 # 1 "/home/a/tools/linux-xlnx//include/dt-bindings/pinctrl/pinctrl-zynqmp.h" 1
 # 5 "axu3eg.dts" 2
+# 1 "/home/a/tools/linux-xlnx//include/dt-bindings/gpio/gpio.h" 1
+# 6 "axu3eg.dts" 2
 
 / {
  model = "alinx,axu3eg";
@@ -2851,8 +2853,7 @@
 
   pl_reset {
    compatible = "BMSTU,pl-reset";
-   resets = <&zynqmp_reset 116>;
-   reset-names = "pl_resetn0";
+   reset-gpios = <&gpio 173 1>;
   };
 
   axi_dma_0: dma@80001000 {
