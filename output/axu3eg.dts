@@ -2,6 +2,7 @@
 #include "zynqmp.dtsi"
 #include "zynqmp-clk-ccf.dtsi"
 #include <dt-bindings/pinctrl/pinctrl-zynqmp.h>
+#include <dt-bindings/gpio/gpio.h>
 
 / {
 	model = "alinx,axu3eg";
@@ -1361,8 +1362,7 @@
 
 		pl_reset {
 			compatible = "BMSTU,pl-reset";
-			resets = <&zynqmp_reset ZYNQMP_RESET_PS_PL0>;
-			reset-names = "pl_resetn0";
+			reset-gpios = <&gpio 173 GPIO_ACTIVE_LOW>;
 		};
 
 		axi_dma_0: dma@80001000 {
