@@ -9,19 +9,9 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "AXI_DATA_WIDTH"
   ipgui::add_param $IPINST -name "AXI_ADDR_WIDTH"
   ipgui::add_param $IPINST -name "AXIS_TDATA_WIDTH"
-  ipgui::add_param $IPINST -name "AXIS_START_COUNT"
   ipgui::add_param $IPINST -name "MULT_WIDTH"
   ipgui::add_param $IPINST -name "DSP_DELAY"
 
-}
-
-proc update_PARAM_VALUE.AXIS_START_COUNT { PARAM_VALUE.AXIS_START_COUNT } {
-	# Procedure called to update AXIS_START_COUNT when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.AXIS_START_COUNT { PARAM_VALUE.AXIS_START_COUNT } {
-	# Procedure called to validate AXIS_START_COUNT
-	return true
 }
 
 proc update_PARAM_VALUE.AXIS_TDATA_WIDTH { PARAM_VALUE.AXIS_TDATA_WIDTH } {
@@ -51,6 +41,15 @@ proc validate_PARAM_VALUE.AXI_DATA_WIDTH { PARAM_VALUE.AXI_DATA_WIDTH } {
 	return true
 }
 
+proc update_PARAM_VALUE.DATA_WIDTH { PARAM_VALUE.DATA_WIDTH } {
+	# Procedure called to update DATA_WIDTH when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.DATA_WIDTH { PARAM_VALUE.DATA_WIDTH } {
+	# Procedure called to validate DATA_WIDTH
+	return true
+}
+
 proc update_PARAM_VALUE.DSP_DELAY { PARAM_VALUE.DSP_DELAY } {
 	# Procedure called to update DSP_DELAY when any of the dependent parameters in the arguments change
 }
@@ -66,6 +65,15 @@ proc update_PARAM_VALUE.MULT_WIDTH { PARAM_VALUE.MULT_WIDTH } {
 
 proc validate_PARAM_VALUE.MULT_WIDTH { PARAM_VALUE.MULT_WIDTH } {
 	# Procedure called to validate MULT_WIDTH
+	return true
+}
+
+proc update_PARAM_VALUE.N_DATA_IN_PACK { PARAM_VALUE.N_DATA_IN_PACK } {
+	# Procedure called to update N_DATA_IN_PACK when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.N_DATA_IN_PACK { PARAM_VALUE.N_DATA_IN_PACK } {
+	# Procedure called to validate N_DATA_IN_PACK
 	return true
 }
 
@@ -103,11 +111,6 @@ proc update_MODELPARAM_VALUE.AXIS_TDATA_WIDTH { MODELPARAM_VALUE.AXIS_TDATA_WIDT
 	set_property value [get_property value ${PARAM_VALUE.AXIS_TDATA_WIDTH}] ${MODELPARAM_VALUE.AXIS_TDATA_WIDTH}
 }
 
-proc update_MODELPARAM_VALUE.AXIS_START_COUNT { MODELPARAM_VALUE.AXIS_START_COUNT PARAM_VALUE.AXIS_START_COUNT } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.AXIS_START_COUNT}] ${MODELPARAM_VALUE.AXIS_START_COUNT}
-}
-
 proc update_MODELPARAM_VALUE.MULT_WIDTH { MODELPARAM_VALUE.MULT_WIDTH PARAM_VALUE.MULT_WIDTH } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.MULT_WIDTH}] ${MODELPARAM_VALUE.MULT_WIDTH}
@@ -116,5 +119,15 @@ proc update_MODELPARAM_VALUE.MULT_WIDTH { MODELPARAM_VALUE.MULT_WIDTH PARAM_VALU
 proc update_MODELPARAM_VALUE.DSP_DELAY { MODELPARAM_VALUE.DSP_DELAY PARAM_VALUE.DSP_DELAY } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.DSP_DELAY}] ${MODELPARAM_VALUE.DSP_DELAY}
+}
+
+proc update_MODELPARAM_VALUE.DATA_WIDTH { MODELPARAM_VALUE.DATA_WIDTH PARAM_VALUE.DATA_WIDTH } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.DATA_WIDTH}] ${MODELPARAM_VALUE.DATA_WIDTH}
+}
+
+proc update_MODELPARAM_VALUE.N_DATA_IN_PACK { MODELPARAM_VALUE.N_DATA_IN_PACK PARAM_VALUE.N_DATA_IN_PACK } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.N_DATA_IN_PACK}] ${MODELPARAM_VALUE.N_DATA_IN_PACK}
 }
 

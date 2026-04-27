@@ -3,10 +3,11 @@
 
 module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
                          parameter integer AXI_ADDR_WIDTH	 = 4,
-                         parameter integer AXIS_TDATA_WIDTH	 = 128,
-                         parameter integer AXIS_START_COUNT	 = 32,
+                         parameter integer DATA_WIDTH = 16,
+                         parameter integer N_DATA_IN_PACK = 2,
+                         parameter integer AXIS_TDATA_WIDTH	 = DATA_WIDTH * N_DATA_IN_PACK,
                          parameter integer MULT_WIDTH = 16,
-                         parameter integer DSP_DELAY = 4)
+                         parameter integer DSP_DELAY = 3)
                         ((* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF S00_AXI, ASSOCIATED_RESET s00_axi_aresetn" *)
                          input wire s00_axi_aclk,
                          input wire s00_axi_aresetn,
@@ -46,7 +47,7 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
 						 input wire s00_axis_tlast, 
 						 input wire s00_axis_tvalid);
 						 
-    reg [(AXIS_TDATA_WIDTH / 8) * MULT_WIDTH-1 :0] mult_output [0:7];
+    wire [DATA_WIDTH + MULT_WIDTH-1 :0] mult_output [0:N_DATA_IN_PACK - 1];
     wire [MULT_WIDTH - 1 :0] mult;
     reg [AXIS_TDATA_WIDTH -1 :0] data_in;
         
@@ -54,8 +55,8 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
     localparam FULL  = 1'b1;
     reg state;
     
-    reg [DSP_DELAY - 1: 0] shift_reg_tvalid;
-    reg [DSP_DELAY - 1: 0] shift_reg_tlast;
+    reg [DSP_DELAY : 0] shift_reg_tvalid; // DSP_DELAY + 1 regs
+    reg [DSP_DELAY : 0] shift_reg_tlast;
     // Instantiation of Axi Bus Interface S00_AXI
     multiplier_v1_0_S00_AXI # (
     .C_S_AXI_DATA_WIDTH(AXI_DATA_WIDTH),
@@ -95,26 +96,24 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
     genvar i;
     // multiply each 16-bit by mult value stored in reg
     generate
-        for (i = 0; i < 8; i = i + 1) begin: gen_mult
-            always @(posedge aclk or negedge aresetn) begin
-                if (!aresetn) begin
-                    mult_output[i] <= 0;
-                end else begin
-                    (* use_dsp = "yes" *) mult_output[i] <= data_in[(i+1)*(AXIS_TDATA_WIDTH / 8) - 1 -: (AXIS_TDATA_WIDTH / 8)] * mult;
-                end
-            end
+        for (i = 0; i < N_DATA_IN_PACK; i = i + 1) begin: gen_mult
+            mult_dsp48 #(
+                .A_WIDTH(DATA_WIDTH),
+                .B_WIDTH(MULT_WIDTH),
+                .LATENCY(DSP_DELAY)
+            ) u_mult_dsp48 (
+                .aclk    (aclk),
+                .aresetn (aresetn),
+                .a       (data_in[(i+1)*DATA_WIDTH -1 -: DATA_WIDTH]),
+                .b       (mult),
+                .p       (mult_output[i])
+            );
         end
     endgenerate
     
     assign m00_axis_tdata = {
-        mult_output[7][(AXIS_TDATA_WIDTH / 8) -1 -: 16],
-        mult_output[6][(AXIS_TDATA_WIDTH / 8) -1 -: 16],
-        mult_output[5][(AXIS_TDATA_WIDTH / 8) -1 -: 16],
-        mult_output[4][(AXIS_TDATA_WIDTH / 8) -1 -: 16],
-        mult_output[3][(AXIS_TDATA_WIDTH / 8) -1 -: 16],
-        mult_output[2][(AXIS_TDATA_WIDTH / 8) -1 -: 16],
-        mult_output[1][(AXIS_TDATA_WIDTH / 8) -1 -: 16],
-        mult_output[0][(AXIS_TDATA_WIDTH / 8) -1 -: 16]
+        mult_output[1][DATA_WIDTH - 1 -: DATA_WIDTH],
+        mult_output[0][DATA_WIDTH - 1 -: DATA_WIDTH]
     };
     
     always @(posedge aclk or negedge aresetn) begin : FSM_State_Transition
@@ -135,14 +134,14 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
 		if (!aresetn) begin
 			shift_reg_tvalid <= 0;
 			shift_reg_tlast  <= 0;
-		end else if (state == FULL) begin
-			shift_reg_tvalid <= {shift_reg_tvalid[DSP_DELAY - 2: 0], s00_axis_tvalid};
-			shift_reg_tlast  <= {shift_reg_tlast[DSP_DELAY - 2: 0], s00_axis_tlast};
+		end else begin
+			shift_reg_tvalid <= {shift_reg_tvalid[DSP_DELAY - 1: 0], s00_axis_tvalid};
+			shift_reg_tlast  <= {shift_reg_tlast[DSP_DELAY - 1: 0], s00_axis_tlast};
 		end
 	end
         
-	assign m00_axis_tvalid = shift_reg_tvalid[DSP_DELAY - 1];
-	assign m00_axis_tlast  = shift_reg_tlast[DSP_DELAY - 1];
+	assign m00_axis_tvalid = shift_reg_tvalid[DSP_DELAY];
+	assign m00_axis_tlast  = shift_reg_tlast[DSP_DELAY];
 	assign s00_axis_tready = (state == EMPTY) || (m00_axis_tready & state == FULL);
 	
 endmodule
