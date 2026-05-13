@@ -22,9 +22,12 @@ module mult_dsp48
 
     always @(posedge aclk or negedge aresetn)
     begin : data_i_reg
-        if (!aresetn)
-            for (i = 0; i < LATENCY; i = i + 1)
+        if (!aresetn) begin
+            a_reg <= {A_WIDTH{1'b0}};
+            b_reg <= {B_WIDTH{1'b0}};
+            for (i = 0; i < LATENCY - 1; i = i + 1)
                 p_regs[i] <= {P_WIDTH{1'b0}};
+            end
         else begin
             a_reg <= a;
             b_reg <= b;

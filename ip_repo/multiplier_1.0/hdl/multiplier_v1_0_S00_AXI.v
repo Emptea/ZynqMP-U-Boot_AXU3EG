@@ -16,7 +16,8 @@
 	)
 	(
 		// Users to add ports here
-        output wire [MULT_WIDTH-1:0] mult,
+        output wire [MULT_WIDTH-1:0] mult0,
+        output wire [MULT_WIDTH-1:0] mult1,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -399,7 +400,8 @@
 	end    
 
 	// Add user logic here
-    assign mult = slv_reg0[MULT_WIDTH - 1:0];
+    assign mult0 = slv_reg0[MULT_WIDTH - 1:0];
+    assign mult1 = slv_reg1[MULT_WIDTH - 1:0];
 	// User logic ends
 
 	endmodule
