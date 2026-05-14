@@ -1409,7 +1409,7 @@
 			compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
 			interrupt-names = "mm2s_introut", "s2mm_introut";
 			interrupt-parent = <&gic>;
-			interrupts = <0 89 4 0 90 4>;
+			interrupts = <0 91 4>;
 			reg = <0x0 0xa0000000 0x0 0x1000>;
 			xlnx,addrwidth = <0x40>;
 			xlnx,include-sg;
@@ -1421,16 +1421,8 @@
 			dma-channel@a0000000 {
 				compatible = "xlnx,axi-dma-mm2s-channel";
 				dma-channels = <0x1>;
-				interrupts = <0 89 4>;
+				interrupts = <0 91 4>;
 				xlnx,datawidth = <0x80>;
-				xlnx,device-id = <0x0>;
-			};
-
-			dma-channel@a0000030 {
-				compatible = "xlnx,axi-dma-s2mm-channel";
-				dma-channels = <0x1>;
-				interrupts = <0 90 4>;
-				xlnx,datawidth = <0x20>;
 				xlnx,device-id = <0x0>;
 			};
 		};
