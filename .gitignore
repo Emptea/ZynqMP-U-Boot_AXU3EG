@@ -13,3 +13,5 @@ rootfs*
 *.zip
 /output/ubuntu-core/*
 psu*
+*.img
+*.gz
