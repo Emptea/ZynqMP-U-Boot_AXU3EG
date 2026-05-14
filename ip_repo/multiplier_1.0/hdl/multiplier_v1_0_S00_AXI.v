@@ -18,6 +18,10 @@
 		// Users to add ports here
         output wire [MULT_WIDTH-1:0] mult0,
         output wire [MULT_WIDTH-1:0] mult1,
+        input wire [C_S_AXI_DATA_WIDTH - 1 :0] ip_ver,
+        output wire kill,
+        output wire [2:0] test_point,
+        output wire [2:0] channel,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -105,11 +109,11 @@
 	//----------------------------------------------
 	//-- Signals for user logic register space example
 	//------------------------------------------------
-	//-- Number of Slave Registers 4
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg0;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg1;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg2;
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg3;
+	//-- Number of Slave Registers 6
+    localparam integer REGMAP_SIZE = 6;
+    reg [C_S_AXI_DATA_WIDTH-1:0] reg_ip_ver;
+	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg [0:REGMAP_SIZE - 2];
+	integer reg_num;
 	wire	 slv_reg_rden;
 	wire	 slv_reg_wren;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
@@ -222,50 +226,17 @@
 	begin
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
-	      slv_reg0 <= 0;
-	      slv_reg1 <= 0;
-	      slv_reg2 <= 0;
-	      slv_reg3 <= 0;
+            for (reg_num = 0; reg_num < REGMAP_SIZE - 2; reg_num = reg_num + 1) begin
+              slv_reg[reg_num] <= 0;
+            end
 	    end 
 	  else begin
 	    if (slv_reg_wren)
 	      begin
-	        case ( axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	          2'h0:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 0
-	                slv_reg0[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          2'h1:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 1
-	                slv_reg1[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          2'h2:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 2
-	                slv_reg2[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          2'h3:
-	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
-	                // Respective byte enables are asserted as per write strobes 
-	                // Slave register 3
-	                slv_reg3[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
-	              end  
-	          default : begin
-	                      slv_reg0 <= slv_reg0;
-	                      slv_reg1 <= slv_reg1;
-	                      slv_reg2 <= slv_reg2;
-	                      slv_reg3 <= slv_reg3;
-	                    end
-	        endcase
+	      for (byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
+              if ( S_AXI_WSTRB[byte_index] == 1  && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < REGMAP_SIZE && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] > 0) begin
+                   slv_reg[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] - 1] [(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+              end
 	      end
 	  end
 	end    
@@ -370,14 +341,14 @@
 	assign slv_reg_rden = axi_arready & S_AXI_ARVALID & ~axi_rvalid;
 	always @(*)
 	begin
-	      // Address decoding for reading registers
-	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	        2'h0   : reg_data_out <= slv_reg0;
-	        2'h1   : reg_data_out <= slv_reg1;
-	        2'h2   : reg_data_out <= slv_reg2;
-	        2'h3   : reg_data_out <= slv_reg3;
-	        default : reg_data_out <= 0;
-	      endcase
+      // Address decoding for reading registers
+      if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == 0) begin
+        reg_data_out <= reg_ip_ver;
+      end else if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < REGMAP_SIZE) begin
+	       reg_data_out <= slv_reg[axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] - 1];
+       end else begin
+	       reg_data_out <= 0;
+       end
 	end
 
 	// Output register or memory read data
@@ -400,8 +371,16 @@
 	end    
 
 	// Add user logic here
-    assign mult0 = slv_reg0[MULT_WIDTH - 1:0];
-    assign mult1 = slv_reg1[MULT_WIDTH - 1:0];
+	always @( posedge S_AXI_ACLK )
+	begin
+		reg_ip_ver <= ip_ver;
+	end    
+
+	assign kill = slv_reg[0][0];
+	assign test_point = slv_reg[1][2:0];
+	assign channel = slv_reg[2][2 : 0];
+    assign mult0 = slv_reg[3][MULT_WIDTH - 1:0];
+    assign mult1 = slv_reg[4][MULT_WIDTH - 1:0];
 	// User logic ends
 
 	endmodule

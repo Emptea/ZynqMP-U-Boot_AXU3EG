@@ -117,6 +117,9 @@ if { $nRet != 0 } {
    return $nRet
 }
 
+set_property ip_repo_paths [list "$script_folder/../ip_repo"] [current_project]
+update_ip_catalog -rebuild -scan_changes
+
 set bCheckIPsPassed 1
 ##################################################################
 # CHECK IPs
@@ -902,5 +905,5 @@ create_root_design ""
 make_wrapper -files [get_files ./${_xil_proj_name_}/${_xil_proj_name_}.srcs/sources_1/bd/${design_name}/${design_name}.bd] -top
 add_files -norecurse ./${_xil_proj_name_}/${_xil_proj_name_}.srcs/sources_1/bd/${design_name}/hdl/${design_name}_wrapper.v
 
-add_files -fileset constrs_1 -norecurse ./constrains/gpio.xdc
-import_files -fileset constrs_1 /./constrains/gpio.xdc
+add_files -fileset constrs_1 -norecurse $script_folder/../constrains/gpio.xdc
+import_files -fileset constrs_1 /$script_folder/../constrains/gpio.xdc

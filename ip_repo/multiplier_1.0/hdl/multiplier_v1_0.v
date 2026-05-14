@@ -33,41 +33,49 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
 						 input wire s00_axi_rready, 
 
                          (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 aclk CLK" *)
-                         (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M00_AXIS:S00_AXIS:M01_AXIS:S01_AXIS, ASSOCIATED_RESET aresetn" *)
+                         (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M_AXIS:S00_AXIS:S01_AXIS, ASSOCIATED_RESET aresetn" *)
 						 input wire aclk,
 						 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 aresetn RST" *)
 						 input wire aresetn, 
 
-						 output wire m00_axis_tvalid, 
-						 output wire [AXIS_TDATA_WIDTH-1 : 0] m00_axis_tdata, 
-						 output wire m00_axis_tlast, 
-						 input wire m00_axis_tready, 
+						 output wire m_axis_tvalid, 
+						 output wire [AXIS_TDATA_WIDTH-1 : 0] m_axis_tdata, 
+						 output wire m_axis_tlast, 
+						 input wire m_axis_tready, 
 						 
 						 output wire s00_axis_tready, 
 						 input wire [AXIS_TDATA_WIDTH-1 : 0] s00_axis_tdata, 
 						 input wire s00_axis_tlast, 
 						 input wire s00_axis_tvalid,
 						 
-                         output wire m01_axis_tvalid, 
-						 output wire [AXIS_TDATA_WIDTH-1 : 0] m01_axis_tdata, 
-						 output wire m01_axis_tlast, 
-						 input wire m01_axis_tready, 
-						 
 						 output wire s01_axis_tready, 
 						 input wire [AXIS_TDATA_WIDTH-1 : 0] s01_axis_tdata, 
 						 input wire s01_axis_tlast, 
 						 input wire s01_axis_tvalid);
 						 
+	localparam integer IP_VER_MSB = 1;
+	localparam integer IP_VER_LSB = 0;					 
     wire [MULT_WIDTH - 1 :0] mult[0 : N_MULTS - 1];
+    wire [AXI_DATA_WIDTH - 1:0] ip_ver;
+    wire kill;
+    wire [2:0] test_point;
+    wire [2:0] channel;
 
+    assign ip_ver[AXI_DATA_WIDTH - 1 -: AXI_DATA_WIDTH/2] = IP_VER_MSB;
+    assign ip_ver[AXI_DATA_WIDTH/2 - 1:0] = IP_VER_LSB;
+    
     // Instantiation of Axi Bus Interface S00_AXI
     multiplier_v1_0_S00_AXI # (
     .C_S_AXI_DATA_WIDTH(AXI_DATA_WIDTH),
     .C_S_AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
     .MULT_WIDTH(MULT_WIDTH)
-    ) multiplier_v1_0_S00_AXI_inst (
+    ) regmap (
     .mult0(mult[0]),
     .mult1(mult[1]),
+    .ip_ver(ip_ver),
+    .kill(kill),
+    .test_point(test_point),
+    .channel(channel),
     .S_AXI_ACLK(s00_axi_aclk),
     .S_AXI_ARESETN(s00_axi_aresetn),
     .S_AXI_AWADDR(s00_axi_awaddr),
@@ -91,6 +99,17 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
     .S_AXI_RREADY(s00_axi_rready)
     );
     
+    wire [N_MULTS-1:0] mults_output_tvalid;
+    wire [N_MULTS-1:0] mults_output_tlast;
+    wire [AXIS_TDATA_WIDTH-1:0] mults_output_tdata [0:N_MULTS-1];
+    reg mux_tvalid;
+    reg mux_tlast;
+    reg [AXIS_TDATA_WIDTH-1:0] mux_tdata;
+    assign m_axis_tvalid = mux_tvalid;
+    assign m_axis_tlast = mux_tlast;
+    assign m_axis_tdata = mux_tdata; 
+        
+    
     axi_multiplier #(
         .DATA_WIDTH(DATA_WIDTH),
         .MULT_WIDTH(MULT_WIDTH),
@@ -98,17 +117,17 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
         .AXIS_TDATA_WIDTH(AXIS_TDATA_WIDTH),
         .DSP_DELAY(DSP_DELAY)
     ) axi_multiplier_inst_0 (
-        .aclk          (aclk),
-        .aresetn       (aresetn),
-        .mult          (mult[0]),
-        .s00_axis_tdata(s00_axis_tdata),
-        .s00_axis_tvalid(s00_axis_tvalid),
-        .s00_axis_tlast(s00_axis_tlast),
-        .s00_axis_tready(s00_axis_tready),
-        .m00_axis_tready(m00_axis_tready),
-        .m00_axis_tdata(m00_axis_tdata),
-        .m00_axis_tvalid(m00_axis_tvalid),
-        .m00_axis_tlast (m00_axis_tlast)
+        .aclk                (aclk),
+        .aresetn             (aresetn),
+        .mult                (mult[0]),
+        .s00_axis_tdata      (s00_axis_tdata),
+        .s00_axis_tvalid     (s00_axis_tvalid),
+        .s00_axis_tlast      (s00_axis_tlast),
+        .s00_axis_tready     (s00_axis_tready),
+        .m00_axis_tready     (m_axis_tready),
+        .m00_axis_tdata      (mults_output_tdata[0]),
+        .m00_axis_tvalid     (mults_output_tvalid[0]),
+        .m00_axis_tlast      (mults_output_tlast[0])
     );
     
     axi_multiplier #(
@@ -118,18 +137,30 @@ module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
         .AXIS_TDATA_WIDTH(AXIS_TDATA_WIDTH),
         .DSP_DELAY(DSP_DELAY)
     ) axi_multiplier_inst_1 (
-        .aclk          (aclk),
-        .aresetn       (aresetn),
-        .mult          (mult[1]),
-        .s00_axis_tdata(s01_axis_tdata),
-        .s00_axis_tvalid(s01_axis_tvalid),
-        .s00_axis_tlast(s01_axis_tlast),
-        .s00_axis_tready(s01_axis_tready),
-        .m00_axis_tready(m01_axis_tready),
-        .m00_axis_tdata(m01_axis_tdata),
-        .m00_axis_tvalid(m01_axis_tvalid),
-        .m00_axis_tlast (m01_axis_tlast)
+        .aclk                (aclk),
+        .aresetn             (aresetn),
+        .mult                (mult[1]),
+        .s00_axis_tdata      (s01_axis_tdata),
+        .s00_axis_tvalid     (s01_axis_tvalid),
+        .s00_axis_tlast      (s01_axis_tlast),
+        .s00_axis_tready     (s01_axis_tready),
+        .m00_axis_tready     (m_axis_tready),
+        .m00_axis_tdata      (mults_output_tdata[1]),
+        .m00_axis_tvalid     (mults_output_tvalid[1]),
+        .m00_axis_tlast      (mults_output_tlast[1])
     );
-
+    
+   always @( posedge aclk )
+	begin
+        if ( aresetn == 1'b0 ) begin
+            mux_tvalid  <= 0;
+            mux_tlast <= 0;
+            mux_tdata <= 0;
+	    end else begin
+            mux_tdata <= mults_output_tdata[channel];
+            mux_tvalid <= mults_output_tvalid[channel];
+            mux_tlast <= mults_output_tlast[channel];
+        end
+	end    
 	
 endmodule
