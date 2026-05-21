@@ -8,3 +8,4 @@
 | 0x0C | channel | 3 | [2:0] - channel | Read/Write | Channel from 0 to 7 |
 | 0x10 | mult0 | 16 | [15:0] - mult0 | Read/Write | Multiplication value for ch0 |
 | 0x14 | mult1 | 16 | [15:0] - mult1 | Read/Write | Multiplication value for ch1 |
+

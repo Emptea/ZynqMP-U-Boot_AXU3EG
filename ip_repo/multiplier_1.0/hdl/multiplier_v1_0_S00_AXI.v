@@ -12,7 +12,7 @@
 		parameter integer C_S_AXI_DATA_WIDTH	= 32,
 		parameter integer MULT_WIDTH = 16,
 		// Width of S_AXI address bus
-		parameter integer C_S_AXI_ADDR_WIDTH	= 4
+		parameter integer C_S_AXI_ADDR_WIDTH	= 11
 	)
 	(
 		// Users to add ports here
@@ -98,14 +98,9 @@
 	reg [C_S_AXI_DATA_WIDTH-1 : 0] 	axi_rdata;
 	reg [1 : 0] 	axi_rresp;
 	reg  	axi_rvalid;
+	// Address signals
+	reg [C_S_AXI_ADDR_WIDTH-1 : 0] 	dec_w, dec_r;
 
-	// Example-specific design signals
-	// local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH
-	// ADDR_LSB is used for addressing 32/64 bit registers/memories
-	// ADDR_LSB = 2 for 32 bits (n downto 2)
-	// ADDR_LSB = 3 for 64 bits (n downto 3)
-	localparam integer ADDR_LSB = (C_S_AXI_DATA_WIDTH/32) + 1;
-	localparam integer OPT_MEM_ADDR_BITS = 1;
 	//----------------------------------------------
 	//-- Signals for user logic register space example
 	//------------------------------------------------
@@ -119,6 +114,7 @@
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
 	integer	 byte_index;
 	reg	 aw_en;
+	
 
 	// I/O Connections assignments
 
@@ -130,6 +126,33 @@
 	assign S_AXI_RDATA	= axi_rdata;
 	assign S_AXI_RRESP	= axi_rresp;
 	assign S_AXI_RVALID	= axi_rvalid;
+	
+	always @(axi_awaddr)
+	begin
+        case(axi_awaddr)
+            11'h0 : dec_w = -1;
+            11'h4 : dec_w = 0;
+            11'h8 : dec_w = 1;
+            11'hC : dec_w = 2;
+            11'h10 : dec_w = 3;
+            11'h14 : dec_w = 4;
+            default: dec_w = 0;
+        endcase
+	end
+	
+    always @(axi_araddr)
+	begin
+        case(axi_araddr)
+            11'h0 : dec_r = -1;
+            11'h4 : dec_r = 0;
+            11'h8 : dec_r = 1;
+            11'hC : dec_r = 2;
+            11'h10 : dec_r = 3;
+            11'h14 : dec_r = 4;
+            default: dec_r = 0;
+        endcase
+	end
+	
 	// Implement axi_awready generation
 	// axi_awready is asserted for one S_AXI_ACLK clock cycle when both
 	// S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is
@@ -234,8 +257,8 @@
 	    if (slv_reg_wren)
 	      begin
 	      for (byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
-              if ( S_AXI_WSTRB[byte_index] == 1  && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < REGMAP_SIZE && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] > 0) begin
-                   slv_reg[axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] - 1] [(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+              if ( S_AXI_WSTRB[byte_index] == 1) begin
+                   slv_reg[dec_w] [(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
               end
 	      end
 	  end
@@ -342,12 +365,10 @@
 	always @(*)
 	begin
       // Address decoding for reading registers
-      if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == 0) begin
+      if (axi_araddr == 0) begin
         reg_data_out <= reg_ip_ver;
-      end else if (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] < REGMAP_SIZE) begin
-	       reg_data_out <= slv_reg[axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] - 1];
-       end else begin
-	       reg_data_out <= 0;
+      end else begin
+	       reg_data_out <= slv_reg[dec_r];
        end
 	end
 

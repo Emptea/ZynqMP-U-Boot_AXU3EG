@@ -1,6 +1,6 @@
-# 1 "axu3eg.dts"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "axu3eg.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "axu3eg.dts"
 /dts-v1/;
 # 1 "zynqmp.dtsi" 1
@@ -1490,9 +1490,9 @@
  clocks = <&zynqmp_clk 41>;
 };
 # 4 "axu3eg.dts" 2
-# 1 "/home/a/tools/linux-xlnx//include/dt-bindings/pinctrl/pinctrl-zynqmp.h" 1
+# 1 "/home/emptea/tools/linux-xlnx//include/dt-bindings/pinctrl/pinctrl-zynqmp.h" 1
 # 5 "axu3eg.dts" 2
-# 1 "/home/a/tools/linux-xlnx//include/dt-bindings/gpio/gpio.h" 1
+# 1 "/home/emptea/tools/linux-xlnx//include/dt-bindings/gpio/gpio.h" 1
 # 6 "axu3eg.dts" 2
 
 / {
@@ -2891,10 +2891,44 @@
    };
   };
 
-  dma_proxy {
+  axi_dma_1: dma@a0000000 {
+   #dma-cells = <1>;
+   clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk",
+          "m_axi_s2mm_aclk";
+   clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
+     <&zynqmp_clk 71>;
+   compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+   interrupt-names = "mm2s_introut", "s2mm_introut";
+   interrupt-parent = <&gic>;
+   interrupts = <0 91 4>;
+   reg = <0x0 0xa0000000 0x0 0x1000>;
+   xlnx,addrwidth = <0x40>;
+   xlnx,include-sg;
+   xlnx,sg-length-width = <0x1a>;
+   dma-coherent;
+   resets = <&zynqmp_reset 116>;
+   reset-names = "pl_resetn0";
+
+   dma-channel@a0000000 {
+    compatible = "xlnx,axi-dma-mm2s-channel";
+    dma-channels = <0x1>;
+    interrupts = <0 91 4>;
+    xlnx,datawidth = <0x80>;
+    xlnx,device-id = <0x0>;
+   };
+  };
+
+  dma_proxy_ch0 {
    compatible = "xlnx,dma_proxy";
    dmas = <&axi_dma_0 0 &axi_dma_0 1>;
-   dma-names = "dma_proxy_tx", "dma_proxy_rx";
+   dma-names = "dma_proxy_ch0_tx", "dma_proxy_ch0_rx";
+   dma-coherent;
+  };
+
+  dma_proxy_ch1 {
+   compatible = "xlnx,dma_proxy";
+   dmas = <&axi_dma_1 0 &axi_dma_1 1>;
+   dma-names = "dma_proxy_ch1_tx", "dma_proxy_ch1_rx";
    dma-coherent;
   };
 
@@ -2922,9 +2956,9 @@
    reset-names = "pl_resetn0";
   };
 
-  axi_multiplier@a0000000 {
+  axi_multiplier@a0001000 {
    compatible = "BMSTU,axi-multiplier-1.0";
-   reg = <0x0 0xa0000000 0x0 0x1000>;
+   reg = <0x0 0xa0001000 0x0 0x1000>;
    resets = <&zynqmp_reset 116>;
    reset-names = "pl_resetn0";
   };

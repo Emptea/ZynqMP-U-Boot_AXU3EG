@@ -2,7 +2,7 @@
 `timescale 1 ns / 1 ps
 
 module multiplier_v1_0 #(parameter integer AXI_DATA_WIDTH	 = 32,
-                         parameter integer AXI_ADDR_WIDTH	 = 4,
+                         parameter integer AXI_ADDR_WIDTH	 = 11,
                          parameter integer DATA_WIDTH = 16,
                          parameter integer N_DATA_IN_PACK = 2,
                          parameter integer AXIS_TDATA_WIDTH	 = DATA_WIDTH * N_DATA_IN_PACK,
