@@ -1402,12 +1402,11 @@
 
 		axi_dma_1: dma@a0000000 {
 			#dma-cells = <1>;
-			clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk",
-				      "m_axi_s2mm_aclk";
+			clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
 			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
 				 <&zynqmp_clk 71>;
 			compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
-			interrupt-names = "mm2s_introut", "s2mm_introut";
+			interrupt-names = "mm2s_introut";
 			interrupt-parent = <&gic>;
 			interrupts = <0 91 4>;
 			reg = <0x0 0xa0000000 0x0 0x1000>;
@@ -1430,14 +1429,14 @@
 		dma_proxy_ch0 {
 			compatible = "xlnx,dma_proxy";
 			dmas = <&axi_dma_0 0 &axi_dma_0 1>;
-			dma-names = "dma_proxy_ch0_tx", "dma_proxy_ch0_rx";
+			dma-names = "dma_proxy_tx_ch0", "dma_proxy_rx";
 			dma-coherent;
 		};
 
 		dma_proxy_ch1 {
 			compatible = "xlnx,dma_proxy";
-			dmas = <&axi_dma_1 0 &axi_dma_1 1>;
-			dma-names = "dma_proxy_ch1_tx", "dma_proxy_ch1_rx";
+			dmas = <&axi_dma_1 0>;
+			dma-names = "dma_proxy_tx_ch1";
 			dma-coherent;
 		};
 
