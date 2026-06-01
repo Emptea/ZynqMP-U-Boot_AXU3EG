@@ -9,6 +9,7 @@ module tb_multiplier_v1_0;
   localparam integer AXIS_TDATA_WIDTH = DATA_WIDTH * N_DATA_IN_PACK;
   localparam integer MULT_WIDTH       = 16;
   localparam integer DSP_DELAY        = 2;
+  localparam integer N_MULTS = 8;
 
   reg  s00_axi_aclk;
   reg  s00_axi_aresetn;
@@ -44,26 +45,61 @@ module tb_multiplier_v1_0;
   wire                      m_axis_tlast;
   reg                       m_axis_tready;
 
+ // Slave AXI-Stream channels (s00-s07)
   wire                      s00_axis_tready;
   reg  [AXIS_TDATA_WIDTH-1:0] s00_axis_tdata;
   reg                       s00_axis_tlast;
   reg                       s00_axis_tvalid;
   
-  
   wire                      s01_axis_tready;
   reg  [AXIS_TDATA_WIDTH-1:0] s01_axis_tdata;
   reg                       s01_axis_tlast;
   reg                       s01_axis_tvalid;
+  
+  wire                      s02_axis_tready;
+  reg  [AXIS_TDATA_WIDTH-1:0] s02_axis_tdata;
+  reg                       s02_axis_tlast;
+  reg                       s02_axis_tvalid;
+  
+  wire                      s03_axis_tready;
+  reg  [AXIS_TDATA_WIDTH-1:0] s03_axis_tdata;
+  reg                       s03_axis_tlast;
+  reg                       s03_axis_tvalid;
+  
+  wire                      s04_axis_tready;
+  reg  [AXIS_TDATA_WIDTH-1:0] s04_axis_tdata;
+  reg                       s04_axis_tlast;
+  reg                       s04_axis_tvalid;
+  
+  wire                      s05_axis_tready;
+  reg  [AXIS_TDATA_WIDTH-1:0] s05_axis_tdata;
+  reg                       s05_axis_tlast;
+  reg                       s05_axis_tvalid;
+  
+  wire                      s06_axis_tready;
+  reg  [AXIS_TDATA_WIDTH-1:0] s06_axis_tdata;
+  reg                       s06_axis_tlast;
+  reg                       s06_axis_tvalid;
+  
+  wire                      s07_axis_tready;
+  reg  [AXIS_TDATA_WIDTH-1:0] s07_axis_tdata;
+  reg                       s07_axis_tlast;
+  reg                       s07_axis_tvalid;
 
-  multiplier_v1_0 #(
+  integer i;
+  reg [15:0] rand_data1;
+  reg [15:0] rand_data2;
+multiplier_v1_0 # (
     .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
     .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
     .DATA_WIDTH(DATA_WIDTH),
     .N_DATA_IN_PACK(N_DATA_IN_PACK),
     .AXIS_TDATA_WIDTH(AXIS_TDATA_WIDTH),
     .MULT_WIDTH(MULT_WIDTH),
-    .DSP_DELAY(DSP_DELAY)
-  ) dut (
+    .DSP_DELAY(DSP_DELAY),
+    .N_MULTS(N_MULTS)
+  )
+  multiplier_v1_0_inst (
     .s00_axi_aclk(s00_axi_aclk),
     .s00_axi_aresetn(s00_axi_aresetn),
     .s00_axi_awaddr(s00_axi_awaddr),
@@ -98,7 +134,31 @@ module tb_multiplier_v1_0;
     .s01_axis_tready(s01_axis_tready),
     .s01_axis_tdata(s01_axis_tdata),
     .s01_axis_tlast(s01_axis_tlast),
-    .s01_axis_tvalid(s01_axis_tvalid)
+    .s01_axis_tvalid(s01_axis_tvalid),
+    .s02_axis_tready(s02_axis_tready),
+    .s02_axis_tdata(s02_axis_tdata),
+    .s02_axis_tlast(s02_axis_tlast),
+    .s02_axis_tvalid(s02_axis_tvalid),
+    .s03_axis_tready(s03_axis_tready),
+    .s03_axis_tdata(s03_axis_tdata),
+    .s03_axis_tlast(s03_axis_tlast),
+    .s03_axis_tvalid(s03_axis_tvalid),
+    .s04_axis_tready(s04_axis_tready),
+    .s04_axis_tdata(s04_axis_tdata),
+    .s04_axis_tlast(s04_axis_tlast),
+    .s04_axis_tvalid(s04_axis_tvalid),
+    .s05_axis_tready(s05_axis_tready),
+    .s05_axis_tdata(s05_axis_tdata),
+    .s05_axis_tlast(s05_axis_tlast),
+    .s05_axis_tvalid(s05_axis_tvalid),
+    .s06_axis_tready(s06_axis_tready),
+    .s06_axis_tdata(s06_axis_tdata),
+    .s06_axis_tlast(s06_axis_tlast),
+    .s06_axis_tvalid(s06_axis_tvalid),
+    .s07_axis_tready(s07_axis_tready),
+    .s07_axis_tdata(s07_axis_tdata),
+    .s07_axis_tlast(s07_axis_tlast),
+    .s07_axis_tvalid(s07_axis_tvalid)
   );
 
   always #5 aclk = ~aclk;
@@ -141,6 +201,30 @@ module tb_multiplier_v1_0;
       s01_axis_tlast  <= last;
       s01_axis_tvalid <= 1'b1;
 
+      s02_axis_tdata  <= data + 2;
+      s02_axis_tlast  <= last;
+      s02_axis_tvalid <= 1'b1;
+
+      s03_axis_tdata  <= data + 3;
+      s03_axis_tlast  <= last;
+      s03_axis_tvalid <= 1'b1;
+
+      s04_axis_tdata  <= data + 4;
+      s04_axis_tlast  <= last;
+      s04_axis_tvalid <= 1'b1;
+
+      s05_axis_tdata  <= data + 5;
+      s05_axis_tlast  <= last;
+      s05_axis_tvalid <= 1'b1;
+
+      s06_axis_tdata  <= data + 6;
+      s06_axis_tlast  <= last;
+      s06_axis_tvalid <= 1'b1;
+
+      s07_axis_tdata  <= data + 7;
+      s07_axis_tlast  <= last;
+      s07_axis_tvalid <= 1'b1;
+
 //      wait (s00_axis_tready);
 //      @(posedge aclk);
 //      s00_axis_tvalid <= 1'b0;
@@ -179,18 +263,24 @@ module tb_multiplier_v1_0;
 
     #20;
 
-    axi_write(11'h10, 32'd3);
-    axi_write(11'h14, 32'd2);
 
-
-    send_axis_word({16'd20, 16'd10}, 1'b0);
-    send_axis_word({16'd40, 16'd20}, 1'b0);
-    axi_write(11'h0C, 32'd1);
-    send_axis_word({16'd4, 16'd3}, 1'b1);
+    for (i = 0; i < 8; i = i + 1) begin     
+      axi_write(11'h10 + (i * 4), i[31:0]);
+    end
+   
+    for (i = 0; i < 8; i = i + 1) begin
+      rand_data1 = $random;
+      rand_data2 = $random;      
+      axi_write(11'h0C, i[31:0]);
+      send_axis_word({rand_data1, rand_data2}, 1'b0);
+    end
+    
+    axi_write(11'h10, {16'd1, 16'd0});
+    send_axis_word({16'h01, 16'h00}, 1'b1);
 
     repeat (DSP_DELAY + 2) @(posedge aclk);
-
     $display("m_axis_tvalid=%0d tdata=0x%h tlast=%0d", m_axis_tvalid, m_axis_tdata, m_axis_tlast);
+
 
     #50;
     $finish;

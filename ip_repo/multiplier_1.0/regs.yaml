@@ -1,0 +1,153 @@
+regmap:
+-   name: IP_VER
+    description: IP version
+    address: 0
+    bitfields:
+    -   name: MAJ_VER
+        description: Major IP version
+        reset: 0
+        width: 16
+        lsb: 16
+        access: ro
+        hardware: f
+        enums: []
+    -   name: MIN_VER
+        description: Minor IP version
+        reset: 0
+        width: 16
+        lsb: 0
+        access: ro
+        hardware: f
+        enums: []
+-   name: KILL
+    description: Synchronous reset register
+    address: 4
+    bitfields:
+    -   name: KILL
+        description: Kill
+        reset: 0
+        width: 1
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: TEST_POINT
+    description: Test point control register
+    address: 8
+    bitfields:
+    -   name: TEST_POINT
+        description: Test point
+        reset: 0
+        width: 3
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: CHANNEL
+    description: Output channel control register
+    address: 12
+    bitfields:
+    -   name: TEST_POINT
+        description: Test point
+        reset: 0
+        width: 3
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MULT0
+    description: Multiplication value for ch0
+    address: 16
+    bitfields:
+    -   name: MULT0
+        description: Multiplication value for ch0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MULT1
+    description: Multiplication value for ch1
+    address: 20
+    bitfields:
+    -   name: MULT1
+        description: Multiplication value for ch1
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MULT2
+    description: Multiplication value for ch2
+    address: 24
+    bitfields:
+    -   name: MULT2
+        description: Multiplication value for ch2
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MULT3
+    description: Multiplication value for ch3
+    address: 28
+    bitfields:
+    -   name: MULT3
+        description: Multiplication value for ch3
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+    name: MULT4
+    description: Multiplication value for ch4
+    address: 32
+    bitfields:
+    -   name: MULT4
+        description: Multiplication value for ch4
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MULT5
+    description: Multiplication value for ch5
+    address: 36
+    bitfields:
+    -   name: MULT5
+        description: Multiplication value for ch5
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MULT6
+    description: Multiplication value for ch6
+    address: 40
+    bitfields:
+    -   name: MULT6
+        description: Multiplication value for ch6
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MULT7
+    description: Multiplication value for ch7
+    address: 44
+    bitfields:
+    -   name: MULT7
+        description: Multiplication value for ch7
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []

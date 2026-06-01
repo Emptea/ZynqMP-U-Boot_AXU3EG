@@ -1,0 +1,28 @@
+[globcfg]
+base_address = 0
+data_width = 32
+address_width = 11
+register_reset = sync_neg
+address_alignment = none
+force_name_case = lower
+regmap_path = regs.yaml
+
+[v_module]
+path = hdl/regs.v
+read_filler = 0
+interface = axil
+generator = Verilog
+
+[c_header]
+path = sw/regs.h
+prefix = CSR
+generator = CHeader
+
+[md_doc]
+path = doc/regs.md
+title = Register map
+print_images = True
+image_dir = md_img
+print_conventions = True
+generator = Markdown
+
