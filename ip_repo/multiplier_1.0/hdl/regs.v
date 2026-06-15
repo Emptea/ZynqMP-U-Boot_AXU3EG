@@ -64,7 +64,7 @@ module regs #(
     input               axil_rready
 );
   localparam integer IP_VER_MSB = 1;
-  localparam integer IP_VER_LSB = 0;
+  localparam integer IP_VER_LSB = 1;
 
 wire              wready;
 wire [ADDR_W-1:0] waddr;

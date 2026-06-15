@@ -31,7 +31,7 @@
            00000000 Len: 00038eb0 Res: 00000000 "zynqmp_fsbl.elf.0"
            00000000 Len: 0054f89c Res: 00000000 "d_1_wrapper.bit.0"
            00000000 Len: 0000c778 Res: 00000000 "bl31.elf.0"
-           00000000 Len: 000dc9bc Res: 00000000 "u-boot.elf.0"
+           00000000 Len: 000dda78 Res: 00000000 "u-boot.elf.0"
            -- End of Dump
 [INFO]   : After align 
            -- Dump of Binary Image ----
@@ -49,7 +49,7 @@
            00002800 Len: 00038eb0 Res: 00000000 "zynqmp_fsbl.elf.0"
            0003b6c0 Len: 0054f89c Res: 00000000 "d_1_wrapper.bit.0"
            0058af80 Len: 0000c778 Res: 00000000 "bl31.elf.0"
-           00597700 Len: 000dc9bc Res: 00000000 "u-boot.elf.0"
+           00597700 Len: 000dda78 Res: 00000000 "u-boot.elf.0"
            -- End of Dump
 [INFO]   : Partition Information: 
 [INFO]   : Image: zynqmp_fsbl.elf
@@ -59,7 +59,7 @@
 [INFO]   : Image: bl31.elf
 [INFO]   :        Partition 2: bl31.elf.0,  Size: 51064
 [INFO]   : Image: u-boot.elf
-[INFO]   :        Partition 3: u-boot.elf.0,  Size: 903609
+[INFO]   :        Partition 3: u-boot.elf.0,  Size: 907893
 [INFO]   : After Link 
            -- Dump of Binary Image ----
            00000000 Len: 000008b8 Res: 00000000 "BootHeader"
@@ -76,5 +76,5 @@
            00002800 Len: 00038eb0 Res: 00000000 "zynqmp_fsbl.elf.0"
            0003b6c0 Len: 0054f89c Res: 00000000 "d_1_wrapper.bit.0"
            0058af80 Len: 0000c778 Res: 00000000 "bl31.elf.0"
-           00597700 Len: 000dc9bc Res: 00000000 "u-boot.elf.0"
+           00597700 Len: 000dda78 Res: 00000000 "u-boot.elf.0"
            -- End of Dump

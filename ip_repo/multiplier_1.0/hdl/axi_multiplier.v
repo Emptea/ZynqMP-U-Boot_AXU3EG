@@ -29,14 +29,16 @@ module axi_multiplier #(
     reg [DSP_DELAY : 0] shift_reg_tvalid; // DSP_DELAY + 1 regs
     reg [DSP_DELAY : 0] shift_reg_tlast;
     
+    // Register input data
     always @(posedge aclk or negedge aresetn) begin : data_i_reg
-    if (!aresetn) data_in             <= 0;
-    else if (s00_axis_tvalid) data_in <= s00_axis_tdata;
+        if (!aresetn) 
+            data_in <= 0;
+        else if (s00_axis_tvalid && s00_axis_tready)  // Only latch when ready!
+            data_in <= s00_axis_tdata;
     end
     
-
+    // Generate multipliers
     genvar i;
-    // multiply each 16-bit by mult value stored in reg
     generate
         for (i = 0; i < N_DATA_IN_PACK; i = i + 1) begin: gen_mult
             mult_dsp48 #(
@@ -53,37 +55,46 @@ module axi_multiplier #(
         end
     endgenerate
     
+    // Pack output data
     assign m00_axis_tdata = {
         mult_output[1][DATA_WIDTH - 1 -: DATA_WIDTH],
         mult_output[0][DATA_WIDTH - 1 -: DATA_WIDTH]
     };
     
+    // FSM for flow control
     always @(posedge aclk or negedge aresetn) begin : FSM_State_Transition
-    if (!aresetn) state <= EMPTY;
-    else begin
+        if (!aresetn) 
+            state <= EMPTY;
+        else begin
             case (state)
-                EMPTY:
-                if (s00_axis_tvalid) state <= FULL;
-                FULL:
-                if (m00_axis_tready && !s00_axis_tvalid) state <= EMPTY;
-                default:
-                state <= EMPTY;
+                EMPTY: begin
+                    if (s00_axis_tvalid) 
+                        state <= FULL;
+                end
+                FULL: begin
+                    // Wait for output to be accepted and no new input
+                    if (m00_axis_tready && !s00_axis_tvalid) 
+                        state <= EMPTY;
+                end
+                default: state <= EMPTY;
             endcase
         end
     end
     
+    // Delay valid and last signals through DSP pipeline
     always @(posedge aclk or negedge aresetn) begin : shift_tvalid
-		if (!aresetn) begin
-			shift_reg_tvalid <= 0;
-			shift_reg_tlast  <= 0;
-		end else begin
-			shift_reg_tvalid <= {shift_reg_tvalid[DSP_DELAY - 1: 0], s00_axis_tvalid};
-			shift_reg_tlast  <= {shift_reg_tlast[DSP_DELAY - 1: 0], s00_axis_tlast};
-		end
-	end
+        if (!aresetn) begin
+            shift_reg_tvalid <= 0;
+            shift_reg_tlast  <= 0;
+        end else begin
+            shift_reg_tvalid <= {shift_reg_tvalid[DSP_DELAY - 1:0], (s00_axis_tvalid && s00_axis_tready)};
+            shift_reg_tlast  <= {shift_reg_tlast[DSP_DELAY - 1:0], s00_axis_tlast};
+        end
+    end
         
-	assign m00_axis_tvalid = shift_reg_tvalid[DSP_DELAY];
-	assign m00_axis_tlast  = shift_reg_tlast[DSP_DELAY];
-	assign s00_axis_tready = (state == EMPTY) || (m00_axis_tready & state == FULL);
-
+    assign m00_axis_tvalid = shift_reg_tvalid[DSP_DELAY];
+    assign m00_axis_tlast  = shift_reg_tlast[DSP_DELAY];
+    
+    assign s00_axis_tready = (state == EMPTY) | ((state == FULL) && m00_axis_tready);
+    
 endmodule
