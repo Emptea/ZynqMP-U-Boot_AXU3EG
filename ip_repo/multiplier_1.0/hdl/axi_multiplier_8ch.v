@@ -9,6 +9,13 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
                          parameter integer DSP_DELAY = 3,
                          parameter integer N_MULTS = 8)
                         (
+
+                        input i_reset_from_controls,
+                        input i_apply_controls,
+                         input [15: 0]i_output_source,
+                         input [15: 0]i_output_source_channel,
+
+
                          input wire aclk,
                          input wire aresetn,
                          input wire [2:0] channel,
@@ -62,15 +69,11 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
     wire [N_MULTS-1:0] mults_output_tvalid;
     wire [N_MULTS-1:0] mults_output_tlast;
     wire [AXIS_TDATA_WIDTH-1:0] mults_output_tdata [0:N_MULTS-1];
-    reg mux_tvalid;
-    reg mux_tlast;
-    reg [AXIS_TDATA_WIDTH-1:0] mux_tdata;
+    wire dsp_data_last;
     
     
-    assign m_axis_tvalid = mux_tvalid;
-    assign m_axis_tlast = mux_tlast;
-    assign m_axis_tdata = mux_tdata;
-    
+    assign m_axis_tlast = dsp_data_last;
+    /*
     genvar i;
     generate
         for (i = 0; i < N_MULTS; i = i + 1) begin : gen_axi_multiplier
@@ -124,7 +127,7 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
         
         end
     endgenerate
-    
+
     always @( posedge aclk )
     begin
         if ( aresetn == 1'b0 ) begin
@@ -137,5 +140,95 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
             mux_tlast <= mults_output_tlast[channel];
         end
     end    
+*/    
+
+    localparam SIGNAL_WIDTH = 16;
+    localparam CHANNEL_NUMBER = 8;
+    localparam INPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH * CHANNEL_NUMBER;
+    localparam OUTPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH;
+    localparam DIAGRAM_NUMBER = 8;
+    localparam COMPENSATION_COEF_WIDTH = 16;
+    localparam DIAGRAM_COEF_WIDTH = 16;
+    localparam COMPENSATION_COEF_LEVEL_ONE = 14;
+    localparam DIAGRAM_COEF_LEVEL_ONE = 14;
+
+    wire [CHANNEL_NUMBER - 1: 0]request_data_from_fifo;
+
+    wire [INPUT_DATA_WIDTH - 1: 0]input_data;
+    wire [CHANNEL_NUMBER - 1: 0]request_data_from_fifo;
+    wire [CHANNEL_NUMBER - 1: 0]input_data_valid;
+
+    assign input_data = {
+        s07_axis_tdata,
+        s06_axis_tdata,
+        s05_axis_tdata,
+        s04_axis_tdata,
+        s03_axis_tdata,
+        s02_axis_tdata,
+        s01_axis_tdata,
+        s00_axis_tdata
+    };
+
+    assign input_data_valid = {
+        s07_axis_tvalid,
+        s06_axis_tvalid,
+        s05_axis_tvalid,
+        s04_axis_tvalid,
+        s03_axis_tvalid,
+        s02_axis_tvalid,
+        s01_axis_tvalid,
+        s00_axis_tvalid
+    };
+
+    Dsp
+        #(
+            .INPUT_DATA_WIDTH(INPUT_DATA_WIDTH),
+            .OUTPUT_DATA_WIDTH(OUTPUT_DATA_WIDTH),
+            .SIGNAL_WIDTH(SIGNAL_WIDTH),
+            .CHANNEL_NUMBER(CHANNEL_NUMBER),
+            .DIAGRAM_NUMBER(DIAGRAM_NUMBER),
+            .COMPENSATION_COEF_WIDTH(COMPENSATION_COEF_WIDTH),
+            .DIAGRAM_COEF_WIDTH(DIAGRAM_COEF_WIDTH),
+            .COMPENSATION_COEF_LEVEL_ONE(COMPENSATION_COEF_LEVEL_ONE),
+            .DIAGRAM_COEF_LEVEL_ONE(DIAGRAM_COEF_LEVEL_ONE)
+        )
+        inst_dsp
+        (
+            .i_data(input_data),
+            .i_data_valid(input_data_valid),
+            .i_clock(aclk),
+            .i_reset(i_reset_from_controls | ~aresetn),
+
+            .i_apply_controls(i_apply_controls),
+            .i_output_source(i_output_source),
+            .i_output_source_channel(i_output_source_channel),
     
+            .i_compensation_calculation_reference(1 << 14),
+    
+            .i_compensation_mode(0),
+    
+            .i_manual_compensation_coefs(0),
+            .i_diagram_coefs(0),
+    
+            .o_read_from_fifo(request_data_from_fifo),
+            
+            .o_data(m_axis_tdata),
+            .o_data_valid(m_axis_tvalid),
+            .i_awaiting_data(m_axis_tready),
+            .o_data_last(dsp_data_last)
+        );
+
+
+    assign
+        {
+            s07_axis_tready,
+            s06_axis_tready,
+            s05_axis_tready,
+            s04_axis_tready,
+            s03_axis_tready,
+            s02_axis_tready,
+            s01_axis_tready,
+            s00_axis_tready
+        } = request_data_from_fifo;
+
 endmodule

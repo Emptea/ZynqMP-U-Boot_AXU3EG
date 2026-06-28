@@ -1,4 +1,3 @@
-
 `timescale 1 ns / 1 ps
 
 module multiplier_v1_0 #(
@@ -99,6 +98,12 @@ module multiplier_v1_0 #(
   wire [15:0] mult6;
   wire [15:0] mult7;
 
+  wire [15: 0]output_source;
+  wire [15: 0]output_source_channel;
+
+  wire reset_from_control;
+  wire apply_controls;
+
   // Instantiation of Axi Bus Interface S00_AXI
   regs #(
       .ADDR_W(AXI_ADDR_WIDTH),
@@ -110,13 +115,10 @@ module multiplier_v1_0 #(
       .csr_kill_kill_out            (kill),
       .csr_test_point_test_point_out(test_point),
       .csr_channel_test_point_out   (channel),
-      .csr_mult0_mult0_out(mults[0+:MULT_WIDTH]),
-      .csr_mult1_mult1_out          (mults[MULT_WIDTH+:MULT_WIDTH]),
-      .csr_mult2_mult2_out          (mults[MULT_WIDTH*2+:MULT_WIDTH]),
-      .csr_mult4_mult4_out          (mults[MULT_WIDTH*3+:MULT_WIDTH]),
-      .csr_mult5_mult5_out          (mults[MULT_WIDTH*4+:MULT_WIDTH]),
-      .csr_mult6_mult6_out          (mults[MULT_WIDTH*5+:MULT_WIDTH]),
-      .csr_mult7_mult7_out          (mults[MULT_WIDTH*6+:MULT_WIDTH]),
+
+      .o_source(output_source),
+      .o_source_channel(output_source_channel),
+
       .axil_awaddr                  (s00_axi_awaddr),
       .axil_awprot                  (s00_axi_awprot),
       .axil_awvalid                 (s00_axi_awvalid),
@@ -135,7 +137,10 @@ module multiplier_v1_0 #(
       .axil_rdata                   (s00_axi_rdata),
       .axil_rresp                   (s00_axi_rresp),
       .axil_rvalid                  (s00_axi_rvalid),
-      .axil_rready                  (s00_axi_rready)
+      .axil_rready                  (s00_axi_rready),
+
+      .o_reset(reset_from_control),
+      .o_apply(apply_controls)
   );
 
   axi_multiplier_8ch #(
@@ -152,6 +157,12 @@ module multiplier_v1_0 #(
       .aresetn(aresetn),
       .channel(channel),
       .mults(mults),
+
+      .i_reset_from_controls(reset_from_control),
+      .i_apply_controls(apply_controls),
+      .i_output_source(output_source),
+      .i_output_source_channel(output_source_channel),
+
       .m_axis_tvalid(m_axis_tvalid),
       .m_axis_tdata(m_axis_tdata),
       .m_axis_tlast(m_axis_tlast),
