@@ -117,9 +117,6 @@ if { $nRet != 0 } {
    return $nRet
 }
 
-set_property ip_repo_paths [list "$script_folder/../ip_repo"] [current_project]
-update_ip_catalog -rebuild -scan_changes
-
 set bCheckIPsPassed 1
 ##################################################################
 # CHECK IPs
@@ -771,8 +768,8 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__IOPLL_CTRL__FBDIV {90} \
    CONFIG.PSU__CRL_APB__IOPLL_CTRL__FRACDATA {0.000000} \
    CONFIG.PSU__CRL_APB__IOPLL_TO_FPD_CTRL__DIVISOR0 {3} \
-   CONFIG.PSU__CRL_APB__IOU_SWITCH_CTRL__ACT_FREQMHZ {249.997498} \
-   CONFIG.PSU__CRL_APB__IOU_SWITCH_CTRL__DIVISOR0 {6} \
+   CONFIG.PSU__CRL_APB__IOU_SWITCH_CTRL__ACT_FREQMHZ {266.664001} \
+   CONFIG.PSU__CRL_APB__IOU_SWITCH_CTRL__DIVISOR0 {3} \
    CONFIG.PSU__CRL_APB__LPD_LSBUS_CTRL__ACT_FREQMHZ {99.999001} \
    CONFIG.PSU__CRL_APB__LPD_LSBUS_CTRL__DIVISOR0 {15} \
    CONFIG.PSU__CRL_APB__LPD_SWITCH_CTRL__ACT_FREQMHZ {499.994995} \
@@ -781,10 +778,10 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__NAND_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PCAP_CTRL__ACT_FREQMHZ {187.498123} \
    CONFIG.PSU__CRL_APB__PCAP_CTRL__DIVISOR0 {8} \
-   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ {299.997009} \
-   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0 {5} \
+   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ {199.998001} \
+   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0 {4} \
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1 {1} \
-   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {300} \
+   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {200} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0 {4} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PL2_REF_CTRL__DIVISOR0 {4} \
@@ -795,9 +792,9 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0 {5} \
    CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__RPLL_CTRL__DIV2 {1} \
-   CONFIG.PSU__CRL_APB__RPLL_CTRL__FBDIV {90} \
+   CONFIG.PSU__CRL_APB__RPLL_CTRL__FBDIV {48} \
    CONFIG.PSU__CRL_APB__RPLL_CTRL__FRACDATA {0.000000} \
-   CONFIG.PSU__CRL_APB__RPLL_TO_FPD_CTRL__DIVISOR0 {3} \
+   CONFIG.PSU__CRL_APB__RPLL_TO_FPD_CTRL__DIVISOR0 {2} \
    CONFIG.PSU__CRL_APB__SDIO0_REF_CTRL__ACT_FREQMHZ {187.498123} \
    CONFIG.PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR0 {8} \
    CONFIG.PSU__CRL_APB__SDIO0_REF_CTRL__DIVISOR1 {1} \
@@ -1028,7 +1025,7 @@ proc create_root_design { parentCell } {
   # Create instance: system_ila_0, and set properties
   set system_ila_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila_0 ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {3.5} \
+   CONFIG.C_BRAM_CNT {6.5} \
    CONFIG.C_MON_TYPE {MIX} \
    CONFIG.C_NUM_MONITOR_SLOTS {10} \
    CONFIG.C_NUM_OF_PROBES {9} \
@@ -1077,10 +1074,10 @@ proc create_root_design { parentCell } {
   # Create instance: system_ila_1, and set properties
   set system_ila_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila_1 ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {3.5} \
+   CONFIG.C_BRAM_CNT {9.5} \
    CONFIG.C_MON_TYPE {MIX} \
-   CONFIG.C_NUM_MONITOR_SLOTS {8} \
-   CONFIG.C_NUM_OF_PROBES {16} \
+   CONFIG.C_NUM_MONITOR_SLOTS {9} \
+   CONFIG.C_NUM_OF_PROBES {18} \
    CONFIG.C_SLOT_0_APC_EN {0} \
    CONFIG.C_SLOT_0_AXI_DATA_SEL {1} \
    CONFIG.C_SLOT_0_AXI_TRIG_SEL {1} \
@@ -1133,6 +1130,8 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets axi_mcdma_0_M_AXIS_MM2S] [get_bd
   connect_bd_intf_net -intf_net axi_mcdma_0_M_AXI_S2MM [get_bd_intf_pins mcdma/M_AXI_S2MM] [get_bd_intf_pins smc_pl2ps/S02_AXI]
   connect_bd_intf_net -intf_net axi_mcdma_0_M_AXI_SG [get_bd_intf_pins mcdma/M_AXI_SG] [get_bd_intf_pins smc_pl2ps/S00_AXI]
   connect_bd_intf_net -intf_net axis_data_fifo_1_M_AXIS [get_bd_intf_pins mcdma/S_AXIS_S2MM] [get_bd_intf_pins output_fifo/M_AXIS]
+connect_bd_intf_net -intf_net [get_bd_intf_nets axis_data_fifo_1_M_AXIS] [get_bd_intf_pins output_fifo/M_AXIS] [get_bd_intf_pins system_ila_1/SLOT_8_AXIS]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets axis_data_fifo_1_M_AXIS]
   connect_bd_intf_net -intf_net axis_interconnect_0_M00_AXIS [get_bd_intf_pins axis_subset_converter_0/S_AXIS] [get_bd_intf_pins mcdma2fifos/M00_AXIS]
 connect_bd_intf_net -intf_net [get_bd_intf_nets axis_interconnect_0_M00_AXIS] [get_bd_intf_pins mcdma2fifos/M00_AXIS] [get_bd_intf_pins system_ila_0/SLOT_0_AXIS]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets axis_interconnect_0_M00_AXIS]
@@ -1234,6 +1233,8 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets multiplier_0_M00_AXIS1] [get_bd_
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_6]
   connect_bd_net -net axis_rd_data_count_7 [get_bd_pins input_fifo_ch1/axis_rd_data_count] [get_bd_pins system_ila_1/probe9]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_7]
+  connect_bd_net -net axis_rd_data_count_8 [get_bd_pins output_fifo/axis_rd_data_count] [get_bd_pins system_ila_1/probe17]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_8]
   connect_bd_net -net axis_wr_data_count [get_bd_pins input_fifo_ch5/axis_wr_data_count] [get_bd_pins system_ila_1/probe5]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count]
   connect_bd_net -net axis_wr_data_count_1 [get_bd_pins input_fifo_ch3/axis_wr_data_count] [get_bd_pins system_ila_1/probe3]
@@ -1250,6 +1251,8 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets multiplier_0_M00_AXIS1] [get_bd_
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_6]
   connect_bd_net -net axis_wr_data_count_7 [get_bd_pins input_fifo_ch1/axis_wr_data_count] [get_bd_pins system_ila_1/probe1]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_7]
+  connect_bd_net -net axis_wr_data_count_8 [get_bd_pins output_fifo/axis_wr_data_count] [get_bd_pins system_ila_1/probe16]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_8]
   connect_bd_net -net axprot_unsecure_dout [get_bd_pins axprot_unsecure/dout] [get_bd_pins ps/saxigp0_arprot] [get_bd_pins ps/saxigp0_awprot]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins axis_subset_converter_0/aresetn] [get_bd_pins axis_subset_converter_1/aresetn] [get_bd_pins axis_subset_converter_2/aresetn] [get_bd_pins axis_subset_converter_3/aresetn] [get_bd_pins axis_subset_converter_4/aresetn] [get_bd_pins axis_subset_converter_5/aresetn] [get_bd_pins axis_subset_converter_6/aresetn] [get_bd_pins axis_subset_converter_7/aresetn] [get_bd_pins gpio/s_axi_aresetn] [get_bd_pins input_fifo_ch0/s_axis_aresetn] [get_bd_pins input_fifo_ch1/s_axis_aresetn] [get_bd_pins input_fifo_ch2/s_axis_aresetn] [get_bd_pins input_fifo_ch3/s_axis_aresetn] [get_bd_pins input_fifo_ch4/s_axis_aresetn] [get_bd_pins input_fifo_ch5/s_axis_aresetn] [get_bd_pins input_fifo_ch6/s_axis_aresetn] [get_bd_pins input_fifo_ch7/s_axis_aresetn] [get_bd_pins mcdma/axi_resetn] [get_bd_pins mcdma2fifos/ARESETN] [get_bd_pins mcdma2fifos/M00_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M01_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M02_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M03_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M04_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M05_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M06_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M07_AXIS_ARESETN] [get_bd_pins mcdma2fifos/S00_AXIS_ARESETN] [get_bd_pins output_fifo/s_axis_aresetn] [get_bd_pins proc_sys_reset/peripheral_aresetn] [get_bd_pins rls_mini_dsp/aresetn] [get_bd_pins rls_mini_dsp/s00_axi_aresetn] [get_bd_pins smc_pl2ps/aresetn] [get_bd_pins smc_ps2pl/ARESETN] [get_bd_pins smc_ps2pl/M00_ARESETN] [get_bd_pins smc_ps2pl/M01_ARESETN] [get_bd_pins smc_ps2pl/M02_ARESETN] [get_bd_pins smc_ps2pl/S00_ARESETN] [get_bd_pins smc_ps2pl/S01_ARESETN] [get_bd_pins system_ila_0/resetn] [get_bd_pins system_ila_1/resetn]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins mm2s_irqs/dout] [get_bd_pins ps/pl_ps_irq0]
@@ -1285,7 +1288,6 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets multiplier_0_M00_AXIS1] [get_bd_
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
