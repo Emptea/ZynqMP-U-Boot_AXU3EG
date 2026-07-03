@@ -29,6 +29,9 @@ module regs #(
     // mult2.mult2
     output [15:0] csr_mult2_mult2_out,
 
+    // mult3.mult3
+    output [15:0] csr_mult3_mult3_out,
+
     // mult4.mult4
     output [15:0] csr_mult4_mult4_out,
 
@@ -63,9 +66,6 @@ module regs #(
     output              axil_rvalid,
     input               axil_rready
 );
-  localparam integer IP_VER_MSB = 1;
-  localparam integer IP_VER_LSB = 1;
-
 wire              wready;
 wire [ADDR_W-1:0] waddr;
 wire [DATA_W-1:0] wdata;
@@ -195,7 +195,7 @@ assign csr_ip_ver_rdata[15:0] = csr_ip_ver_min_ver_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
-        csr_ip_ver_min_ver_ff <= IP_VER_LSB;
+        csr_ip_ver_min_ver_ff <= 16'h1;
     end else  begin
       begin
             csr_ip_ver_min_ver_ff <= csr_ip_ver_min_ver_ff;
@@ -216,7 +216,7 @@ assign csr_ip_ver_rdata[31:16] = csr_ip_ver_maj_ver_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
-        csr_ip_ver_maj_ver_ff <= IP_VER_MSB;
+        csr_ip_ver_maj_ver_ff <= 16'h1;
     end else  begin
       begin
             csr_ip_ver_maj_ver_ff <= csr_ip_ver_maj_ver_ff;
@@ -512,6 +512,55 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
+// [0x1c] - mult3 - Multiplication value for ch3
+//------------------------------------------------------------------------------
+wire [31:0] csr_mult3_rdata;
+assign csr_mult3_rdata[31:16] = 16'h0;
+
+wire csr_mult3_wen;
+assign csr_mult3_wen = wen && (waddr == 11'h1c);
+
+wire csr_mult3_ren;
+assign csr_mult3_ren = ren && (raddr == 11'h1c);
+reg csr_mult3_ren_ff;
+always @(posedge clk) begin
+    if (!rst) begin
+        csr_mult3_ren_ff <= 1'b0;
+    end else begin
+        csr_mult3_ren_ff <= csr_mult3_ren;
+    end
+end
+//---------------------
+// Bit field:
+// mult3[15:0] - mult3 - Multiplication value for ch3
+// access: rw, hardware: o
+//---------------------
+reg [15:0] csr_mult3_mult3_ff;
+
+assign csr_mult3_rdata[15:0] = csr_mult3_mult3_ff;
+
+assign csr_mult3_mult3_out = csr_mult3_mult3_ff;
+
+always @(posedge clk) begin
+    if (!rst) begin
+        csr_mult3_mult3_ff <= 16'h0;
+    end else  begin
+     if (csr_mult3_wen) begin
+            if (wstrb[0]) begin
+                csr_mult3_mult3_ff[7:0] <= wdata[7:0];
+            end
+            if (wstrb[1]) begin
+                csr_mult3_mult3_ff[15:8] <= wdata[15:8];
+            end
+        end else begin
+            csr_mult3_mult3_ff <= csr_mult3_mult3_ff;
+        end
+    end
+end
+
+
+//------------------------------------------------------------------------------
+// CSR:
 // [0x20] - mult4 - Multiplication value for ch4
 //------------------------------------------------------------------------------
 wire [31:0] csr_mult4_rdata;
@@ -727,6 +776,7 @@ always @(posedge clk) begin
             11'h10: rdata_ff <= csr_mult0_rdata;
             11'h14: rdata_ff <= csr_mult1_rdata;
             11'h18: rdata_ff <= csr_mult2_rdata;
+            11'h1c: rdata_ff <= csr_mult3_rdata;
             11'h20: rdata_ff <= csr_mult4_rdata;
             11'h24: rdata_ff <= csr_mult5_rdata;
             11'h28: rdata_ff <= csr_mult6_rdata;

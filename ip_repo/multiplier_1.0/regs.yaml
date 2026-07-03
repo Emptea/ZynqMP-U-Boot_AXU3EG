@@ -5,7 +5,7 @@ regmap:
     bitfields:
     -   name: MAJ_VER
         description: Major IP version
-        reset: 0
+        reset: 1
         width: 16
         lsb: 16
         access: ro
@@ -13,7 +13,7 @@ regmap:
         enums: []
     -   name: MIN_VER
         description: Minor IP version
-        reset: 0
+        reset: 1
         width: 16
         lsb: 0
         access: ro
@@ -103,7 +103,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
-    name: MULT4
+-   name: MULT4
     description: Multiplication value for ch4
     address: 32
     bitfields:

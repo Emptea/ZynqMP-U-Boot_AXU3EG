@@ -29,6 +29,7 @@ Base address: 0x00000000
 | [mult0](#mult0)          | 0x10       | Multiplication value for ch0 |
 | [mult1](#mult1)          | 0x14       | Multiplication value for ch1 |
 | [mult2](#mult2)          | 0x18       | Multiplication value for ch2 |
+| [mult3](#mult3)          | 0x1c       | Multiplication value for ch3 |
 | [mult4](#mult4)          | 0x20       | Multiplication value for ch4 |
 | [mult5](#mult5)          | 0x24       | Multiplication value for ch5 |
 | [mult6](#mult6)          | 0x28       | Multiplication value for ch6 |
@@ -40,14 +41,14 @@ IP version
 
 Address offset: 0x00
 
-Reset value: 0x00000000
+Reset value: 0x00010001
 
 ![ip_ver](md_img/ip_ver.svg)
 
 | Name             | Bits   | Mode            | Reset      | Description |
 | :---             | :---   | :---            | :---       | :---        |
-| maj_ver          | 31:16  | ro              | 0x0000     | Major IP version |
-| min_ver          | 15:0   | ro              | 0x0000     | Minor IP version |
+| maj_ver          | 31:16  | ro              | 0x0001     | Major IP version |
+| min_ver          | 15:0   | ro              | 0x0001     | Minor IP version |
 
 Back to [Register map](#register-map-summary).
 
@@ -150,6 +151,23 @@ Reset value: 0x00000000
 | :---             | :---   | :---            | :---       | :---        |
 | -                | 31:16  | -               | 0x0000     | Reserved |
 | mult2            | 15:0   | rw              | 0x0000     | Multiplication value for ch2 |
+
+Back to [Register map](#register-map-summary).
+
+## mult3
+
+Multiplication value for ch3
+
+Address offset: 0x1c
+
+Reset value: 0x00000000
+
+![mult3](md_img/mult3.svg)
+
+| Name             | Bits   | Mode            | Reset      | Description |
+| :---             | :---   | :---            | :---       | :---        |
+| -                | 31:16  | -               | 0x0000     | Reserved |
+| mult3            | 15:0   | rw              | 0x0000     | Multiplication value for ch3 |
 
 Back to [Register map](#register-map-summary).
 
