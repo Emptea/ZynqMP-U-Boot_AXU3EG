@@ -147,10 +147,10 @@ module LouBlock
 					.o_signal(lou_data)
 				);
 
-			if(i == 0 || i == 1)
-			begin
+//			if(i == 0 || i == 1)
+//			begin
 				assign o_signal[2 * BIT_WIDTH * i +: 2 * BIT_WIDTH] = lou_data;
-			end
+//			end
 
 		end
 	endgenerate
