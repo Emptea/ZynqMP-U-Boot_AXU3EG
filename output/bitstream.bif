@@ -1,0 +1,4 @@
+all:
+{
+    [destination_device = pl] d_1_wrapper.bit /* Bitstream file name */
+}

@@ -89,6 +89,14 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
     wire [AXIS_TDATA_WIDTH-1:0] mults_output_tdata [0:N_MULTS-1];
     wire dsp_data_last;
     
+    assign s00_axis_tready = mults_tready[0];
+    assign s01_axis_tready = mults_tready[1];
+    assign s02_axis_tready = mults_tready[2];
+    assign s03_axis_tready = mults_tready[3];
+    assign s04_axis_tready = mults_tready[4];
+    assign s05_axis_tready = mults_tready[5];
+    assign s06_axis_tready = mults_tready[6];
+    assign s07_axis_tready = mults_tready[7];
     
     assign m_axis_tlast = dsp_data_last;
     /*
@@ -129,14 +137,7 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
                                      i == 5 ? s05_axis_tlast :
                                      i == 6 ? s06_axis_tlast :
                                      i == 7 ? s07_axis_tlast : 1'b0),
-                .s00_axis_tready     (i == 0 ? s00_axis_tready :
-                                     i == 1 ? s01_axis_tready :
-                                     i == 2 ? s02_axis_tready :
-                                     i == 3 ? s03_axis_tready :
-                                     i == 4 ? s04_axis_tready :
-                                     i == 5 ? s05_axis_tready :
-                                     i == 6 ? s06_axis_tready :
-                                     i == 7 ? s07_axis_tready : 1'b0),
+                .s00_axis_tready     (mults_tready[i]),
                 .m00_axis_tready     (m_axis_tready),
                 .m00_axis_tdata      (mults_output_tdata[i]),
                 .m00_axis_tvalid     (mults_output_tvalid[i]),

@@ -1365,79 +1365,84 @@
 			reset-gpios = <&gpio 173 GPIO_ACTIVE_LOW>;
 		};
 
-		axi_dma_0: dma@80001000 {
+		mcdma: axi_mcdma@a0000000 {
 			#dma-cells = <1>;
-			clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk",
-				      "m_axi_s2mm_aclk";
-			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
-				 <&zynqmp_clk 71>;
-			compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
-			interrupt-names = "mm2s_introut", "s2mm_introut";
+			clock-names = "s_axi_aclk", "s_axi_lite_aclk";
+			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>;
+			compatible = "xlnx,axi-mcdma-1.1", "xlnx,axi-mcdma-1.00.a";
+			interrupt-names = "mm2s_ch1_introut", "mm2s_ch2_introut", "mm2s_ch3_introut",
+					  "mm2s_ch4_introut", "mm2s_ch5_introut", "mm2s_ch6_introut",
+					  "mm2s_ch7_introut", "mm2s_ch8_introut", "s2mm_ch1_introut";
 			interrupt-parent = <&gic>;
-			interrupts = <0 89 4 0 90 4>;
-			reg = <0x0 0x80001000 0x0 0x1000>;
+			interrupts = <0 89 4 0 90 4 0 91 4 0 92 4 0 93 4 0 94 4 0 95 4 0 96 4 0 104 4>;
+			reg = <0x0 0xa0000000 0x0 0x1000>;
 			xlnx,addrwidth = <0x40>;
+			xlnx,dlytmr-resolution = <0x7d>;
+			xlnx,enable-single-intr = <0x0>;
+			xlnx,group1-mm2s = <0xa98ac7>;
+			xlnx,group1-s2mm = <0x1>;
+			xlnx,group2-mm2s = <0x0>;
+			xlnx,group2-s2mm = <0x0>;
+			xlnx,group3-mm2s = <0x0>;
+			xlnx,group3-s2mm = <0x0>;
+			xlnx,group4-mm2s = <0x0>;
+			xlnx,group4-s2mm = <0x0>;
+			xlnx,group5-mm2s = <0x0>;
+			xlnx,group5-s2mm = <0x0>;
+			xlnx,group6-mm2s = <0x0>;
+			xlnx,group6-s2mm = <0x0>;
+			xlnx,include-mm2s = <0x1>;
+			xlnx,include-mm2s-dre = <0x0>;
+			xlnx,include-mm2s-sf = <0x1>;
+			xlnx,include-s2mm = <0x1>;
+			xlnx,include-s2mm-dre = <0x0>;
+			xlnx,include-s2mm-sf = <0x1>;
 			xlnx,include-sg;
-			xlnx,sg-length-width = <0x1a>;
-			dma-coherent;
-			resets = <&zynqmp_reset ZYNQMP_RESET_PS_PL0>;
-			reset-names = "pl_resetn0";
+			xlnx,mm2s-burst-size = <0x100>;
+			xlnx,mm2s-scheduler = <0x2>;
+			xlnx,num-mm2s-channels = <0x8>;
+			xlnx,num-s2mm-channels = <0x1>;
+			xlnx,prmry-is-aclk-async = <0x0>;
+			xlnx,s2mm-burst-size = <0x100>;
+			xlnx,sg-include-stscntrl-strm = <0x0>;
+			xlnx,sg-length-width = <0x17>;
+			xlnx,sg-use-stsapp-length = <0x0>;
 
-			dma-channel@80001000 {
+
+			dma-channel@a0000000 {
 				compatible = "xlnx,axi-dma-mm2s-channel";
-				dma-channels = <0x1>;
-				interrupts = <0 89 4>;
-				xlnx,datawidth = <0x80>;
+				dma-channels = <0x8>;
+				interrupt-parent = <&gic>;
+				interrupts = <0 89 4 0 90 4 0 91 4 0 92 4 0 93 4 0 94 4 0 95 4 0 96 4>;
+				xlnx,datawidth = <0x20>;
 				xlnx,device-id = <0x0>;
 			};
-
-			dma-channel@80001030 {
+			dma-channel@a0000030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				dma-channels = <0x1>;
-				interrupts = <0 90 4>;
+				interrupt-parent = <&gic>;
+				interrupts = <0 104 4>;
 				xlnx,datawidth = <0x20>;
 				xlnx,device-id = <0x0>;
 			};
 		};
 
-		axi_dma_1: dma@a0000000 {
-			#dma-cells = <1>;
-			clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
-			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
-				 <&zynqmp_clk 71>;
-			compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
-			interrupt-names = "mm2s_introut";
-			interrupt-parent = <&gic>;
-			interrupts = <0 91 4>;
-			reg = <0x0 0xa0000000 0x0 0x1000>;
-			xlnx,addrwidth = <0x40>;
-			xlnx,include-sg;
-			xlnx,sg-length-width = <0x1a>;
-			dma-coherent;
-			resets = <&zynqmp_reset ZYNQMP_RESET_PS_PL0>;
-			reset-names = "pl_resetn0";
-
-			dma-channel@a0000000 {
-				compatible = "xlnx,axi-dma-mm2s-channel";
-				dma-channels = <0x1>;
-				interrupts = <0 91 4>;
-				xlnx,datawidth = <0x80>;
-				xlnx,device-id = <0x0>;
-			};
-		};
-
-		dma_proxy_ch0 {
+		dma_proxy {
 			compatible = "xlnx,dma_proxy";
-			dmas = <&axi_dma_0 0 &axi_dma_0 1>;
-			dma-names = "dma_proxy_tx_ch0", "dma_proxy_rx";
+			dmas = <&mcdma 0 &mcdma 1 &mcdma 2
+				&mcdma 3 &mcdma 4 &mcdma 5
+				&mcdma 6 &mcdma 7 &mcdma 16>;
+			dma-names = "dma_proxy_tx_ch0", "dma_proxy_tx_ch1", "dma_proxy_tx_ch2",
+				    "dma_proxy_tx_ch3", "dma_proxy_tx_ch4", "dma_proxy_tx_ch5",
+				    "dma_proxy_tx_ch6", "dma_proxy_tx_ch7", "dma_proxy_rx";
 			dma-coherent;
 		};
 
-		dma_proxy_ch1 {
-			compatible = "xlnx,dma_proxy";
-			dmas = <&axi_dma_1 0>;
-			dma-names = "dma_proxy_tx_ch1";
-			dma-coherent;
+		rls_mini_dsp: multiplier@a0001000 {
+			compatible = "BMSTU,axi-multiplier-1.0";
+			clock-names = "aclk", "s00_axi_aclk";
+			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>;
+			reg = <0x0 0xa0001000 0x0 0x1000>;
 		};
 
 		axi_gpio_0: gpio@80000000 {
@@ -1460,13 +1465,6 @@
 			xlnx,is-dual = <0x0>;
 			xlnx,tri-default = <0xffffffff>;
 			xlnx,tri-default-2 = <0xffffffff>;
-			resets = <&zynqmp_reset ZYNQMP_RESET_PS_PL0>;
-			reset-names = "pl_resetn0";
-		};
-
-		axi_multiplier@a0001000 {
-			compatible = "BMSTU,axi-multiplier-1.0";
-			reg = <0x0 0xa0001000 0x0 0x1000>;
 			resets = <&zynqmp_reset ZYNQMP_RESET_PS_PL0>;
 			reset-names = "pl_resetn0";
 		};

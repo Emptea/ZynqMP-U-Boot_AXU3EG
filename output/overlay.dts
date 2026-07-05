@@ -1,0 +1,230 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 { /* Bitstream  Fragment */
+		target = <&fpga_full>;
+
+		overlay0: __overlay__ {
+			#address-cells = <0x02>;
+			#size-cells = <0x02>;
+			firmware-name = "d_1_wrapper.bin";
+			resets = <&zynqmp_reset 116>;
+		};
+	};
+
+	fragment@1 {
+		target = <&amba_pl>;
+
+		overlay1: __overlay__ {
+			// /* axi_dma_2: new DMA controller */
+			// axi_dma_2: dma@a0002000 {
+			// 	#dma-cells = <1>;
+			// 	clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
+			// 	clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>;
+			// 	compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+			// 	interrupt-names = "mm2s_introut";
+			// 	interrupt-parent = <&gic>;
+			// 	interrupts = <0 92 4>;
+			// 	reg = <0x0 0xa0002000 0x0 0x1000>;
+			// 	xlnx,addrwidth = <0x40>;
+			// 	xlnx,include-sg;
+			// 	xlnx,sg-length-width = <0x1a>;
+			// 	dma-coherent;
+			// 	resets = <&zynqmp_reset 116>;
+			// 	reset-names = "pl_resetn0";
+
+			// 	dma-channel@a0002000 {
+			// 		compatible = "xlnx,axi-dma-mm2s-channel";
+			// 		dma-channels = <0x1>;
+			// 		interrupts = <0 92 4>;
+			// 		xlnx,datawidth = <0x80>;
+			// 		xlnx,device-id = <0x0>;
+			// 		reg = <0xa0002000>;
+			// 	};
+			// };
+
+			// /* axi_dma_3: new DMA controller */
+			// axi_dma_3: dma@a0003000 {
+			// 	#dma-cells = <1>;
+			// 	clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
+			// 	clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
+			// 		 <&zynqmp_clk 71>;
+			// 	compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+			// 	interrupt-names = "mm2s_introut";
+			// 	interrupt-parent = <&gic>;
+			// 	interrupts = <0 93 4>;
+			// 	reg = <0x0 0xa0003000 0x0 0x1000>;
+			// 	xlnx,addrwidth = <0x40>;
+			// 	xlnx,include-sg;
+			// 	xlnx,sg-length-width = <0x1a>;
+			// 	dma-coherent;
+			// 	resets = <&zynqmp_reset 116>;
+			// 	reset-names = "pl_resetn0";
+
+			// 	dma-channel@a0003000 {
+			// 		compatible = "xlnx,axi-dma-mm2s-channel";
+			// 		dma-channels = <0x1>;
+			// 		interrupts = <0 93 4>;
+			// 		xlnx,datawidth = <0x80>;
+			// 		xlnx,device-id = <0x0>;
+			// 	};
+			// };
+
+			// /* axi_dma_4: new DMA controller */
+			// axi_dma_4: dma@b0000000 {
+			// 	#dma-cells = <1>;
+			// 	clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
+			// 	clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
+			// 		 <&zynqmp_clk 71>;
+			// 	compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+			// 	interrupt-names = "mm2s_introut";
+			// 	interrupt-parent = <&gic>;
+			// 	interrupts = <0 94 4>;
+			// 	reg = <0x0 0xb0000000 0x0 0x1000>;
+			// 	xlnx,addrwidth = <0x40>;
+			// 	xlnx,include-sg;
+			// 	xlnx,sg-length-width = <0x1a>;
+			// 	dma-coherent;
+			// 	resets = <&zynqmp_reset 116>;
+			// 	reset-names = "pl_resetn0";
+
+			// 	dma-channel@b0000000 {
+			// 		compatible = "xlnx,axi-dma-mm2s-channel";
+			// 		dma-channels = <0x1>;
+			// 		interrupts = <0 94 4>;
+			// 		xlnx,datawidth = <0x80>;
+			// 		xlnx,device-id = <0x0>;
+			// 	};
+			// };
+
+			// /* axi_dma_5: new DMA controller */
+			// axi_dma_5: dma@b0001000 {
+			// 	#dma-cells = <1>;
+			// 	clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
+			// 	clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
+			// 		 <&zynqmp_clk 71>;
+			// 	compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+			// 	interrupt-names = "mm2s_introut";
+			// 	interrupt-parent = <&gic>;
+			// 	interrupts = <0 95 4>;
+			// 	reg = <0x0 0xb0001000 0x0 0x1000>;
+			// 	xlnx,addrwidth = <0x40>;
+			// 	xlnx,include-sg;
+			// 	xlnx,sg-length-width = <0x1a>;
+			// 	dma-coherent;
+			// 	resets = <&zynqmp_reset 116>;
+			// 	reset-names = "pl_resetn0";
+
+			// 	dma-channel@b0001000 {
+			// 		compatible = "xlnx,axi-dma-mm2s-channel";
+			// 		dma-channels = <0x1>;
+			// 		interrupts = <0 95 4>;
+			// 		xlnx,datawidth = <0x80>;
+			// 		xlnx,device-id = <0x0>;
+			// 	};
+			// };
+
+			// /* axi_dma_6: new DMA controller */
+			// axi_dma_6: dma@b0002000 {
+			// 	#dma-cells = <1>;
+			// 	clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
+			// 	clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
+			// 		 <&zynqmp_clk 71>;
+			// 	compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+			// 	interrupt-names = "mm2s_introut";
+			// 	interrupt-parent = <&gic>;
+			// 	interrupts = <0 96 4>;
+			// 	reg = <0x0 0xb0002000 0x0 0x1000>;
+			// 	xlnx,addrwidth = <0x40>;
+			// 	xlnx,include-sg;
+			// 	xlnx,sg-length-width = <0x1a>;
+			// 	dma-coherent;
+			// 	resets = <&zynqmp_reset 116>;
+			// 	reset-names = "pl_resetn0";
+
+			// 	dma-channel@b0002000 {
+			// 		compatible = "xlnx,axi-dma-mm2s-channel";
+			// 		dma-channels = <0x1>;
+			// 		interrupts = <0 96 4>;
+			// 		xlnx,datawidth = <0x80>;
+			// 		xlnx,device-id = <0x0>;
+			// 	};
+			// };
+
+			// /* axi_dma_7: new DMA controller */
+			// axi_dma_7: dma@b0003000 {
+			// 	#dma-cells = <1>;
+			// 	clock-names = "s_axi_lite_aclk", "m_axi_sg_aclk", "m_axi_mm2s_aclk";
+			// 	clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>, <&zynqmp_clk 71>,
+			// 		 <&zynqmp_clk 71>;
+			// 	compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+			// 	interrupt-names = "mm2s_introut";
+			// 	interrupt-parent = <&gic>;
+			// 	interrupts = <0 104 4>;
+			// 	reg = <0x0 0xb0003000 0x0 0x1000>;
+			// 	xlnx,addrwidth = <0x40>;
+			// 	xlnx,include-sg;
+			// 	xlnx,sg-length-width = <0x1a>;
+			// 	dma-coherent;
+			// 	resets = <&zynqmp_reset 116>;
+			// 	reset-names = "pl_resetn0";
+
+			// 	dma-channel@b0003000 {
+			// 		compatible = "xlnx,axi-dma-mm2s-channel";
+			// 		dma-channels = <0x1>;
+			// 		interrupts = <0 104 4>;
+			// 		xlnx,datawidth = <0x80>;
+			// 		xlnx,device-id = <0x0>;
+			// 	};
+			// };
+
+			// dma_proxy_ch2: dma_proxy_ch2 {
+			// 	compatible = "xlnx,dma_proxy";
+			// 	dmas = <&axi_dma_2 0>;
+			// 	dma-names = "dma_proxy_tx_ch2";
+			// 	dma-coherent;
+			// };
+
+			// dma_proxy_ch3: dma_proxy_ch3 {
+			// 	compatible = "xlnx,dma_proxy";
+			// 	dmas = <&axi_dma_3 0>;
+			// 	dma-names = "dma_proxy_tx_ch3";
+			// 	dma-coherent;
+			// };
+
+			// dma_proxy_ch4: dma_proxy_ch4 {
+			// 	compatible = "xlnx,dma_proxy";
+			// 	dmas = <&axi_dma_4 0>;
+			// 	dma-names = "dma_proxy_tx_ch4";
+			// 	dma-coherent;
+			// };
+
+			// dma_proxy_ch5: dma_proxy_ch5 {
+			// 	compatible = "xlnx,dma_proxy";
+			// 	dmas = <&axi_dma_5 0>;
+			// 	dma-names = "dma_proxy_tx_ch5";
+			// 	dma-coherent;
+			// };
+
+			// dma_proxy_ch6: dma_proxy_ch6 {
+			// 	compatible = "xlnx,dma_proxy";
+			// 	dmas = <&axi_dma_6 0>;
+			// 	dma-names = "dma_proxy_tx_ch6";
+			// 	dma-coherent;
+			// };
+
+			// dma_proxy_ch7: dma_proxy_ch7 {
+			// 	compatible = "xlnx,dma_proxy";
+			// 	dmas = <&axi_dma_7 0>;
+			// 	dma-names = "dma_proxy_tx_ch7";
+			// 	dma-coherent;
+			// };
+
+			/* Update axi_multiplier compatible */
+			axi_multiplier@a0001000 {
+				compatible = "BMSTU,rls_mini_pl";
+			};
+		};
+	};
+};
