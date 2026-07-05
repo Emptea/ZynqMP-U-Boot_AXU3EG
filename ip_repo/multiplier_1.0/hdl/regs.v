@@ -8,6 +8,9 @@ module regs #(
     // System
     input clk,
     input rst,
+
+    output reg o_reset,
+    output reg o_apply,
     // ip_ver.min_ver
     // ip_ver.maj_ver
 
@@ -20,262 +23,422 @@ module regs #(
     // channel.test_point
     output [2:0] csr_channel_test_point_out,
 
-    output [15: 0]o_source,
-    output [15: 0]o_source_channel,
-
-    output reg o_reset,
-    output reg o_apply,
-
     // compensation_mode.mode
+    output [31:0] csr_compensation_mode_mode_out,
 
     // manual_compensation_0.real
+    output [15:0] csr_manual_compensation_0_real_out,
     // manual_compensation_0.imag
+    output [15:0] csr_manual_compensation_0_imag_out,
 
     // manual_compensation_1.real
+    output [15:0] csr_manual_compensation_1_real_out,
     // manual_compensation_1.imag
+    output [15:0] csr_manual_compensation_1_imag_out,
 
     // manual_compensation_2.real
+    output [15:0] csr_manual_compensation_2_real_out,
     // manual_compensation_2.imag
+    output [15:0] csr_manual_compensation_2_imag_out,
 
     // manual_compensation_3.real
+    output [15:0] csr_manual_compensation_3_real_out,
     // manual_compensation_3.imag
+    output [15:0] csr_manual_compensation_3_imag_out,
 
     // manual_compensation_4.real
+    output [15:0] csr_manual_compensation_4_real_out,
     // manual_compensation_4.imag
+    output [15:0] csr_manual_compensation_4_imag_out,
 
     // manual_compensation_5.real
+    output [15:0] csr_manual_compensation_5_real_out,
     // manual_compensation_5.imag
+    output [15:0] csr_manual_compensation_5_imag_out,
 
     // manual_compensation_6.real
+    output [15:0] csr_manual_compensation_6_real_out,
     // manual_compensation_6.imag
+    output [15:0] csr_manual_compensation_6_imag_out,
 
     // manual_compensation_7.real
+    output [15:0] csr_manual_compensation_7_real_out,
     // manual_compensation_7.imag
+    output [15:0] csr_manual_compensation_7_imag_out,
 
     // diagram_0_0.real
+    output [15:0] csr_diagram_0_0_real_out,
     // diagram_0_0.imag
+    output [15:0] csr_diagram_0_0_imag_out,
 
     // diagram_0_1.real
+    output [15:0] csr_diagram_0_1_real_out,
     // diagram_0_1.imag
+    output [15:0] csr_diagram_0_1_imag_out,
 
     // diagram_0_2.real
+    output [15:0] csr_diagram_0_2_real_out,
     // diagram_0_2.imag
+    output [15:0] csr_diagram_0_2_imag_out,
 
     // diagram_0_3.real
+    output [15:0] csr_diagram_0_3_real_out,
     // diagram_0_3.imag
+    output [15:0] csr_diagram_0_3_imag_out,
 
     // diagram_0_4.real
+    output [15:0] csr_diagram_0_4_real_out,
     // diagram_0_4.imag
+    output [15:0] csr_diagram_0_4_imag_out,
 
     // diagram_0_5.real
+    output [15:0] csr_diagram_0_5_real_out,
     // diagram_0_5.imag
+    output [15:0] csr_diagram_0_5_imag_out,
 
     // diagram_0_6.real
+    output [15:0] csr_diagram_0_6_real_out,
     // diagram_0_6.imag
+    output [15:0] csr_diagram_0_6_imag_out,
 
     // diagram_0_7.real
+    output [15:0] csr_diagram_0_7_real_out,
     // diagram_0_7.imag
+    output [15:0] csr_diagram_0_7_imag_out,
 
     // diagram_1_0.real
+    output [15:0] csr_diagram_1_0_real_out,
     // diagram_1_0.imag
+    output [15:0] csr_diagram_1_0_imag_out,
 
     // diagram_1_1.real
+    output [15:0] csr_diagram_1_1_real_out,
     // diagram_1_1.imag
+    output [15:0] csr_diagram_1_1_imag_out,
 
     // diagram_1_2.real
+    output [15:0] csr_diagram_1_2_real_out,
     // diagram_1_2.imag
+    output [15:0] csr_diagram_1_2_imag_out,
 
     // diagram_1_3.real
+    output [15:0] csr_diagram_1_3_real_out,
     // diagram_1_3.imag
+    output [15:0] csr_diagram_1_3_imag_out,
 
     // diagram_1_4.real
+    output [15:0] csr_diagram_1_4_real_out,
     // diagram_1_4.imag
+    output [15:0] csr_diagram_1_4_imag_out,
 
     // diagram_1_5.real
+    output [15:0] csr_diagram_1_5_real_out,
     // diagram_1_5.imag
+    output [15:0] csr_diagram_1_5_imag_out,
 
     // diagram_1_6.real
+    output [15:0] csr_diagram_1_6_real_out,
     // diagram_1_6.imag
+    output [15:0] csr_diagram_1_6_imag_out,
 
     // diagram_1_7.real
+    output [15:0] csr_diagram_1_7_real_out,
     // diagram_1_7.imag
+    output [15:0] csr_diagram_1_7_imag_out,
 
     // diagram_2_0.real
+    output [15:0] csr_diagram_2_0_real_out,
     // diagram_2_0.imag
+    output [15:0] csr_diagram_2_0_imag_out,
 
     // diagram_2_1.real
+    output [15:0] csr_diagram_2_1_real_out,
     // diagram_2_1.imag
+    output [15:0] csr_diagram_2_1_imag_out,
 
     // diagram_2_2.real
+    output [15:0] csr_diagram_2_2_real_out,
     // diagram_2_2.imag
+    output [15:0] csr_diagram_2_2_imag_out,
 
     // diagram_2_3.real
+    output [15:0] csr_diagram_2_3_real_out,
     // diagram_2_3.imag
+    output [15:0] csr_diagram_2_3_imag_out,
 
     // diagram_2_4.real
+    output [15:0] csr_diagram_2_4_real_out,
     // diagram_2_4.imag
+    output [15:0] csr_diagram_2_4_imag_out,
 
     // diagram_2_5.real
+    output [15:0] csr_diagram_2_5_real_out,
     // diagram_2_5.imag
+    output [15:0] csr_diagram_2_5_imag_out,
 
     // diagram_2_6.real
+    output [15:0] csr_diagram_2_6_real_out,
     // diagram_2_6.imag
+    output [15:0] csr_diagram_2_6_imag_out,
 
     // diagram_2_7.real
+    output [15:0] csr_diagram_2_7_real_out,
     // diagram_2_7.imag
+    output [15:0] csr_diagram_2_7_imag_out,
 
     // diagram_3_0.real
+    output [15:0] csr_diagram_3_0_real_out,
     // diagram_3_0.imag
+    output [15:0] csr_diagram_3_0_imag_out,
 
     // diagram_3_1.real
+    output [15:0] csr_diagram_3_1_real_out,
     // diagram_3_1.imag
+    output [15:0] csr_diagram_3_1_imag_out,
 
     // diagram_3_2.real
+    output [15:0] csr_diagram_3_2_real_out,
     // diagram_3_2.imag
+    output [15:0] csr_diagram_3_2_imag_out,
 
     // diagram_3_3.real
+    output [15:0] csr_diagram_3_3_real_out,
     // diagram_3_3.imag
+    output [15:0] csr_diagram_3_3_imag_out,
 
     // diagram_3_4.real
+    output [15:0] csr_diagram_3_4_real_out,
     // diagram_3_4.imag
+    output [15:0] csr_diagram_3_4_imag_out,
 
     // diagram_3_5.real
+    output [15:0] csr_diagram_3_5_real_out,
     // diagram_3_5.imag
+    output [15:0] csr_diagram_3_5_imag_out,
 
     // diagram_3_6.real
+    output [15:0] csr_diagram_3_6_real_out,
     // diagram_3_6.imag
+    output [15:0] csr_diagram_3_6_imag_out,
 
     // diagram_3_7.real
+    output [15:0] csr_diagram_3_7_real_out,
     // diagram_3_7.imag
+    output [15:0] csr_diagram_3_7_imag_out,
 
     // diagram_4_0.real
+    output [15:0] csr_diagram_4_0_real_out,
     // diagram_4_0.imag
+    output [15:0] csr_diagram_4_0_imag_out,
 
     // diagram_4_1.real
+    output [15:0] csr_diagram_4_1_real_out,
     // diagram_4_1.imag
+    output [15:0] csr_diagram_4_1_imag_out,
 
     // diagram_4_2.real
+    output [15:0] csr_diagram_4_2_real_out,
     // diagram_4_2.imag
+    output [15:0] csr_diagram_4_2_imag_out,
 
     // diagram_4_3.real
+    output [15:0] csr_diagram_4_3_real_out,
     // diagram_4_3.imag
+    output [15:0] csr_diagram_4_3_imag_out,
 
     // diagram_4_4.real
+    output [15:0] csr_diagram_4_4_real_out,
     // diagram_4_4.imag
+    output [15:0] csr_diagram_4_4_imag_out,
 
     // diagram_4_5.real
+    output [15:0] csr_diagram_4_5_real_out,
     // diagram_4_5.imag
+    output [15:0] csr_diagram_4_5_imag_out,
 
     // diagram_4_6.real
+    output [15:0] csr_diagram_4_6_real_out,
     // diagram_4_6.imag
+    output [15:0] csr_diagram_4_6_imag_out,
 
     // diagram_4_7.real
+    output [15:0] csr_diagram_4_7_real_out,
     // diagram_4_7.imag
+    output [15:0] csr_diagram_4_7_imag_out,
 
     // diagram_5_0.real
+    output [15:0] csr_diagram_5_0_real_out,
     // diagram_5_0.imag
+    output [15:0] csr_diagram_5_0_imag_out,
 
     // diagram_5_1.real
+    output [15:0] csr_diagram_5_1_real_out,
     // diagram_5_1.imag
+    output [15:0] csr_diagram_5_1_imag_out,
 
     // diagram_5_2.real
+    output [15:0] csr_diagram_5_2_real_out,
     // diagram_5_2.imag
+    output [15:0] csr_diagram_5_2_imag_out,
 
     // diagram_5_3.real
+    output [15:0] csr_diagram_5_3_real_out,
     // diagram_5_3.imag
+    output [15:0] csr_diagram_5_3_imag_out,
 
     // diagram_5_4.real
+    output [15:0] csr_diagram_5_4_real_out,
     // diagram_5_4.imag
+    output [15:0] csr_diagram_5_4_imag_out,
 
     // diagram_5_5.real
+    output [15:0] csr_diagram_5_5_real_out,
     // diagram_5_5.imag
+    output [15:0] csr_diagram_5_5_imag_out,
 
     // diagram_5_6.real
+    output [15:0] csr_diagram_5_6_real_out,
     // diagram_5_6.imag
+    output [15:0] csr_diagram_5_6_imag_out,
 
     // diagram_5_7.real
+    output [15:0] csr_diagram_5_7_real_out,
     // diagram_5_7.imag
+    output [15:0] csr_diagram_5_7_imag_out,
 
     // diagram_6_0.real
+    output [15:0] csr_diagram_6_0_real_out,
     // diagram_6_0.imag
+    output [15:0] csr_diagram_6_0_imag_out,
 
     // diagram_6_1.real
+    output [15:0] csr_diagram_6_1_real_out,
     // diagram_6_1.imag
+    output [15:0] csr_diagram_6_1_imag_out,
 
     // diagram_6_2.real
+    output [15:0] csr_diagram_6_2_real_out,
     // diagram_6_2.imag
+    output [15:0] csr_diagram_6_2_imag_out,
 
     // diagram_6_3.real
+    output [15:0] csr_diagram_6_3_real_out,
     // diagram_6_3.imag
+    output [15:0] csr_diagram_6_3_imag_out,
 
     // diagram_6_4.real
+    output [15:0] csr_diagram_6_4_real_out,
     // diagram_6_4.imag
+    output [15:0] csr_diagram_6_4_imag_out,
 
     // diagram_6_5.real
+    output [15:0] csr_diagram_6_5_real_out,
     // diagram_6_5.imag
+    output [15:0] csr_diagram_6_5_imag_out,
 
     // diagram_6_6.real
+    output [15:0] csr_diagram_6_6_real_out,
     // diagram_6_6.imag
+    output [15:0] csr_diagram_6_6_imag_out,
 
     // diagram_6_7.real
+    output [15:0] csr_diagram_6_7_real_out,
     // diagram_6_7.imag
+    output [15:0] csr_diagram_6_7_imag_out,
 
     // diagram_7_0.real
+    output [15:0] csr_diagram_7_0_real_out,
     // diagram_7_0.imag
+    output [15:0] csr_diagram_7_0_imag_out,
 
     // diagram_7_1.real
+    output [15:0] csr_diagram_7_1_real_out,
     // diagram_7_1.imag
+    output [15:0] csr_diagram_7_1_imag_out,
 
     // diagram_7_2.real
+    output [15:0] csr_diagram_7_2_real_out,
     // diagram_7_2.imag
+    output [15:0] csr_diagram_7_2_imag_out,
 
     // diagram_7_3.real
+    output [15:0] csr_diagram_7_3_real_out,
     // diagram_7_3.imag
+    output [15:0] csr_diagram_7_3_imag_out,
 
     // diagram_7_4.real
+    output [15:0] csr_diagram_7_4_real_out,
     // diagram_7_4.imag
+    output [15:0] csr_diagram_7_4_imag_out,
 
     // diagram_7_5.real
+    output [15:0] csr_diagram_7_5_real_out,
     // diagram_7_5.imag
+    output [15:0] csr_diagram_7_5_imag_out,
 
     // diagram_7_6.real
+    output [15:0] csr_diagram_7_6_real_out,
     // diagram_7_6.imag
+    output [15:0] csr_diagram_7_6_imag_out,
 
     // diagram_7_7.real
+    output [15:0] csr_diagram_7_7_real_out,
     // diagram_7_7.imag
+    output [15:0] csr_diagram_7_7_imag_out,
 
     // motion_selector.filter
+    output [7:0] csr_motion_selector_filter_out,
     // motion_selector.onoff
+    output  csr_motion_selector_onoff_out,
 
     // diagram_angle_0.angle
+    output [31:0] csr_diagram_angle_0_angle_out,
 
     // diagram_angle_1.angle
+    output [31:0] csr_diagram_angle_1_angle_out,
 
     // diagram_angle_2.angle
+    output [31:0] csr_diagram_angle_2_angle_out,
 
     // diagram_angle_3.angle
+    output [31:0] csr_diagram_angle_3_angle_out,
 
     // diagram_angle_4.angle
+    output [31:0] csr_diagram_angle_4_angle_out,
 
     // diagram_angle_5.angle
+    output [31:0] csr_diagram_angle_5_angle_out,
 
     // diagram_angle_6.angle
+    output [31:0] csr_diagram_angle_6_angle_out,
 
     // diagram_angle_7.angle
+    output [31:0] csr_diagram_angle_7_angle_out,
 
     // output_source.source
+    output [15:0] csr_output_source_source_out,
     // output_source.source_channel
+    output [15:0] csr_output_source_source_channel_out,
 
     // apu_rank.rank
+    output [7:0] csr_apu_rank_rank_out,
     // apu_rank.window
+    output [7:0] csr_apu_rank_window_out,
 
     // detector_level_0.level
+    output [31:0] csr_detector_level_0_level_out,
 
     // detector_level_1.level
+    output [31:0] csr_detector_level_1_level_out,
 
     // azimuth_angle.angle
+    output [31:0] csr_azimuth_angle_angle_out,
 
     // apply.apply
+    output  csr_apply_apply_out,
+
+    // compensation_reference.real
+    output [15:0] csr_compensation_reference_real_out,
 
     // AXI
     input  [ADDR_W-1:0] axil_awaddr,
@@ -449,7 +612,7 @@ assign csr_ip_ver_rdata[31:16] = csr_ip_ver_maj_ver_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
-        csr_ip_ver_maj_ver_ff <= 16'h0;
+        csr_ip_ver_maj_ver_ff <= 16'h2;
     end else  begin
       begin
             csr_ip_ver_maj_ver_ff <= csr_ip_ver_maj_ver_ff;
@@ -492,6 +655,7 @@ assign csr_kill_kill_out = csr_kill_kill_ff;
 always @(posedge clk) begin
     if (!rst) begin
         csr_kill_kill_ff <= 1'b0;
+        o_reset <= 0;
     end else  begin
      if (csr_kill_wen) begin
             if (wstrb[0]) begin
@@ -620,12 +784,13 @@ end
 //---------------------
 // Bit field:
 // compensation_mode[31:0] - mode - Compensation mode
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_compensation_mode_mode_ff;
 
 assign csr_compensation_mode_rdata[31:0] = csr_compensation_mode_mode_ff;
 
+assign csr_compensation_mode_mode_out = csr_compensation_mode_mode_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -673,12 +838,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_0_real_ff;
 
 assign csr_manual_compensation_0_rdata[15:0] = csr_manual_compensation_0_real_ff;
 
+assign csr_manual_compensation_0_real_out = csr_manual_compensation_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -701,12 +867,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_0_imag_ff;
 
 assign csr_manual_compensation_0_rdata[31:16] = csr_manual_compensation_0_imag_ff;
 
+assign csr_manual_compensation_0_imag_out = csr_manual_compensation_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -748,12 +915,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_1_real_ff;
 
 assign csr_manual_compensation_1_rdata[15:0] = csr_manual_compensation_1_real_ff;
 
+assign csr_manual_compensation_1_real_out = csr_manual_compensation_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -776,12 +944,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_1_imag_ff;
 
 assign csr_manual_compensation_1_rdata[31:16] = csr_manual_compensation_1_imag_ff;
 
+assign csr_manual_compensation_1_imag_out = csr_manual_compensation_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -823,12 +992,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_2_real_ff;
 
 assign csr_manual_compensation_2_rdata[15:0] = csr_manual_compensation_2_real_ff;
 
+assign csr_manual_compensation_2_real_out = csr_manual_compensation_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -851,12 +1021,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_2_imag_ff;
 
 assign csr_manual_compensation_2_rdata[31:16] = csr_manual_compensation_2_imag_ff;
 
+assign csr_manual_compensation_2_imag_out = csr_manual_compensation_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -898,12 +1069,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_3_real_ff;
 
 assign csr_manual_compensation_3_rdata[15:0] = csr_manual_compensation_3_real_ff;
 
+assign csr_manual_compensation_3_real_out = csr_manual_compensation_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -926,12 +1098,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_3_imag_ff;
 
 assign csr_manual_compensation_3_rdata[31:16] = csr_manual_compensation_3_imag_ff;
 
+assign csr_manual_compensation_3_imag_out = csr_manual_compensation_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -973,12 +1146,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_4_real_ff;
 
 assign csr_manual_compensation_4_rdata[15:0] = csr_manual_compensation_4_real_ff;
 
+assign csr_manual_compensation_4_real_out = csr_manual_compensation_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1001,12 +1175,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_4_imag_ff;
 
 assign csr_manual_compensation_4_rdata[31:16] = csr_manual_compensation_4_imag_ff;
 
+assign csr_manual_compensation_4_imag_out = csr_manual_compensation_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1048,12 +1223,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_5_real_ff;
 
 assign csr_manual_compensation_5_rdata[15:0] = csr_manual_compensation_5_real_ff;
 
+assign csr_manual_compensation_5_real_out = csr_manual_compensation_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1076,12 +1252,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_5_imag_ff;
 
 assign csr_manual_compensation_5_rdata[31:16] = csr_manual_compensation_5_imag_ff;
 
+assign csr_manual_compensation_5_imag_out = csr_manual_compensation_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1123,12 +1300,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_6_real_ff;
 
 assign csr_manual_compensation_6_rdata[15:0] = csr_manual_compensation_6_real_ff;
 
+assign csr_manual_compensation_6_real_out = csr_manual_compensation_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1151,12 +1329,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_6_imag_ff;
 
 assign csr_manual_compensation_6_rdata[31:16] = csr_manual_compensation_6_imag_ff;
 
+assign csr_manual_compensation_6_imag_out = csr_manual_compensation_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1198,12 +1377,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_7_real_ff;
 
 assign csr_manual_compensation_7_rdata[15:0] = csr_manual_compensation_7_real_ff;
 
+assign csr_manual_compensation_7_real_out = csr_manual_compensation_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1226,12 +1406,13 @@ end
 //---------------------
 // Bit field:
 // manual_compensation_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_manual_compensation_7_imag_ff;
 
 assign csr_manual_compensation_7_rdata[31:16] = csr_manual_compensation_7_imag_ff;
 
+assign csr_manual_compensation_7_imag_out = csr_manual_compensation_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1273,12 +1454,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_0_real_ff;
 
 assign csr_diagram_0_0_rdata[15:0] = csr_diagram_0_0_real_ff;
 
+assign csr_diagram_0_0_real_out = csr_diagram_0_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1301,12 +1483,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_0_imag_ff;
 
 assign csr_diagram_0_0_rdata[31:16] = csr_diagram_0_0_imag_ff;
 
+assign csr_diagram_0_0_imag_out = csr_diagram_0_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1348,12 +1531,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_1_real_ff;
 
 assign csr_diagram_0_1_rdata[15:0] = csr_diagram_0_1_real_ff;
 
+assign csr_diagram_0_1_real_out = csr_diagram_0_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1376,12 +1560,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_1_imag_ff;
 
 assign csr_diagram_0_1_rdata[31:16] = csr_diagram_0_1_imag_ff;
 
+assign csr_diagram_0_1_imag_out = csr_diagram_0_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1423,12 +1608,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_2_real_ff;
 
 assign csr_diagram_0_2_rdata[15:0] = csr_diagram_0_2_real_ff;
 
+assign csr_diagram_0_2_real_out = csr_diagram_0_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1451,12 +1637,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_2_imag_ff;
 
 assign csr_diagram_0_2_rdata[31:16] = csr_diagram_0_2_imag_ff;
 
+assign csr_diagram_0_2_imag_out = csr_diagram_0_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1498,12 +1685,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_3_real_ff;
 
 assign csr_diagram_0_3_rdata[15:0] = csr_diagram_0_3_real_ff;
 
+assign csr_diagram_0_3_real_out = csr_diagram_0_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1526,12 +1714,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_3_imag_ff;
 
 assign csr_diagram_0_3_rdata[31:16] = csr_diagram_0_3_imag_ff;
 
+assign csr_diagram_0_3_imag_out = csr_diagram_0_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1573,12 +1762,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_4_real_ff;
 
 assign csr_diagram_0_4_rdata[15:0] = csr_diagram_0_4_real_ff;
 
+assign csr_diagram_0_4_real_out = csr_diagram_0_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1601,12 +1791,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_4_imag_ff;
 
 assign csr_diagram_0_4_rdata[31:16] = csr_diagram_0_4_imag_ff;
 
+assign csr_diagram_0_4_imag_out = csr_diagram_0_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1648,12 +1839,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_5_real_ff;
 
 assign csr_diagram_0_5_rdata[15:0] = csr_diagram_0_5_real_ff;
 
+assign csr_diagram_0_5_real_out = csr_diagram_0_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1676,12 +1868,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_5_imag_ff;
 
 assign csr_diagram_0_5_rdata[31:16] = csr_diagram_0_5_imag_ff;
 
+assign csr_diagram_0_5_imag_out = csr_diagram_0_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1723,12 +1916,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_6_real_ff;
 
 assign csr_diagram_0_6_rdata[15:0] = csr_diagram_0_6_real_ff;
 
+assign csr_diagram_0_6_real_out = csr_diagram_0_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1751,12 +1945,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_6_imag_ff;
 
 assign csr_diagram_0_6_rdata[31:16] = csr_diagram_0_6_imag_ff;
 
+assign csr_diagram_0_6_imag_out = csr_diagram_0_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1798,12 +1993,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_7_real_ff;
 
 assign csr_diagram_0_7_rdata[15:0] = csr_diagram_0_7_real_ff;
 
+assign csr_diagram_0_7_real_out = csr_diagram_0_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1826,12 +2022,13 @@ end
 //---------------------
 // Bit field:
 // diagram_0_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_0_7_imag_ff;
 
 assign csr_diagram_0_7_rdata[31:16] = csr_diagram_0_7_imag_ff;
 
+assign csr_diagram_0_7_imag_out = csr_diagram_0_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1873,12 +2070,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_0_real_ff;
 
 assign csr_diagram_1_0_rdata[15:0] = csr_diagram_1_0_real_ff;
 
+assign csr_diagram_1_0_real_out = csr_diagram_1_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1901,12 +2099,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_0_imag_ff;
 
 assign csr_diagram_1_0_rdata[31:16] = csr_diagram_1_0_imag_ff;
 
+assign csr_diagram_1_0_imag_out = csr_diagram_1_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1948,12 +2147,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_1_real_ff;
 
 assign csr_diagram_1_1_rdata[15:0] = csr_diagram_1_1_real_ff;
 
+assign csr_diagram_1_1_real_out = csr_diagram_1_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -1976,12 +2176,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_1_imag_ff;
 
 assign csr_diagram_1_1_rdata[31:16] = csr_diagram_1_1_imag_ff;
 
+assign csr_diagram_1_1_imag_out = csr_diagram_1_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2023,12 +2224,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_2_real_ff;
 
 assign csr_diagram_1_2_rdata[15:0] = csr_diagram_1_2_real_ff;
 
+assign csr_diagram_1_2_real_out = csr_diagram_1_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2051,12 +2253,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_2_imag_ff;
 
 assign csr_diagram_1_2_rdata[31:16] = csr_diagram_1_2_imag_ff;
 
+assign csr_diagram_1_2_imag_out = csr_diagram_1_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2098,12 +2301,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_3_real_ff;
 
 assign csr_diagram_1_3_rdata[15:0] = csr_diagram_1_3_real_ff;
 
+assign csr_diagram_1_3_real_out = csr_diagram_1_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2126,12 +2330,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_3_imag_ff;
 
 assign csr_diagram_1_3_rdata[31:16] = csr_diagram_1_3_imag_ff;
 
+assign csr_diagram_1_3_imag_out = csr_diagram_1_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2173,12 +2378,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_4_real_ff;
 
 assign csr_diagram_1_4_rdata[15:0] = csr_diagram_1_4_real_ff;
 
+assign csr_diagram_1_4_real_out = csr_diagram_1_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2201,12 +2407,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_4_imag_ff;
 
 assign csr_diagram_1_4_rdata[31:16] = csr_diagram_1_4_imag_ff;
 
+assign csr_diagram_1_4_imag_out = csr_diagram_1_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2248,12 +2455,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_5_real_ff;
 
 assign csr_diagram_1_5_rdata[15:0] = csr_diagram_1_5_real_ff;
 
+assign csr_diagram_1_5_real_out = csr_diagram_1_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2276,12 +2484,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_5_imag_ff;
 
 assign csr_diagram_1_5_rdata[31:16] = csr_diagram_1_5_imag_ff;
 
+assign csr_diagram_1_5_imag_out = csr_diagram_1_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2323,12 +2532,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_6_real_ff;
 
 assign csr_diagram_1_6_rdata[15:0] = csr_diagram_1_6_real_ff;
 
+assign csr_diagram_1_6_real_out = csr_diagram_1_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2351,12 +2561,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_6_imag_ff;
 
 assign csr_diagram_1_6_rdata[31:16] = csr_diagram_1_6_imag_ff;
 
+assign csr_diagram_1_6_imag_out = csr_diagram_1_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2398,12 +2609,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_7_real_ff;
 
 assign csr_diagram_1_7_rdata[15:0] = csr_diagram_1_7_real_ff;
 
+assign csr_diagram_1_7_real_out = csr_diagram_1_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2426,12 +2638,13 @@ end
 //---------------------
 // Bit field:
 // diagram_1_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_1_7_imag_ff;
 
 assign csr_diagram_1_7_rdata[31:16] = csr_diagram_1_7_imag_ff;
 
+assign csr_diagram_1_7_imag_out = csr_diagram_1_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2473,12 +2686,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_0_real_ff;
 
 assign csr_diagram_2_0_rdata[15:0] = csr_diagram_2_0_real_ff;
 
+assign csr_diagram_2_0_real_out = csr_diagram_2_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2501,12 +2715,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_0_imag_ff;
 
 assign csr_diagram_2_0_rdata[31:16] = csr_diagram_2_0_imag_ff;
 
+assign csr_diagram_2_0_imag_out = csr_diagram_2_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2548,12 +2763,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_1_real_ff;
 
 assign csr_diagram_2_1_rdata[15:0] = csr_diagram_2_1_real_ff;
 
+assign csr_diagram_2_1_real_out = csr_diagram_2_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2576,12 +2792,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_1_imag_ff;
 
 assign csr_diagram_2_1_rdata[31:16] = csr_diagram_2_1_imag_ff;
 
+assign csr_diagram_2_1_imag_out = csr_diagram_2_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2623,12 +2840,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_2_real_ff;
 
 assign csr_diagram_2_2_rdata[15:0] = csr_diagram_2_2_real_ff;
 
+assign csr_diagram_2_2_real_out = csr_diagram_2_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2651,12 +2869,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_2_imag_ff;
 
 assign csr_diagram_2_2_rdata[31:16] = csr_diagram_2_2_imag_ff;
 
+assign csr_diagram_2_2_imag_out = csr_diagram_2_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2698,12 +2917,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_3_real_ff;
 
 assign csr_diagram_2_3_rdata[15:0] = csr_diagram_2_3_real_ff;
 
+assign csr_diagram_2_3_real_out = csr_diagram_2_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2726,12 +2946,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_3_imag_ff;
 
 assign csr_diagram_2_3_rdata[31:16] = csr_diagram_2_3_imag_ff;
 
+assign csr_diagram_2_3_imag_out = csr_diagram_2_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2773,12 +2994,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_4_real_ff;
 
 assign csr_diagram_2_4_rdata[15:0] = csr_diagram_2_4_real_ff;
 
+assign csr_diagram_2_4_real_out = csr_diagram_2_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2801,12 +3023,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_4_imag_ff;
 
 assign csr_diagram_2_4_rdata[31:16] = csr_diagram_2_4_imag_ff;
 
+assign csr_diagram_2_4_imag_out = csr_diagram_2_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2848,12 +3071,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_5_real_ff;
 
 assign csr_diagram_2_5_rdata[15:0] = csr_diagram_2_5_real_ff;
 
+assign csr_diagram_2_5_real_out = csr_diagram_2_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2876,12 +3100,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_5_imag_ff;
 
 assign csr_diagram_2_5_rdata[31:16] = csr_diagram_2_5_imag_ff;
 
+assign csr_diagram_2_5_imag_out = csr_diagram_2_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2923,12 +3148,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_6_real_ff;
 
 assign csr_diagram_2_6_rdata[15:0] = csr_diagram_2_6_real_ff;
 
+assign csr_diagram_2_6_real_out = csr_diagram_2_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2951,12 +3177,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_6_imag_ff;
 
 assign csr_diagram_2_6_rdata[31:16] = csr_diagram_2_6_imag_ff;
 
+assign csr_diagram_2_6_imag_out = csr_diagram_2_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -2998,12 +3225,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_7_real_ff;
 
 assign csr_diagram_2_7_rdata[15:0] = csr_diagram_2_7_real_ff;
 
+assign csr_diagram_2_7_real_out = csr_diagram_2_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3026,12 +3254,13 @@ end
 //---------------------
 // Bit field:
 // diagram_2_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_2_7_imag_ff;
 
 assign csr_diagram_2_7_rdata[31:16] = csr_diagram_2_7_imag_ff;
 
+assign csr_diagram_2_7_imag_out = csr_diagram_2_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3073,12 +3302,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_0_real_ff;
 
 assign csr_diagram_3_0_rdata[15:0] = csr_diagram_3_0_real_ff;
 
+assign csr_diagram_3_0_real_out = csr_diagram_3_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3101,12 +3331,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_0_imag_ff;
 
 assign csr_diagram_3_0_rdata[31:16] = csr_diagram_3_0_imag_ff;
 
+assign csr_diagram_3_0_imag_out = csr_diagram_3_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3148,12 +3379,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_1_real_ff;
 
 assign csr_diagram_3_1_rdata[15:0] = csr_diagram_3_1_real_ff;
 
+assign csr_diagram_3_1_real_out = csr_diagram_3_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3176,12 +3408,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_1_imag_ff;
 
 assign csr_diagram_3_1_rdata[31:16] = csr_diagram_3_1_imag_ff;
 
+assign csr_diagram_3_1_imag_out = csr_diagram_3_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3223,12 +3456,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_2_real_ff;
 
 assign csr_diagram_3_2_rdata[15:0] = csr_diagram_3_2_real_ff;
 
+assign csr_diagram_3_2_real_out = csr_diagram_3_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3251,12 +3485,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_2_imag_ff;
 
 assign csr_diagram_3_2_rdata[31:16] = csr_diagram_3_2_imag_ff;
 
+assign csr_diagram_3_2_imag_out = csr_diagram_3_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3298,12 +3533,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_3_real_ff;
 
 assign csr_diagram_3_3_rdata[15:0] = csr_diagram_3_3_real_ff;
 
+assign csr_diagram_3_3_real_out = csr_diagram_3_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3326,12 +3562,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_3_imag_ff;
 
 assign csr_diagram_3_3_rdata[31:16] = csr_diagram_3_3_imag_ff;
 
+assign csr_diagram_3_3_imag_out = csr_diagram_3_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3373,12 +3610,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_4_real_ff;
 
 assign csr_diagram_3_4_rdata[15:0] = csr_diagram_3_4_real_ff;
 
+assign csr_diagram_3_4_real_out = csr_diagram_3_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3401,12 +3639,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_4_imag_ff;
 
 assign csr_diagram_3_4_rdata[31:16] = csr_diagram_3_4_imag_ff;
 
+assign csr_diagram_3_4_imag_out = csr_diagram_3_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3448,12 +3687,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_5_real_ff;
 
 assign csr_diagram_3_5_rdata[15:0] = csr_diagram_3_5_real_ff;
 
+assign csr_diagram_3_5_real_out = csr_diagram_3_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3476,12 +3716,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_5_imag_ff;
 
 assign csr_diagram_3_5_rdata[31:16] = csr_diagram_3_5_imag_ff;
 
+assign csr_diagram_3_5_imag_out = csr_diagram_3_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3523,12 +3764,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_6_real_ff;
 
 assign csr_diagram_3_6_rdata[15:0] = csr_diagram_3_6_real_ff;
 
+assign csr_diagram_3_6_real_out = csr_diagram_3_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3551,12 +3793,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_6_imag_ff;
 
 assign csr_diagram_3_6_rdata[31:16] = csr_diagram_3_6_imag_ff;
 
+assign csr_diagram_3_6_imag_out = csr_diagram_3_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3598,12 +3841,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_7_real_ff;
 
 assign csr_diagram_3_7_rdata[15:0] = csr_diagram_3_7_real_ff;
 
+assign csr_diagram_3_7_real_out = csr_diagram_3_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3626,12 +3870,13 @@ end
 //---------------------
 // Bit field:
 // diagram_3_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_3_7_imag_ff;
 
 assign csr_diagram_3_7_rdata[31:16] = csr_diagram_3_7_imag_ff;
 
+assign csr_diagram_3_7_imag_out = csr_diagram_3_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3673,12 +3918,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_0_real_ff;
 
 assign csr_diagram_4_0_rdata[15:0] = csr_diagram_4_0_real_ff;
 
+assign csr_diagram_4_0_real_out = csr_diagram_4_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3701,12 +3947,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_0_imag_ff;
 
 assign csr_diagram_4_0_rdata[31:16] = csr_diagram_4_0_imag_ff;
 
+assign csr_diagram_4_0_imag_out = csr_diagram_4_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3748,12 +3995,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_1_real_ff;
 
 assign csr_diagram_4_1_rdata[15:0] = csr_diagram_4_1_real_ff;
 
+assign csr_diagram_4_1_real_out = csr_diagram_4_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3776,12 +4024,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_1_imag_ff;
 
 assign csr_diagram_4_1_rdata[31:16] = csr_diagram_4_1_imag_ff;
 
+assign csr_diagram_4_1_imag_out = csr_diagram_4_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3823,12 +4072,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_2_real_ff;
 
 assign csr_diagram_4_2_rdata[15:0] = csr_diagram_4_2_real_ff;
 
+assign csr_diagram_4_2_real_out = csr_diagram_4_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3851,12 +4101,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_2_imag_ff;
 
 assign csr_diagram_4_2_rdata[31:16] = csr_diagram_4_2_imag_ff;
 
+assign csr_diagram_4_2_imag_out = csr_diagram_4_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3898,12 +4149,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_3_real_ff;
 
 assign csr_diagram_4_3_rdata[15:0] = csr_diagram_4_3_real_ff;
 
+assign csr_diagram_4_3_real_out = csr_diagram_4_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3926,12 +4178,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_3_imag_ff;
 
 assign csr_diagram_4_3_rdata[31:16] = csr_diagram_4_3_imag_ff;
 
+assign csr_diagram_4_3_imag_out = csr_diagram_4_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -3973,12 +4226,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_4_real_ff;
 
 assign csr_diagram_4_4_rdata[15:0] = csr_diagram_4_4_real_ff;
 
+assign csr_diagram_4_4_real_out = csr_diagram_4_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4001,12 +4255,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_4_imag_ff;
 
 assign csr_diagram_4_4_rdata[31:16] = csr_diagram_4_4_imag_ff;
 
+assign csr_diagram_4_4_imag_out = csr_diagram_4_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4048,12 +4303,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_5_real_ff;
 
 assign csr_diagram_4_5_rdata[15:0] = csr_diagram_4_5_real_ff;
 
+assign csr_diagram_4_5_real_out = csr_diagram_4_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4076,12 +4332,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_5_imag_ff;
 
 assign csr_diagram_4_5_rdata[31:16] = csr_diagram_4_5_imag_ff;
 
+assign csr_diagram_4_5_imag_out = csr_diagram_4_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4123,12 +4380,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_6_real_ff;
 
 assign csr_diagram_4_6_rdata[15:0] = csr_diagram_4_6_real_ff;
 
+assign csr_diagram_4_6_real_out = csr_diagram_4_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4151,12 +4409,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_6_imag_ff;
 
 assign csr_diagram_4_6_rdata[31:16] = csr_diagram_4_6_imag_ff;
 
+assign csr_diagram_4_6_imag_out = csr_diagram_4_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4198,12 +4457,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_7_real_ff;
 
 assign csr_diagram_4_7_rdata[15:0] = csr_diagram_4_7_real_ff;
 
+assign csr_diagram_4_7_real_out = csr_diagram_4_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4226,12 +4486,13 @@ end
 //---------------------
 // Bit field:
 // diagram_4_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_4_7_imag_ff;
 
 assign csr_diagram_4_7_rdata[31:16] = csr_diagram_4_7_imag_ff;
 
+assign csr_diagram_4_7_imag_out = csr_diagram_4_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4273,12 +4534,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_0_real_ff;
 
 assign csr_diagram_5_0_rdata[15:0] = csr_diagram_5_0_real_ff;
 
+assign csr_diagram_5_0_real_out = csr_diagram_5_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4301,12 +4563,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_0_imag_ff;
 
 assign csr_diagram_5_0_rdata[31:16] = csr_diagram_5_0_imag_ff;
 
+assign csr_diagram_5_0_imag_out = csr_diagram_5_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4348,12 +4611,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_1_real_ff;
 
 assign csr_diagram_5_1_rdata[15:0] = csr_diagram_5_1_real_ff;
 
+assign csr_diagram_5_1_real_out = csr_diagram_5_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4376,12 +4640,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_1_imag_ff;
 
 assign csr_diagram_5_1_rdata[31:16] = csr_diagram_5_1_imag_ff;
 
+assign csr_diagram_5_1_imag_out = csr_diagram_5_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4423,12 +4688,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_2_real_ff;
 
 assign csr_diagram_5_2_rdata[15:0] = csr_diagram_5_2_real_ff;
 
+assign csr_diagram_5_2_real_out = csr_diagram_5_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4451,12 +4717,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_2_imag_ff;
 
 assign csr_diagram_5_2_rdata[31:16] = csr_diagram_5_2_imag_ff;
 
+assign csr_diagram_5_2_imag_out = csr_diagram_5_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4498,12 +4765,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_3_real_ff;
 
 assign csr_diagram_5_3_rdata[15:0] = csr_diagram_5_3_real_ff;
 
+assign csr_diagram_5_3_real_out = csr_diagram_5_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4526,12 +4794,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_3_imag_ff;
 
 assign csr_diagram_5_3_rdata[31:16] = csr_diagram_5_3_imag_ff;
 
+assign csr_diagram_5_3_imag_out = csr_diagram_5_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4573,12 +4842,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_4_real_ff;
 
 assign csr_diagram_5_4_rdata[15:0] = csr_diagram_5_4_real_ff;
 
+assign csr_diagram_5_4_real_out = csr_diagram_5_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4601,12 +4871,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_4_imag_ff;
 
 assign csr_diagram_5_4_rdata[31:16] = csr_diagram_5_4_imag_ff;
 
+assign csr_diagram_5_4_imag_out = csr_diagram_5_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4648,12 +4919,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_5_real_ff;
 
 assign csr_diagram_5_5_rdata[15:0] = csr_diagram_5_5_real_ff;
 
+assign csr_diagram_5_5_real_out = csr_diagram_5_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4676,12 +4948,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_5_imag_ff;
 
 assign csr_diagram_5_5_rdata[31:16] = csr_diagram_5_5_imag_ff;
 
+assign csr_diagram_5_5_imag_out = csr_diagram_5_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4723,12 +4996,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_6_real_ff;
 
 assign csr_diagram_5_6_rdata[15:0] = csr_diagram_5_6_real_ff;
 
+assign csr_diagram_5_6_real_out = csr_diagram_5_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4751,12 +5025,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_6_imag_ff;
 
 assign csr_diagram_5_6_rdata[31:16] = csr_diagram_5_6_imag_ff;
 
+assign csr_diagram_5_6_imag_out = csr_diagram_5_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4798,12 +5073,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_7_real_ff;
 
 assign csr_diagram_5_7_rdata[15:0] = csr_diagram_5_7_real_ff;
 
+assign csr_diagram_5_7_real_out = csr_diagram_5_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4826,12 +5102,13 @@ end
 //---------------------
 // Bit field:
 // diagram_5_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_5_7_imag_ff;
 
 assign csr_diagram_5_7_rdata[31:16] = csr_diagram_5_7_imag_ff;
 
+assign csr_diagram_5_7_imag_out = csr_diagram_5_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4873,12 +5150,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_0_real_ff;
 
 assign csr_diagram_6_0_rdata[15:0] = csr_diagram_6_0_real_ff;
 
+assign csr_diagram_6_0_real_out = csr_diagram_6_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4901,12 +5179,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_0_imag_ff;
 
 assign csr_diagram_6_0_rdata[31:16] = csr_diagram_6_0_imag_ff;
 
+assign csr_diagram_6_0_imag_out = csr_diagram_6_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4948,12 +5227,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_1_real_ff;
 
 assign csr_diagram_6_1_rdata[15:0] = csr_diagram_6_1_real_ff;
 
+assign csr_diagram_6_1_real_out = csr_diagram_6_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -4976,12 +5256,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_1_imag_ff;
 
 assign csr_diagram_6_1_rdata[31:16] = csr_diagram_6_1_imag_ff;
 
+assign csr_diagram_6_1_imag_out = csr_diagram_6_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5023,12 +5304,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_2_real_ff;
 
 assign csr_diagram_6_2_rdata[15:0] = csr_diagram_6_2_real_ff;
 
+assign csr_diagram_6_2_real_out = csr_diagram_6_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5051,12 +5333,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_2_imag_ff;
 
 assign csr_diagram_6_2_rdata[31:16] = csr_diagram_6_2_imag_ff;
 
+assign csr_diagram_6_2_imag_out = csr_diagram_6_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5098,12 +5381,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_3_real_ff;
 
 assign csr_diagram_6_3_rdata[15:0] = csr_diagram_6_3_real_ff;
 
+assign csr_diagram_6_3_real_out = csr_diagram_6_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5126,12 +5410,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_3_imag_ff;
 
 assign csr_diagram_6_3_rdata[31:16] = csr_diagram_6_3_imag_ff;
 
+assign csr_diagram_6_3_imag_out = csr_diagram_6_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5173,12 +5458,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_4_real_ff;
 
 assign csr_diagram_6_4_rdata[15:0] = csr_diagram_6_4_real_ff;
 
+assign csr_diagram_6_4_real_out = csr_diagram_6_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5201,12 +5487,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_4_imag_ff;
 
 assign csr_diagram_6_4_rdata[31:16] = csr_diagram_6_4_imag_ff;
 
+assign csr_diagram_6_4_imag_out = csr_diagram_6_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5248,12 +5535,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_5_real_ff;
 
 assign csr_diagram_6_5_rdata[15:0] = csr_diagram_6_5_real_ff;
 
+assign csr_diagram_6_5_real_out = csr_diagram_6_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5276,12 +5564,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_5_imag_ff;
 
 assign csr_diagram_6_5_rdata[31:16] = csr_diagram_6_5_imag_ff;
 
+assign csr_diagram_6_5_imag_out = csr_diagram_6_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5323,12 +5612,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_6_real_ff;
 
 assign csr_diagram_6_6_rdata[15:0] = csr_diagram_6_6_real_ff;
 
+assign csr_diagram_6_6_real_out = csr_diagram_6_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5351,12 +5641,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_6_imag_ff;
 
 assign csr_diagram_6_6_rdata[31:16] = csr_diagram_6_6_imag_ff;
 
+assign csr_diagram_6_6_imag_out = csr_diagram_6_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5398,12 +5689,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_7_real_ff;
 
 assign csr_diagram_6_7_rdata[15:0] = csr_diagram_6_7_real_ff;
 
+assign csr_diagram_6_7_real_out = csr_diagram_6_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5426,12 +5718,13 @@ end
 //---------------------
 // Bit field:
 // diagram_6_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_6_7_imag_ff;
 
 assign csr_diagram_6_7_rdata[31:16] = csr_diagram_6_7_imag_ff;
 
+assign csr_diagram_6_7_imag_out = csr_diagram_6_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5473,12 +5766,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_0[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_0_real_ff;
 
 assign csr_diagram_7_0_rdata[15:0] = csr_diagram_7_0_real_ff;
 
+assign csr_diagram_7_0_real_out = csr_diagram_7_0_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5501,12 +5795,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_0[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_0_imag_ff;
 
 assign csr_diagram_7_0_rdata[31:16] = csr_diagram_7_0_imag_ff;
 
+assign csr_diagram_7_0_imag_out = csr_diagram_7_0_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5548,12 +5843,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_1[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_1_real_ff;
 
 assign csr_diagram_7_1_rdata[15:0] = csr_diagram_7_1_real_ff;
 
+assign csr_diagram_7_1_real_out = csr_diagram_7_1_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5576,12 +5872,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_1[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_1_imag_ff;
 
 assign csr_diagram_7_1_rdata[31:16] = csr_diagram_7_1_imag_ff;
 
+assign csr_diagram_7_1_imag_out = csr_diagram_7_1_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5623,12 +5920,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_2[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_2_real_ff;
 
 assign csr_diagram_7_2_rdata[15:0] = csr_diagram_7_2_real_ff;
 
+assign csr_diagram_7_2_real_out = csr_diagram_7_2_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5651,12 +5949,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_2[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_2_imag_ff;
 
 assign csr_diagram_7_2_rdata[31:16] = csr_diagram_7_2_imag_ff;
 
+assign csr_diagram_7_2_imag_out = csr_diagram_7_2_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5698,12 +5997,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_3[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_3_real_ff;
 
 assign csr_diagram_7_3_rdata[15:0] = csr_diagram_7_3_real_ff;
 
+assign csr_diagram_7_3_real_out = csr_diagram_7_3_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5726,12 +6026,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_3[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_3_imag_ff;
 
 assign csr_diagram_7_3_rdata[31:16] = csr_diagram_7_3_imag_ff;
 
+assign csr_diagram_7_3_imag_out = csr_diagram_7_3_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5773,12 +6074,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_4[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_4_real_ff;
 
 assign csr_diagram_7_4_rdata[15:0] = csr_diagram_7_4_real_ff;
 
+assign csr_diagram_7_4_real_out = csr_diagram_7_4_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5801,12 +6103,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_4[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_4_imag_ff;
 
 assign csr_diagram_7_4_rdata[31:16] = csr_diagram_7_4_imag_ff;
 
+assign csr_diagram_7_4_imag_out = csr_diagram_7_4_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5848,12 +6151,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_5[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_5_real_ff;
 
 assign csr_diagram_7_5_rdata[15:0] = csr_diagram_7_5_real_ff;
 
+assign csr_diagram_7_5_real_out = csr_diagram_7_5_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5876,12 +6180,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_5[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_5_imag_ff;
 
 assign csr_diagram_7_5_rdata[31:16] = csr_diagram_7_5_imag_ff;
 
+assign csr_diagram_7_5_imag_out = csr_diagram_7_5_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5923,12 +6228,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_6[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_6_real_ff;
 
 assign csr_diagram_7_6_rdata[15:0] = csr_diagram_7_6_real_ff;
 
+assign csr_diagram_7_6_real_out = csr_diagram_7_6_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5951,12 +6257,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_6[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_6_imag_ff;
 
 assign csr_diagram_7_6_rdata[31:16] = csr_diagram_7_6_imag_ff;
 
+assign csr_diagram_7_6_imag_out = csr_diagram_7_6_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -5998,12 +6305,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_7[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_7_real_ff;
 
 assign csr_diagram_7_7_rdata[15:0] = csr_diagram_7_7_real_ff;
 
+assign csr_diagram_7_7_real_out = csr_diagram_7_7_real_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6026,12 +6334,13 @@ end
 //---------------------
 // Bit field:
 // diagram_7_7[31:16] - imag - Imaginary part, signed 2s complement, 2**14 = 1.0
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_diagram_7_7_imag_ff;
 
 assign csr_diagram_7_7_rdata[31:16] = csr_diagram_7_7_imag_ff;
 
+assign csr_diagram_7_7_imag_out = csr_diagram_7_7_imag_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6074,12 +6383,13 @@ end
 //---------------------
 // Bit field:
 // motion_selector[7:0] - filter - Motion selector filter control
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [7:0] csr_motion_selector_filter_ff;
 
 assign csr_motion_selector_rdata[7:0] = csr_motion_selector_filter_ff;
 
+assign csr_motion_selector_filter_out = csr_motion_selector_filter_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6099,12 +6409,13 @@ end
 //---------------------
 // Bit field:
 // motion_selector[8] - onoff - Motion selector on/off
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg  csr_motion_selector_onoff_ff;
 
 assign csr_motion_selector_rdata[8] = csr_motion_selector_onoff_ff;
 
+assign csr_motion_selector_onoff_out = csr_motion_selector_onoff_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6143,12 +6454,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_0[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_0_angle_ff;
 
 assign csr_diagram_angle_0_rdata[31:0] = csr_diagram_angle_0_angle_ff;
 
+assign csr_diagram_angle_0_angle_out = csr_diagram_angle_0_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6196,12 +6508,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_1[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_1_angle_ff;
 
 assign csr_diagram_angle_1_rdata[31:0] = csr_diagram_angle_1_angle_ff;
 
+assign csr_diagram_angle_1_angle_out = csr_diagram_angle_1_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6249,12 +6562,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_2[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_2_angle_ff;
 
 assign csr_diagram_angle_2_rdata[31:0] = csr_diagram_angle_2_angle_ff;
 
+assign csr_diagram_angle_2_angle_out = csr_diagram_angle_2_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6302,12 +6616,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_3[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_3_angle_ff;
 
 assign csr_diagram_angle_3_rdata[31:0] = csr_diagram_angle_3_angle_ff;
 
+assign csr_diagram_angle_3_angle_out = csr_diagram_angle_3_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6355,12 +6670,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_4[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_4_angle_ff;
 
 assign csr_diagram_angle_4_rdata[31:0] = csr_diagram_angle_4_angle_ff;
 
+assign csr_diagram_angle_4_angle_out = csr_diagram_angle_4_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6408,12 +6724,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_5[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_5_angle_ff;
 
 assign csr_diagram_angle_5_rdata[31:0] = csr_diagram_angle_5_angle_ff;
 
+assign csr_diagram_angle_5_angle_out = csr_diagram_angle_5_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6461,12 +6778,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_6[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_6_angle_ff;
 
 assign csr_diagram_angle_6_rdata[31:0] = csr_diagram_angle_6_angle_ff;
 
+assign csr_diagram_angle_6_angle_out = csr_diagram_angle_6_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6514,12 +6832,13 @@ end
 //---------------------
 // Bit field:
 // diagram_angle_7[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_diagram_angle_7_angle_ff;
 
 assign csr_diagram_angle_7_rdata[31:0] = csr_diagram_angle_7_angle_ff;
 
+assign csr_diagram_angle_7_angle_out = csr_diagram_angle_7_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6567,13 +6886,13 @@ end
 //---------------------
 // Bit field:
 // output_source[15:0] - source - Source for output data
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_output_source_source_ff;
 
 assign csr_output_source_rdata[15:0] = csr_output_source_source_ff;
-assign o_source = csr_output_source_source_ff;
 
+assign csr_output_source_source_out = csr_output_source_source_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6596,12 +6915,13 @@ end
 //---------------------
 // Bit field:
 // output_source[31:16] - source_channel - Source channel for output data (if exists)
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [15:0] csr_output_source_source_channel_ff;
 
 assign csr_output_source_rdata[31:16] = csr_output_source_source_channel_ff;
-assign o_source_channel = csr_output_source_source_channel_ff;
+
+assign csr_output_source_source_channel_out = csr_output_source_source_channel_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6644,12 +6964,13 @@ end
 //---------------------
 // Bit field:
 // apu_rank[7:0] - rank - rank for APU
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [7:0] csr_apu_rank_rank_ff;
 
 assign csr_apu_rank_rdata[7:0] = csr_apu_rank_rank_ff;
 
+assign csr_apu_rank_rank_out = csr_apu_rank_rank_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6669,12 +6990,13 @@ end
 //---------------------
 // Bit field:
 // apu_rank[15:8] - window - window length
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [7:0] csr_apu_rank_window_ff;
 
 assign csr_apu_rank_rdata[15:8] = csr_apu_rank_window_ff;
 
+assign csr_apu_rank_window_out = csr_apu_rank_window_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6713,12 +7035,13 @@ end
 //---------------------
 // Bit field:
 // detector_level_0[31:0] - level - detector comparation level
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_detector_level_0_level_ff;
 
 assign csr_detector_level_0_rdata[31:0] = csr_detector_level_0_level_ff;
 
+assign csr_detector_level_0_level_out = csr_detector_level_0_level_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6766,12 +7089,13 @@ end
 //---------------------
 // Bit field:
 // detector_level_1[31:0] - level - detector comparation level
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_detector_level_1_level_ff;
 
 assign csr_detector_level_1_rdata[31:0] = csr_detector_level_1_level_ff;
 
+assign csr_detector_level_1_level_out = csr_detector_level_1_level_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6819,12 +7143,13 @@ end
 //---------------------
 // Bit field:
 // azimuth_angle[31:0] - angle - 2**32 = 2 pi
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg [31:0] csr_azimuth_angle_angle_ff;
 
 assign csr_azimuth_angle_rdata[31:0] = csr_azimuth_angle_angle_ff;
 
+assign csr_azimuth_angle_angle_out = csr_azimuth_angle_angle_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
@@ -6873,16 +7198,18 @@ end
 //---------------------
 // Bit field:
 // apply[0] - apply - XOR to apply reg changes
-// access: rw, hardware: f
+// access: rw, hardware: o
 //---------------------
 reg  csr_apply_apply_ff;
 
 assign csr_apply_rdata[0] = csr_apply_apply_ff;
 
+assign csr_apply_apply_out = csr_apply_apply_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
         csr_apply_apply_ff <= 1'b0;
+        o_apply <= 0;
     end else  begin
      if (csr_apply_wen) begin
             if (wstrb[0]) begin
@@ -6890,8 +7217,57 @@ always @(posedge clk) begin
                 o_apply <= 1;
             end
         end else begin
-            csr_apply_apply_ff <= csr_apply_apply_ff;
             o_apply <= 0;
+            csr_apply_apply_ff <= csr_apply_apply_ff;
+        end
+    end
+end
+
+
+//------------------------------------------------------------------------------
+// CSR:
+// [0x170] - compensation_reference - 
+//------------------------------------------------------------------------------
+wire [31:0] csr_compensation_reference_rdata;
+assign csr_compensation_reference_rdata[31:16] = 16'h0;
+
+wire csr_compensation_reference_wen;
+assign csr_compensation_reference_wen = wen && (waddr == 11'h170);
+
+wire csr_compensation_reference_ren;
+assign csr_compensation_reference_ren = ren && (raddr == 11'h170);
+reg csr_compensation_reference_ren_ff;
+always @(posedge clk) begin
+    if (!rst) begin
+        csr_compensation_reference_ren_ff <= 1'b0;
+    end else begin
+        csr_compensation_reference_ren_ff <= csr_compensation_reference_ren;
+    end
+end
+//---------------------
+// Bit field:
+// compensation_reference[15:0] - real - Real part, signed 2s complement, 2**14 = 1.0
+// access: rw, hardware: o
+//---------------------
+reg [15:0] csr_compensation_reference_real_ff;
+
+assign csr_compensation_reference_rdata[15:0] = csr_compensation_reference_real_ff;
+
+assign csr_compensation_reference_real_out = csr_compensation_reference_real_ff;
+
+always @(posedge clk) begin
+    if (!rst) begin
+        csr_compensation_reference_real_ff <= 16'h0;
+    end else  begin
+     if (csr_compensation_reference_wen) begin
+            if (wstrb[0]) begin
+                csr_compensation_reference_real_ff[7:0] <= wdata[7:0];
+            end
+            if (wstrb[1]) begin
+                csr_compensation_reference_real_ff[15:8] <= wdata[15:8];
+            end
+        end else begin
+            csr_compensation_reference_real_ff <= csr_compensation_reference_real_ff;
         end
     end
 end
@@ -7003,6 +7379,7 @@ always @(posedge clk) begin
             11'h164: rdata_ff <= csr_detector_level_1_rdata;
             11'h168: rdata_ff <= csr_azimuth_angle_rdata;
             11'h16c: rdata_ff <= csr_apply_rdata;
+            11'h170: rdata_ff <= csr_compensation_reference_rdata;
             default: rdata_ff <= 32'h0;
         endcase
     end else begin

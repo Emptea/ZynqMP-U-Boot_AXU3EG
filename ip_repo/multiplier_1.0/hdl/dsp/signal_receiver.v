@@ -47,7 +47,6 @@ module signal_receiver
 		
 		output reg [CHANNEL_NUMBER - 1: 0]o_request,
 
-                (* mark_debug = "true" *)
 		output reg [2 * BIT_WIDTH * CHANNEL_NUMBER - 1: 0]o_rxed_data,
 		(* mark_debug = "true" *)
 		output reg o_rxed_data_valid,
@@ -84,6 +83,8 @@ module signal_receiver
 	end
 
 	integer timeout;
+
+	reg delay_close, delay_far;
 
 (* mark_debug = "true" *)	
 	integer state;
@@ -253,6 +254,9 @@ module signal_receiver
 					o_signal_started <= i_aux_finished;
 
 					timeout_counter <= timeout_counter + 1;
+
+					delay_close <= 0;
+					delay_far <= 0;
 				end
 				
 				e_send_data:
@@ -302,8 +306,8 @@ module signal_receiver
 					
 					if(o_close_valid | o_far_valid) counter_send <= counter_send + 1;
 					
-					o_close_valid <= close_valid;
-					o_far_valid <= far_valid;
+					{o_close_valid, delay_close} <= {delay_close, close_valid};
+					{o_far_valid, delay_far} <= {delay_far, far_valid};
 					
 					if(counter_send == LENGTH_FAR + LENGTH_CLOSE) state <= e_finish;
 				end

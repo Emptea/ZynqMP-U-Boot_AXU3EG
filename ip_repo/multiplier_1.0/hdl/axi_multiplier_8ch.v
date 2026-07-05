@@ -7,13 +7,31 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
                          parameter integer AXIS_TDATA_WIDTH  = DATA_WIDTH * N_DATA_IN_PACK,
                          parameter integer MULT_WIDTH = 16,
                          parameter integer DSP_DELAY = 3,
-                         parameter integer N_MULTS = 8)
+                         parameter integer N_MULTS = 8,
+                         parameter DIAGRAM_NUMBER = 8,
+                         parameter CHANNEL_NUMBER = 8,
+                         parameter BIT_WIDTH = 16,
+                         parameter ANGLE_WIDTH = 32
+                        )
                         (
 
                         input i_reset_from_controls,
                         input i_apply_controls,
-                         input [15: 0]i_output_source,
-                         input [15: 0]i_output_source_channel,
+                        
+                        input [15: 0]i_compensation_mode,
+                        input [2 * BIT_WIDTH * CHANNEL_NUMBER - 1: 0]i_manual_compensation_coefs,
+                        input [2 * DIAGRAM_NUMBER * BIT_WIDTH * CHANNEL_NUMBER - 1: 0]i_diagram_coefs,
+                        input [7:0] i_motion_selector_filter,
+                        input i_motion_selector_onoff_out,
+                        input [ANGLE_WIDTH * DIAGRAM_NUMBER - 1: 0]i_diagram_angle,
+                        input [15: 0]i_output_source,
+                        input [15: 0]i_output_source_channel,
+                        input [7:0] i_apu_rank,
+                        input [7:0] i_apu_window,
+                        input [31:0] i_detector_level_0,
+                        input [31:0] i_detector_level_1,
+                        input [31:0] i_azimuth_angle,
+                        input [15:0] i_auto_compensation_reference,
 
 
                          input wire aclk,
@@ -142,11 +160,9 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
     end    
 */    
 
-    localparam SIGNAL_WIDTH = 16;
-    localparam CHANNEL_NUMBER = 8;
+    localparam SIGNAL_WIDTH = BIT_WIDTH;
     localparam INPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH * CHANNEL_NUMBER;
     localparam OUTPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH;
-    localparam DIAGRAM_NUMBER = 8;
     localparam COMPENSATION_COEF_WIDTH = 16;
     localparam DIAGRAM_COEF_WIDTH = 16;
     localparam COMPENSATION_COEF_LEVEL_ONE = 14;
@@ -190,26 +206,33 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
             .COMPENSATION_COEF_WIDTH(COMPENSATION_COEF_WIDTH),
             .DIAGRAM_COEF_WIDTH(DIAGRAM_COEF_WIDTH),
             .COMPENSATION_COEF_LEVEL_ONE(COMPENSATION_COEF_LEVEL_ONE),
-            .DIAGRAM_COEF_LEVEL_ONE(DIAGRAM_COEF_LEVEL_ONE)
+            .DIAGRAM_COEF_LEVEL_ONE(DIAGRAM_COEF_LEVEL_ONE),
+            .ANGLE_WIDTH(ANGLE_WIDTH)
         )
         inst_dsp
         (
+            .i_compensation_mode(i_compensation_mode),
+            .i_manual_compensation_coefs(i_manual_compensation_coefs),
+            .i_diagram_coefs(i_diagram_coefs),
+            .i_motion_selector_filter(i_motion_selector_filter),
+            .i_motion_selector_onoff_out(i_motion_selector_onoff_out),
+            .i_diagram_angle(i_diagram_angle),
+            .i_output_source(i_output_source),
+            .i_output_source_channel(i_output_source_channel),
+            .i_apu_rank(i_apu_rank),
+            .i_apu_window(i_apu_window),
+            .i_detector_level_0(i_detector_level_0),
+            .i_detector_level_1(i_detector_level_1),
+            .i_azimuth_angle(i_azimuth_angle),
+            .i_auto_compensation_reference(i_auto_compensation_reference),
+
             .i_data(input_data),
             .i_data_valid(input_data_valid),
             .i_clock(aclk),
             .i_reset(i_reset_from_controls | ~aresetn),
 
             .i_apply_controls(i_apply_controls),
-            .i_output_source(i_output_source),
-            .i_output_source_channel(i_output_source_channel),
-    
-            .i_compensation_calculation_reference(1 << 14),
-    
-            .i_compensation_mode(0),
-    
-            .i_manual_compensation_coefs(0),
-            .i_diagram_coefs(0),
-    
+   
             .o_read_from_fifo(request_data_from_fifo),
             
             .o_data(m_axis_tdata),

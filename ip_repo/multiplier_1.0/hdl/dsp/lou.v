@@ -3,7 +3,8 @@
 module Lou
 	#(
 		parameter BIT_WIDTH = 16,
-		parameter CHANNEL_NUMBER = 8
+		parameter CHANNEL_NUMBER = 8,
+		parameter COEF_ONE_BIT_WIDTH = 14
 	)
 	(
 		input [2 * BIT_WIDTH * CHANNEL_NUMBER - 1: 0]i_signal,
@@ -40,18 +41,18 @@ module Lou
 		sum_78[0] <= mul_out[6][0] + mul_out[7][0];
 		sum_78[1] <= mul_out[6][1] + mul_out[7][1];
 
-		sum_1234[0] <= sum_12[0][0] + sum_34[1][0];
-		sum_1234[1] <= sum_12[0][1] + sum_34[1][1];
+		sum_1234[0] <= sum_12[0] + sum_34[0];
+		sum_1234[1] <= sum_12[1] + sum_34[1];
 
-		sum_5678[0] <= sum_56[0][0] + sum_78[1][0];
-		sum_5678[1] <= sum_56[0][1] + sum_78[1][1];
+		sum_5678[0] <= sum_56[0] + sum_78[0];
+		sum_5678[1] <= sum_56[1] + sum_78[1];
 
-		sum[0] <= sum_1234[0][0] + sum_5678[1][0];
-		sum[1] <= sum_1234[0][1] + sum_5678[1][1];
+		sum[0] <= sum_1234[0] + sum_5678[0];
+		sum[1] <= sum_1234[1] + sum_5678[1];
 	end
 
-	assign o_signal[0 +: BIT_WIDTH] = sum[0][BIT_WIDTH + 2 +: BIT_WIDTH];
-	assign o_signal[BIT_WIDTH +: BIT_WIDTH] = sum[1][BIT_WIDTH + 2 +: BIT_WIDTH];
+	assign o_signal[0 +: BIT_WIDTH] = sum[0][COEF_ONE_BIT_WIDTH + 2 +: BIT_WIDTH];
+	assign o_signal[BIT_WIDTH +: BIT_WIDTH] = sum[1][COEF_ONE_BIT_WIDTH + 2 +: BIT_WIDTH];
 
 	generate
 		genvar i;
@@ -106,7 +107,22 @@ module LouBlock
 		input i_reset,
 		input i_clock,
 
-		output [2 * BIT_WIDTH * LOU_NUMBER - 1: 0]o_signal
+		output [2 * BIT_WIDTH * LOU_NUMBER - 1: 0]o_signal,
+
+
+		input i_start,
+		input i_far_valid,
+		input i_close_valid,
+		input i_finished,
+
+(* mark_debug = "true" *)	
+        output reg o_start,
+(* mark_debug = "true" *)	
+        output reg o_far_valid,
+(* mark_debug = "true" *)	
+        output reg o_close_valid,
+(* mark_debug = "true" *)	
+        output reg o_finished
 	);
 
 	generate
@@ -114,6 +130,7 @@ module LouBlock
 
 		for(i = 0; i < LOU_NUMBER; i = i + 1)
 		begin
+			wire [2 * BIT_WIDTH - 1: 0]lou_data;
 			Lou
 				#(
 					.BIT_WIDTH(BIT_WIDTH),
@@ -127,8 +144,36 @@ module LouBlock
 					.i_reset(i_reset),
 					.i_clock(i_clock),
 
-					.o_signal(o_signal[2 * BIT_WIDTH * i +: 2 * BIT_WIDTH])
+					.o_signal(lou_data)
 				);
+
+			if(i == 0 || i == 1)
+			begin
+				assign o_signal[2 * BIT_WIDTH * i +: 2 * BIT_WIDTH] = lou_data;
+			end
+
 		end
 	endgenerate
+
+	localparam DELAY = 6;
+
+	reg [DELAY * 4 - 1: 0]delay;
+
+	always @(posedge i_clock)
+	begin
+		{
+			o_start,
+			o_far_valid,
+			o_close_valid,
+			o_finished,
+			delay
+		} <= {
+			delay,
+			i_start,
+			i_far_valid,
+			i_close_valid,
+			i_finished
+		};
+	end
+
 endmodule

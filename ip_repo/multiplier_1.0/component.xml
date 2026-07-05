@@ -644,9 +644,6 @@
           </spirit:parameter>
         </spirit:parameters>
       </spirit:addressBlock>
-    </spirit:memoryMap>
-    <spirit:memoryMap>
-      <spirit:name>s00_axi</spirit:name>
       <spirit:addressBlock>
         <spirit:name>reg0</spirit:name>
         <spirit:baseAddress spirit:format="bitString" spirit:resolve="user" spirit:bitStringLength="32">0</spirit:baseAddress>
@@ -670,7 +667,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>b5387f14</spirit:value>
+            <spirit:value>8fb05843</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -686,7 +683,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>b5387f14</spirit:value>
+            <spirit:value>d21efecb</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1747,28 +1744,218 @@
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_aaefb3f6</spirit:userFileType>
       </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/multiplier_v1_0_S00_AXI.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_e331c150</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/delay.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/muls.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/rams.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/v_rec_algs.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/compensation.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/compensation_calculation.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/compensation_coef_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/dsp.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/fifo_to_plain.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/filter_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/lou.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/output_channel_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/signal_receiver.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/utils.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_defb159b</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/accumulator.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/fir_filter.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/max_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_a8664edd</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/output_driver.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_5c0743b3</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/output_source_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_ae127c12</spirit:userFileType>
+      </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
         <spirit:name>hdl/axi_multiplier.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/axi_multiplier_8ch.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/mult_dsp48.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/regs.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/multiplier_v1_0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/multiplier_v1_0_S00_AXI.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/delay.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/muls.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/rams.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/v_rec_algs.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/compensation.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/compensation_calculation.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/compensation_coef_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/dsp.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/fifo_to_plain.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/filter_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/fir_filter.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/lou.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/max_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/output_channel_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/signal_receiver.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/utils.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/accumulator.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/output_driver.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/dsp/output_source_selector.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1909,8 +2096,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>multiplier_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>19</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-06-01T20:17:04Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>115</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-07-02T16:16:04Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3356e698_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5038dec8_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
@@ -2489,14 +2676,356 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@53c83ec2_ARCHIVE_LOCATION">/home/emptea/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2029bdd9_ARCHIVE_LOCATION">/home/emptea/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3056e931_ARCHIVE_LOCATION">/home/emptea/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b8ec7ae_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@696dfe53_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2452398a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52d2e7e8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e6916af_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9cc428_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b1302b2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bbc7d4e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4470de95_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ec0b8a1_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a08bf39_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ff35b11_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5cca2548_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@31c815e8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39fc3c85_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@242ace9e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e2b8ee3_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@785e84d4_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@eefd8e6_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e585a91_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@755e8c39_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@af0e9f3_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@eff906f_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d510aaa_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20e58d4a_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c29e479_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6757882a_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4cc164ef_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a6da579_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20b4c134_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e38b9c5_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3bb2731b_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@51ff05ce_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a1b816a_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4eedad55_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@654e9e94_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f353905_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39799878_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c1ca0b0_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e558e63_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@309307c3_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ab3034b_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f9e816c_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ae2db6b_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5338d3a4_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18878982_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10d29252_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@135a72f6_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ab0593c_ARCHIVE_LOCATION">d:/work/mini/fpga/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b520abb_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24be9694_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28d176b2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78931310_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b4429f2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@dbdb2da_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@56f7b3d4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18df5bb6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@edb0153_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7e7c0b45_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@600da0e5_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a12d8bd_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@746da80e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6872c423_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52f58592_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68e9b226_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7befc2fc_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@161aa25c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57282b07_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6fce1969_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d477a1d_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a5839f3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@42e47f3a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@64802ff4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@246b93c0_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b00427e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7943e369_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5556fa73_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26697ba3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c961082_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@673c91f3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f896a5a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c1fcb25_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9168ecc_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ad372e3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@bdf2b11_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26df4e62_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3fbbb205_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@686db5ff_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@443d173f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@66ec55fd_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d652bcf_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2746c0a3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@566093fa_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53aa537c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d6068d_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fd65a1f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a12b056_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5bfc3be4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2006a7da_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@298791d6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@233205b8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@696ff6e6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cc1ac2f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e000b7a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6dd95da6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6aa4dc4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ee808a9_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@438d1ae6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44f040a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6bdbfa5c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7fa3a561_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@325dbc38_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6011cd2c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e6b43af_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@730301b1_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4680b2ab_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@295db8e3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@405ba0ca_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@566a38ee_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a7b050_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e9146a5_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@17fae119_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69ea06c3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a8aabc9_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ad89925_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ba6d3a8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6306de8c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@844a10c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5960604d_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71961f20_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f7012b6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b6da166_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fdb7944_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@165c3d6f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3247530c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@17fce27b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4891ebf9_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f677ea5_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7e223e0d_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2cdac317_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d301747_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f53dd31_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e1ab4ab_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@85089b4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c8e5c30_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f5b4711_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b465671_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f5519c2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e9e50df_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1418e64b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7e241894_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f3c0ff6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71ddc5ba_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2099b8cf_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a0a2f2b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22f2c246_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b80d411_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69dfffd6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3174b925_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40632_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60a9fb95_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1010b0f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1910fdc6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b4bd9b8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37eeb99f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14180d35_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4cb91678_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@149e1c1f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52c3e0a7_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5354b899_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@65c88be7_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f3da154_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d2582b4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a1a1a05_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48f9b5ad_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4458595f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32aafdc5_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@cff1d44_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c019b06_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67300957_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45272d65_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@155a7a0b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72fe778a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52e8a4f6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a74c9a8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48ef0299_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@399f193b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a7bf625_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a7ee469_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43814732_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@366f5966_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7dc75af0_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b83d3d3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10847701_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e1f681b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e31255c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5157bfad_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3261aacd_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4141659_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68ccc49b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@164600b7_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6911ec3c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5dd9e978_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76d18e91_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@95c419e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23c337a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74e09ed2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2496dfeb_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7abbe5f0_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ce572fb_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59d336f8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@fec1b05_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@755e18b1_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cb94a24_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@151e82bd_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b064d6e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33f0addf_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39aa05b4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1226ac4d_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@335d9c24_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@727ba91e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1319dc3a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4fa1e153_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3467e5e3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7eb4f321_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73d6b5cb_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43708d5a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e5e4331_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e1b4cc3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@717c663b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@328d7999_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1dd05332_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2cdd1d24_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@353b90b4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53a57aad_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ecf0568_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61c3068e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b618a79_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@706d78d5_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e44c8f3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@34d1e434_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7268bc60_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11f0cbc4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27e54c1d_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@735c1d53_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58005695_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c48f7e5_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13951d2c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f48b8e2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ef67159_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76a877e5_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3951b888_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b1e3b06_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@65ee4a81_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ea23eda_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55043e34_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46697360_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3be21a65_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@555b6943_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52b96162_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@418798eb_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21f514d1_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5487d0b1_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74125afe_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18f063ae_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d862555_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10e3fb33_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3035ee1a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5cf6871b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e1a59c3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bc6cf61_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29cd53c2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4237b436_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b28cb4b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5cd70a3a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@146ee0ed_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@217e0934_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@31835b74_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b742cd8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ac0926f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@274a54ba_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d8e272a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46899f97_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b305c73_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d1d0cc3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37bdcab6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e3fb5b0_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78866df6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7db6acb2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1005bdb2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1375104c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9100335_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a91c7e8_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@590da7c1_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@737acfbd_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e574b80_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22e9cf8c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@238e0ef3_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46008045_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15b8af98_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4512e59e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@233bce69_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4fbed2f4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ec49766_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ed3b9ad_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3cff9c57_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12f0121c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25769aaa_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37003655_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d99117f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1786c03_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7177cdb2_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4746714e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b448759_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48296321_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8afefec_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15a606d_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a182586_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27c0ec4c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b4d01cf_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@761356e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8f09a7e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59b01a24_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f043956_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f9df692_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ee72fe4_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a4311c6_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26078a24_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7e682e77_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@572ecb84_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@218e9c24_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bc307ab_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38c4d07_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@275b85ab_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@331b8d6f_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3104ee54_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b120c0a_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@264c2204_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b8abe2e_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36cbff3c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@241ae847_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2178067c_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2019.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="a96bf038"/>
-      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="61a459e5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="32a42e19"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="6354f2a5"/>
+      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="45d30c25"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7cf65265"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="3bbb0317"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b8d7c029"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="e92795d4"/>
     </xilinx:packagingInfo>

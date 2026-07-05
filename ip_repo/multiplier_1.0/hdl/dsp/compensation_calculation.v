@@ -199,7 +199,7 @@ module CompensationCalculationBlock
 		input i_clock,
 
 		output [2 * BIT_WIDTH * CHANNEL_NUMBER - 1: 0]o_coefs,
-		output o_compensation_calculation_finished
+		output o_finished
 	);
 
 	generate
@@ -233,7 +233,7 @@ module CompensationCalculationBlock
 
 			if(i == 0)
 			begin
-				assign o_compensation_calculation_finished = finished;
+				assign o_finished = finished;
 			end
 		end
 	endgenerate

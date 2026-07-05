@@ -18,7 +18,8 @@ module Dsp
 		parameter CLOSE_LENGTH = 40,
 		parameter AUX_START = 187,
 		parameter AUX_LENGTH = 40,
-		parameter AUX_LENGTH_WIDTH = 6
+		parameter AUX_LENGTH_WIDTH = 6,
+		parameter ANGLE_WIDTH = 32
 	)
 	(
 		input i_apply_controls, 
@@ -29,14 +30,20 @@ module Dsp
 (* mark_debug = "true" *)		
 		input i_reset,
 
-		input [INPUT_DATA_WIDTH - 1: 0]i_compensation_calculation_reference,
-
-		input i_compensation_mode,
-		input [15: 0]i_output_source,
-		input [15: 0]i_output_source_channel,
-
-		input [COMPENSATION_COEF_WIDTH * CHANNEL_NUMBER - 1: 0]i_manual_compensation_coefs,
-		input [DIAGRAM_COEF_WIDTH * CHANNEL_NUMBER * DIAGRAM_NUMBER - 1: 0]i_diagram_coefs,
+        input [15: 0]i_compensation_mode,
+        input [2 * SIGNAL_WIDTH * CHANNEL_NUMBER - 1: 0]i_manual_compensation_coefs,
+        input [2 * DIAGRAM_NUMBER * SIGNAL_WIDTH * CHANNEL_NUMBER - 1: 0]i_diagram_coefs,
+        input [7:0] i_motion_selector_filter,
+        input i_motion_selector_onoff_out,
+        input [ANGLE_WIDTH * DIAGRAM_NUMBER - 1: 0]i_diagram_angle,
+        input [15: 0]i_output_source,
+        input [15: 0]i_output_source_channel,
+        input [7:0] i_apu_rank,
+        input [7:0] i_apu_window,
+        input [31:0] i_detector_level_0,
+        input [31:0] i_detector_level_1,
+        input [31:0] i_azimuth_angle,
+        input [15:0] i_auto_compensation_reference,
 
 		output [CHANNEL_NUMBER - 1: 0]o_read_from_fifo,
 		
@@ -140,22 +147,56 @@ module Dsp
 	reg [15: 0]output_source_channel;
 (* mark_debug = "true" *)
 	reg [15: 0]output_source;
+(* mark_debug = "true" *)
+    reg [15: 0]compensation_mode;
+(* mark_debug = "true" *)
+    reg [2 * SIGNAL_WIDTH * CHANNEL_NUMBER - 1: 0]manual_compensation_coefs;
+    reg [2 * DIAGRAM_NUMBER * SIGNAL_WIDTH * CHANNEL_NUMBER - 1: 0]diagram_coefs;
+(* mark_debug = "true" *)
+    reg [2 * SIGNAL_WIDTH * CHANNEL_NUMBER - 1: 0]diagram_coefs_debug;
+    reg [7:0] motion_selector_filter;
+(* mark_debug = "true" *)
+    reg motion_selector_onoff_out;
+    reg [ANGLE_WIDTH * DIAGRAM_NUMBER - 1: 0]diagram_angle;
+    reg [7:0] apu_rank;
+    reg [7:0] apu_window;
+    reg [31:0] detector_level_0;
+    reg [31:0] detector_level_1;
+    reg [31:0] azimuth_angle;
+(* mark_debug = "true" *)
+    reg [15:0] auto_compensation_reference;
+
 
 	always @(posedge i_clock)
 	begin
 		output_source_channel <= i_output_source_channel;
 		output_source <= i_output_source;
+		compensation_mode <= i_compensation_mode;
+		manual_compensation_coefs <= i_manual_compensation_coefs;
+		diagram_coefs <= i_diagram_coefs;
+		diagram_coefs_debug <= i_diagram_coefs;
+		motion_selector_filter <= i_motion_selector_filter;
+		motion_selector_onoff_out <= i_motion_selector_onoff_out;
+		diagram_angle <= i_diagram_angle;
+		apu_rank <= i_apu_rank;
+		apu_window <= i_apu_window;
+		detector_level_0 <= i_detector_level_0;
+		detector_level_1 <= i_detector_level_1;
+		azimuth_angle <= i_azimuth_angle;
+	 	auto_compensation_reference <= i_auto_compensation_reference;
 	end
 
 
-	wire [COMPENSATION_COEF_WIDTH * CHANNEL_NUMBER - 1: 0]automatic_compensation_coefs;
+(* mark_debug = "true" *)
+	wire [2 * COMPENSATION_COEF_WIDTH * CHANNEL_NUMBER - 1: 0]automatic_compensation_coefs;
 
-	CompensationCalculation
+	CompensationCalculationBlock
 		#(
 			.BIT_WIDTH(SIGNAL_WIDTH),
 			.LENGTH(AUX_LENGTH),
 			.LENGTH_WIDTH(AUX_LENGTH_WIDTH),
-			.REFERENCE_LEVEL(COMPENSATION_COEF_LEVEL_ONE)
+			.REFERENCE_LEVEL(COMPENSATION_COEF_LEVEL_ONE),
+			.CHANNEL_NUMBER(CHANNEL_NUMBER)
 		)
 		inst_compensation_calculation
 		(
@@ -164,16 +205,17 @@ module Dsp
 			.i_signal_valid(rxed_aux_valid),
 			.i_finish(rxed_aux_finished),
 	
-			.i_reference(i_compensation_calculation_reference),
+			.i_reference(auto_compensation_reference),
 	
 			.i_reset(i_reset),
 			.i_clock(i_clock),
 	
-			.o_coef(automatic_compensation_coefs),
+			.o_coefs(automatic_compensation_coefs),
 			.o_finished(aux_calculation_finished)
 		);	
 
-	wire [COMPENSATION_COEF_WIDTH * CHANNEL_NUMBER - 1: 0]selected_compensation_coefs;
+(* mark_debug = "true" *)
+	wire [2 * COMPENSATION_COEF_WIDTH * CHANNEL_NUMBER - 1: 0]selected_compensation_coefs;
 
 	CompesationCoefSelector
 		#(
@@ -183,9 +225,9 @@ module Dsp
 		inst_compensation_coef_selector
 		(
 			.i_automatic_coefs(automatic_compensation_coefs),
-			.i_manual_coefs(i_manual_compensation_coefs),
+			.i_manual_coefs(manual_compensation_coefs),
 	
-			.i_mode(i_compensation_mode),
+			.i_mode(compensation_mode),
 	
 			.i_clock(i_clock),
 			.i_reset(i_reset),
@@ -193,8 +235,21 @@ module Dsp
 			.o_coefs(selected_compensation_coefs)
 		);
 
-	wire [CHANNEL_NUMBER * SIGNAL_WIDTH - 1: 0]compensated_signal;
+(* mark_debug = "true" *)
+	wire [2 * CHANNEL_NUMBER * SIGNAL_WIDTH - 1: 0]compensated_signal;
 
+	reg [5:0] rxed_far_valid_delay_compensation; 
+	reg [5:0] rxed_close_valid_delay_compensation;
+
+	reg rxed_far_valid_delayed_compensation; 
+	reg rxed_close_valid_delayed_compensation;
+
+	always @(posedge i_clock)
+	begin
+		{rxed_far_valid_delayed_compensation, rxed_far_valid_delay_compensation} <= {rxed_far_valid_delay_compensation, rxed_far_valid};
+		{rxed_close_valid_delayed_compensation, rxed_close_valid_delay_compensation} <= {rxed_close_valid_delay_compensation, rxed_close_valid};
+	end
+ 
 	CompensationBlock
 		#(
 			.BIT_WIDTH(SIGNAL_WIDTH),
@@ -209,7 +264,17 @@ module Dsp
 			.i_clock(i_clock),
 			.i_reset(i_reset),
 	
-			.o_signal(compensated_signal)
+			.o_signal(compensated_signal),
+
+			.i_start(rx_started),
+			.i_far_valid(rxed_far_valid),
+			.i_close_valid(rxed_close_valid),
+			.i_finished(rx_finished),
+
+			.o_start(compensation_started),
+			.o_far_valid(compensation_far_valid),
+			.o_close_valid(compensation_close_valid),
+			.o_finished(compensation_finished)
 		);
 
 	wire [2 * SIGNAL_WIDTH * DIAGRAM_NUMBER - 1: 0]diagram_signal;
@@ -222,12 +287,22 @@ module Dsp
 		)
 		inst_lou_block
 		(
-			.i_signal(compensated_siganl),
-			.i_coefs(i_diagram_coefs),
+			.i_signal(compensated_signal),
+			.i_coefs(diagram_coefs),
 			.i_reset(i_reset),
 			.i_clock(i_clock),
 
-			.o_signal(diagram_signal)
+			.o_signal(diagram_signal),
+
+                        .i_start(compensation_started),
+                        .i_far_valid(compensation_far_valid),
+                        .i_close_valid(compensation_close_valid),
+                        .i_finished(compensation_finished),
+
+                        .o_start(lou_started),
+                        .o_far_valid(lou_far_valid),
+                        .o_close_valid(lou_close_valid),
+                        .o_finished(lou_finished)
 		);
 
 	wire [2 * SIGNAL_WIDTH * DIAGRAM_NUMBER - 1: 0]far_signal_for_filter;
@@ -339,13 +414,14 @@ module Dsp
 	    #(
 	        .CHANNEL_NUMBER(CHANNEL_NUMBER),
 	        .BIT_WIDTH(2 * SIGNAL_WIDTH),
-		.SOURCE_NUMBER(4)
+			.SOURCE_NUMBER(5)
 	    )
 	    inst_source_selector
 	    (
 			.i_data(
 				{
-					compensated_signal,
+					256'b0,
+					diagram_signal,
 					compensated_signal,
 					rxed_signal,
 					rxed_data_debug
@@ -354,7 +430,8 @@ module Dsp
 			.i_data_valid(
 				{
 					rxed_far_valid | rxed_close_valid,
-					rxed_far_valid | rxed_close_valid,
+					lou_close_valid | lou_far_valid,
+					compensation_close_valid | compensation_far_valid,
 					rxed_far_valid | rxed_close_valid,
 					rxed_data_debug_valid
 				}
@@ -364,13 +441,15 @@ module Dsp
 					rx_started,
 					rx_started,
 					rx_started,
+					rx_started,
 					rxed_data_debug_started
 				}
 			),
 			.i_data_finished(
 				{
 					rx_finished,
-					rx_finished,
+					lou_finished,
+					compensation_finished,
 					rx_finished,
 					rxed_data_debug_finished
 				}

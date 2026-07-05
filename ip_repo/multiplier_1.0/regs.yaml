@@ -66,7 +66,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_0
     description: ""
@@ -79,7 +79,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -87,7 +87,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_1
     description: ""
@@ -100,7 +100,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -108,7 +108,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_2
     description: ""
@@ -121,7 +121,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -129,7 +129,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_3
     description: ""
@@ -142,7 +142,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -150,7 +150,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_4
     description: ""
@@ -163,7 +163,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -171,7 +171,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_5
     description: ""
@@ -184,7 +184,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -192,7 +192,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_6
     description: ""
@@ -205,7 +205,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -213,7 +213,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_7
     description: ""
@@ -226,7 +226,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -234,7 +234,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_0
     description: ""
@@ -247,7 +247,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -255,7 +255,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_1
     description: ""
@@ -268,7 +268,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -276,7 +276,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_2
     description: ""
@@ -289,7 +289,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -297,7 +297,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_3
     description: ""
@@ -310,7 +310,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -318,7 +318,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_4
     description: ""
@@ -331,7 +331,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -339,7 +339,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_5
     description: ""
@@ -352,7 +352,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -360,7 +360,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_6
     description: ""
@@ -373,7 +373,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -381,7 +381,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_0_7
     description: ""
@@ -394,7 +394,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -402,7 +402,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_0
     description: ""
@@ -415,7 +415,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -423,7 +423,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_1
     description: ""
@@ -436,7 +436,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -444,7 +444,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_2
     description: ""
@@ -457,7 +457,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -465,7 +465,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_3
     description: ""
@@ -478,7 +478,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -486,7 +486,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_4
     description: ""
@@ -499,7 +499,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -507,7 +507,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_5
     description: ""
@@ -520,7 +520,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -528,7 +528,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_6
     description: ""
@@ -541,7 +541,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -549,7 +549,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_1_7
     description: ""
@@ -562,7 +562,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -570,7 +570,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_0
     description: ""
@@ -583,7 +583,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -591,7 +591,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_1
     description: ""
@@ -604,7 +604,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -612,7 +612,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_2
     description: ""
@@ -625,7 +625,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -633,7 +633,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_3
     description: ""
@@ -646,7 +646,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -654,7 +654,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_4
     description: ""
@@ -667,7 +667,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -675,7 +675,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_5
     description: ""
@@ -688,7 +688,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -696,7 +696,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_6
     description: ""
@@ -709,7 +709,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -717,7 +717,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_2_7
     description: ""
@@ -730,7 +730,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -738,7 +738,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_0
     description: ""
@@ -751,7 +751,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -759,7 +759,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_1
     description: ""
@@ -772,7 +772,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -780,7 +780,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_2
     description: ""
@@ -793,7 +793,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -801,7 +801,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_3
     description: ""
@@ -814,7 +814,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -822,7 +822,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_4
     description: ""
@@ -835,7 +835,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -843,7 +843,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_5
     description: ""
@@ -856,7 +856,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -864,7 +864,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_6
     description: ""
@@ -877,7 +877,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -885,7 +885,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_3_7
     description: ""
@@ -898,7 +898,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -906,7 +906,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_0
     description: ""
@@ -919,7 +919,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -927,7 +927,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_1
     description: ""
@@ -940,7 +940,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -948,7 +948,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_2
     description: ""
@@ -961,7 +961,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -969,7 +969,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_3
     description: ""
@@ -982,7 +982,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -990,7 +990,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_4
     description: ""
@@ -1003,7 +1003,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1011,7 +1011,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_5
     description: ""
@@ -1024,7 +1024,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1032,7 +1032,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_6
     description: ""
@@ -1045,7 +1045,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1053,7 +1053,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_4_7
     description: ""
@@ -1066,7 +1066,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1074,7 +1074,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_0
     description: ""
@@ -1087,7 +1087,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1095,7 +1095,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_1
     description: ""
@@ -1108,7 +1108,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1116,7 +1116,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_2
     description: ""
@@ -1129,7 +1129,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1137,7 +1137,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_3
     description: ""
@@ -1150,7 +1150,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1158,7 +1158,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_4
     description: ""
@@ -1171,7 +1171,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1179,7 +1179,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_5
     description: ""
@@ -1192,7 +1192,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1200,7 +1200,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_6
     description: ""
@@ -1213,7 +1213,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1221,7 +1221,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_5_7
     description: ""
@@ -1234,7 +1234,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1242,7 +1242,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_0
     description: ""
@@ -1255,7 +1255,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1263,7 +1263,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_1
     description: ""
@@ -1276,7 +1276,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1284,7 +1284,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_2
     description: ""
@@ -1297,7 +1297,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1305,7 +1305,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_3
     description: ""
@@ -1318,7 +1318,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1326,7 +1326,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_4
     description: ""
@@ -1339,7 +1339,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1347,7 +1347,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_5
     description: ""
@@ -1360,7 +1360,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1368,7 +1368,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_6
     description: ""
@@ -1381,7 +1381,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1389,7 +1389,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_6_7
     description: ""
@@ -1402,7 +1402,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1410,7 +1410,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_0
     description: ""
@@ -1423,7 +1423,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1431,7 +1431,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_1
     description: ""
@@ -1444,7 +1444,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1452,7 +1452,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_2
     description: ""
@@ -1465,7 +1465,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1473,7 +1473,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_3
     description: ""
@@ -1486,7 +1486,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1494,7 +1494,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_4
     description: ""
@@ -1507,7 +1507,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1515,7 +1515,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_5
     description: ""
@@ -1528,7 +1528,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1536,7 +1536,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_6
     description: ""
@@ -1549,7 +1549,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1557,7 +1557,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_7_7
     description: ""
@@ -1570,7 +1570,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
@@ -1578,7 +1578,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: MOTION_SELECTOR
     description: ""
@@ -1591,7 +1591,7 @@ regmap:
         width: 8
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: ONOFF
         description: Motion selector on/off
@@ -1599,7 +1599,7 @@ regmap:
         width: 1
         lsb: 8
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_0
     description: ""
@@ -1612,7 +1612,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_1
     description: ""
@@ -1625,7 +1625,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_2
     description: ""
@@ -1638,7 +1638,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_3
     description: ""
@@ -1651,7 +1651,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_4
     description: ""
@@ -1664,7 +1664,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_5
     description: ""
@@ -1677,7 +1677,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_6
     description: ""
@@ -1690,7 +1690,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DIAGRAM_ANGLE_7
     description: ""
@@ -1703,7 +1703,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: OUTPUT_SOURCE
     description: ""
@@ -1716,7 +1716,7 @@ regmap:
         width: 16
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: SOURCE_CHANNEL
         description: Source channel for output data (if exists)
@@ -1724,7 +1724,7 @@ regmap:
         width: 16
         lsb: 16
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 
 -   name: APU_RANK
@@ -1738,7 +1738,7 @@ regmap:
         width: 8
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
     -   name: WINDOW
         description: window length
@@ -1746,7 +1746,7 @@ regmap:
         width: 8
         lsb: 8
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DETECTOR_LEVEL_0
     description: ""
@@ -1759,7 +1759,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: DETECTOR_LEVEL_1
     description: ""
@@ -1772,7 +1772,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: AZIMUTH_ANGLE
     description: ""
@@ -1785,7 +1785,7 @@ regmap:
         width: 32
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
         enums: []
 -   name: APPLY
     description: ""
@@ -1798,5 +1798,18 @@ regmap:
         width: 1
         lsb: 0
         access: rw
-        hardware: f
+        hardware: o
+        enums: []
+-   name: COMPENSATION_REFERENCE
+    description: ""
+    address: 368
+    bitfields:
+
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
         enums: []

@@ -42,6 +42,8 @@ module Compensation
 	    .o_value_im(result_im)    
 	  );
 
+	assign o_signal[0 +: BIT_WIDTH] = result_re[COEF_ONE_BIT_WIDTH +: BIT_WIDTH];
+	assign o_signal[BIT_WIDTH +: BIT_WIDTH] = result_im[COEF_ONE_BIT_WIDTH +: BIT_WIDTH];
 
 endmodule
 
@@ -58,7 +60,21 @@ module CompensationBlock
 		input i_clock,
 		input i_reset,
 
-		output [2 * BIT_WIDTH * CHANNEL_NUMBER - 1: 0]o_signal
+		output [2 * BIT_WIDTH * CHANNEL_NUMBER - 1: 0]o_signal,
+
+		input i_start,
+		input i_far_valid,
+		input i_close_valid,
+		input i_finished,
+
+(* mark_debug = "true" *)	
+		output reg o_start,
+(* mark_debug = "true" *)	
+		output reg o_far_valid,
+(* mark_debug = "true" *)	
+		output reg o_close_valid,
+(* mark_debug = "true" *)	
+		output reg o_finished
 	);
 
 	generate
@@ -83,4 +99,25 @@ module CompensationBlock
 				);
 		end
 	endgenerate
+
+	localparam DELAY = 6;
+	
+	reg [4 * DELAY - 1: 0]delay;
+
+	always @(posedge i_clock)
+	begin
+		{
+			o_start,
+			o_far_valid,
+			o_close_valid,
+			o_finished,
+			delay
+		} <= {
+			delay,
+			i_start,
+			i_far_valid,
+			i_close_valid,
+			i_finished
+		};
+	end
 endmodule
