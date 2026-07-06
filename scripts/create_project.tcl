@@ -121,6 +121,8 @@ set bCheckIPsPassed 1
 ##################################################################
 # CHECK IPs
 ##################################################################
+set_property IP_REPO_PATHS {./ip_repo/} [current_fileset]
+update_ip_catalog -rebuild
 set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
