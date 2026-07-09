@@ -357,70 +357,17 @@ module Dsp
 			.i_awaiting_data(i_awaiting_data)
 		);
 		
-/*
-	FirBlock
-	  #(
-	    .CHANNEL_NUMBER(DIAGRAM_NUMBER),
-	    .FILTER_LENGTH(FILTER_LENGTH),
-	    .COEF_WIDTH(COEF_WIDTH),
-	    .SIGNAL_WIDTH(SIGNAL_WIDTH),
-	    .COEF_FILE(FAR_COEF_FILE)
-	  )
-	  inst_far_filter
-	  (
-	    .i_signal(far_signal_for_filter), 
-	    .i_reset(i_reset), 
-	    .i_clock(i_clock), 
-	    .i_valid(far_signal_for_filter_valid),
-	    .o_signal(far_signal_filtered),
-	    .o_valid(far_signal_filtered_valid)
-	  );	
-
-	wire [2 * SIGNAL_WIDTH * DIAGRAM_NUMBER - 1 : 0]close_signal_filtered;
-	wire close_signal_filtered_valid;
-
-	FirBlock
-	  #(
-	    .CHANNEL_NUMBER(DIAGRAM_NUMBER),
-	    .FILTER_LENGTH(FILTER_LENGTH),
-	    .COEF_WIDTH(COEF_WIDTH),
-	    .SIGNAL_WIDTH(SIGNAL_WIDTH),
-	    .COEF_FILE(FAR_COEF_FILE)
-	  )
-	  inst_close_filter
-	  (
-	    .i_signal(close_signal_for_filter), 
-	    .i_reset(i_reset), 
-	    .i_clock(i_clock), 
-	    .i_valid(close_signal_for_filter_valid),
-	    .o_signal(close_signal_filtered),
-	    .o_valid(close_signal_filtered_valid)
-	  );
-
-	reg [2 * SIGNAL_WIDTH * DIAGRAM_NUMBER - 1 : 0]signal_filtered;
-	reg signal_filtered_valid;
-
-	always @(posedge i_clock)
-	begin
-		if(close_signal_filtered_valid) signal_filtered <= close_signal_filtered;
-		else if(far_signal_filtered_valid) signal_filtered <= far_signal_filtered;
-		else signal_filtered <= 0;
-
-		signal_filtered <= far_signal_filtered_valid | close_signal_filtered_valid;
-	end	
-*/
 
 	OutputSourceSelector
 	    #(
 	        .CHANNEL_NUMBER(CHANNEL_NUMBER),
 	        .BIT_WIDTH(2 * SIGNAL_WIDTH),
-			.SOURCE_NUMBER(5)
+			.SOURCE_NUMBER(2)
 	    )
 	    inst_source_selector
 	    (
 			.i_data(
 				{
-					256'b0,
 					diagram_signal,
 					compensated_signal,
 					rxed_signal,
@@ -429,7 +376,6 @@ module Dsp
 			),
 			.i_data_valid(
 				{
-					rxed_far_valid | rxed_close_valid,
 					lou_close_valid | lou_far_valid,
 					compensation_close_valid | compensation_far_valid,
 					rxed_far_valid | rxed_close_valid,

@@ -3,7 +3,7 @@
 set ip_dir "ip_repo/multiplier_1.0"
 set hdl_dir "$ip_dir/hdl"
 set component_xml "$ip_dir/component.xml"
-set top_module "multiplier_v1_0"
+set top_module "rls_mini_dsp"
 
 proc make_relative_to_ip {ip_root file_path} {
     set ip_root [file normalize $ip_root]

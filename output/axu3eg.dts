@@ -1439,7 +1439,8 @@
 		};
 
 		rls_mini_dsp: multiplier@a0001000 {
-			compatible = "BMSTU,axi-multiplier-1.0";
+			// compatible = "BMSTU,axi-multiplier-1.0";
+			compatible = "BMSTU,rls_mini_pl";
 			clock-names = "aclk", "s00_axi_aclk";
 			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>;
 			reg = <0x0 0xa0001000 0x0 0x1000>;

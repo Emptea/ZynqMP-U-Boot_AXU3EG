@@ -89,16 +89,6 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
     wire [AXIS_TDATA_WIDTH-1:0] mults_output_tdata [0:N_MULTS-1];
     wire dsp_data_last;
     
-    assign s00_axis_tready = mults_tready[0];
-    assign s01_axis_tready = mults_tready[1];
-    assign s02_axis_tready = mults_tready[2];
-    assign s03_axis_tready = mults_tready[3];
-    assign s04_axis_tready = mults_tready[4];
-    assign s05_axis_tready = mults_tready[5];
-    assign s06_axis_tready = mults_tready[6];
-    assign s07_axis_tready = mults_tready[7];
-    
-    assign m_axis_tlast = dsp_data_last;
     /*
     genvar i;
     generate
@@ -255,4 +245,5 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
             s00_axis_tready
         } = request_data_from_fifo;
 
+    assign m_axis_tlast = dsp_data_last;
 endmodule
