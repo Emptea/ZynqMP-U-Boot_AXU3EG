@@ -37,6 +37,7 @@ module multiplier_v1_0 #(
                          (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF m_axis:s00_axis:s01_axis:s02_axis:s03_axis:s04_axis:s05_axis:s06_axis:s07_axis, ASSOCIATED_RESET aresetn" *)
     input wire aclk, (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 aresetn RST" *)
     input wire aresetn,
+    output wire kill,
 
     output wire m_axis_tvalid,
     output wire [AXIS_TDATA_WIDTH-1 : 0] m_axis_tdata,
@@ -87,7 +88,6 @@ module multiplier_v1_0 #(
 
   wire [MULT_WIDTH * N_MULTS - 1 : 0] mults;
   wire [AXI_DATA_WIDTH - 1:0] ip_ver;
-  wire kill;
   wire [2:0] test_point;
   wire [2:0] channel;
   wire [15:0] mult0;

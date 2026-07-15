@@ -623,6 +623,23 @@
         </spirit:portMap>
       </spirit:portMaps>
     </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>kill_out</spirit:name>
+      <spirit:displayName>kill_out</spirit:displayName>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>kill</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
   </spirit:busInterfaces>
   <spirit:memoryMaps>
     <spirit:memoryMap>
@@ -650,7 +667,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>96fdc04b</spirit:value>
+            <spirit:value>3a3bbfb5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -666,7 +683,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>96fdc04b</spirit:value>
+            <spirit:value>3a3bbfb5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1568,6 +1585,19 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
+        <spirit:name>kill</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>wire</spirit:typeName>
+              <spirit:viewNameRef>xilinx_verilogsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_verilogbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
         <spirit:name>m_axis_tvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
@@ -1707,153 +1737,91 @@
     <spirit:fileSet>
       <spirit:name>xilinx_verilogsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>hdl/axi_multiplier.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/axi_multiplier_8ch.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/mult_dsp48.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/regs.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/multiplier_v1_0.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_db95d29e</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/delay.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/muls.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/rams.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/v_rec_algs.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/dsp/accumulator.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/compensation.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/compensation_calculation.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/compensation_coef_selector.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/dsp.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/dsp/fifo_to_plain.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/filter_selector.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/lou.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/dsp/max_selector.v</spirit:name>
+        <spirit:name>hdl/common/muls.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/output_channel_selector.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/output_driver.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/output_source_selector.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/common/rams.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/regs.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/dsp/signal_receiver.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/dsp/utils.v</spirit:name>
+        <spirit:name>hdl/common/v_rec_algs.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/multiplier_v1_0_S00_AXI.v</spirit:name>
+        <spirit:name>hdl/multiplier_v1_0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_e331c150</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_8ee18338</spirit:userFileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>hdl/axi_multiplier.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/axi_multiplier_8ch.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/mult_dsp48.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/regs.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/multiplier_v1_0.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/delay.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/muls.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/rams.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/common/v_rec_algs.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/dsp/accumulator.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1878,11 +1846,6 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/dsp/fifo_to_plain.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/dsp/filter_selector.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
@@ -1893,7 +1856,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/dsp/max_selector.v</spirit:name>
+        <spirit:name>hdl/common/muls.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1913,17 +1876,27 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/common/rams.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/regs.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/dsp/signal_receiver.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/dsp/utils.v</spirit:name>
+        <spirit:name>hdl/common/v_rec_algs.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/multiplier_v1_0_S00_AXI.v</spirit:name>
+        <spirit:name>hdl/multiplier_v1_0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -2066,8 +2039,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>multiplier_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>27</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-07-06T15:14:08Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>29</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-07-15T14:23:16Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3356e698_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5038dec8_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
@@ -2741,14 +2714,65 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@60401903_ARCHIVE_LOCATION">/home/a/work/mini/fpga/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4f60c969_ARCHIVE_LOCATION">/home/a/work/mini/fpga/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4cd4fdd_ARCHIVE_LOCATION">/home/a/work/mini/fpga/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@628cd59c_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@84ebe8e_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c4ca54d_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@471e9118_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@475e9f4f_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@163ee604_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b7be5a_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@341b8ff_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6fdb8320_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e5ee095_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@101520f9_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a24565b_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@19a677d9_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f627fb9_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ff4855f_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5362e03_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bb85ecc_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7fa0647d_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ebc6520_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b125c40_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7148a8aa_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29d09d33_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9d400ff_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69e8aee1_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60df735e_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f184dcf_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f4001d3_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c87a80d_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9530131_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2915b9a3_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f5b7ba9_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6aefc409_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6fb90104_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77ee3c95_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7725500f_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2def262c_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28fac636_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11fd0575_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a86ca6_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bbb9d34_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a0e3c7f_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e456f97_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@79fb5388_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59ae6168_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63c849a2_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70b3c85e_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4140ee42_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@424ab680_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7e08f774_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f5137ec_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68989dbb_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2019.1</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="a96bf038"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="51e804b0"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="abfc5195"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="183a05e5"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="3bbb0317"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="64b31d38"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="48dbb432"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b8d7c029"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="e92795d4"/>
     </xilinx:packagingInfo>
