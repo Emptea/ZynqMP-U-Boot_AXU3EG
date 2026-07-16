@@ -636,7 +636,7 @@ assign csr_kill_ren = ren && (raddr == 11'h4);
 reg csr_kill_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
-        csr_kill_ren_ff <= 1'b0;
+        csr_kill_ren_ff <= 1'b1;
     end else begin
         csr_kill_ren_ff <= csr_kill_ren;
     end
