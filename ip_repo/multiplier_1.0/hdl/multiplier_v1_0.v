@@ -806,7 +806,7 @@ wire                                   heartbeat;
 // DDR 
 ddr4 u_ddr4
    (
-   .sys_rst                    (~sys_rst                  ),
+   .sys_rst                    (~aresetn                  ),
    .c0_sys_clk_p               (c0_sys_clk_p              ),
    .c0_sys_clk_n               (c0_sys_clk_n              ),
    .c0_ddr4_act_n              (c0_ddr4_act_n             ),
