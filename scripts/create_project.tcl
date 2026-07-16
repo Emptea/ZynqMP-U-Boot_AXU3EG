@@ -1267,9 +1267,9 @@ proc create_root_design { parentCell } {
   # Create instance: util_reduced_logic_0, and set properties
   set util_reduced_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_reduced_logic:2.0 util_reduced_logic_0 ]
   set_property -dict [ list \
-   CONFIG.C_OPERATION {or} \
+   CONFIG.C_OPERATION {and} \
    CONFIG.C_SIZE {2} \
-   CONFIG.LOGO_FILE {data/sym_orgate.png} \
+   CONFIG.LOGO_FILE {data/sym_andgate.png} \
  ] $util_reduced_logic_0
 
   # Create instance: xlconcat_0, and set properties
@@ -1284,9 +1284,6 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets axi_mcdma_0_M_AXIS_MM2S] [get_bd
   connect_bd_intf_net -intf_net axi_mcdma_0_M_AXI_MM2S [get_bd_intf_pins mcdma/M_AXI_MM2S] [get_bd_intf_pins smc_pl2ps/S01_AXI]
   connect_bd_intf_net -intf_net axi_mcdma_0_M_AXI_S2MM [get_bd_intf_pins mcdma/M_AXI_S2MM] [get_bd_intf_pins smc_pl2ps/S02_AXI]
   connect_bd_intf_net -intf_net axi_mcdma_0_M_AXI_SG [get_bd_intf_pins mcdma/M_AXI_SG] [get_bd_intf_pins smc_pl2ps/S00_AXI]
-  connect_bd_intf_net -intf_net axis_data_fifo_1_M_AXIS [get_bd_intf_pins mcdma/S_AXIS_S2MM] [get_bd_intf_pins output_fifo/M_AXIS]
-connect_bd_intf_net -intf_net [get_bd_intf_nets axis_data_fifo_1_M_AXIS] [get_bd_intf_pins output_fifo/M_AXIS] [get_bd_intf_pins system_ila_1/SLOT_8_AXIS]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets axis_data_fifo_1_M_AXIS]
   connect_bd_intf_net -intf_net axis_interconnect_0_M00_AXIS [get_bd_intf_pins FIFOS/S_AXIS_CH0] [get_bd_intf_pins mcdma2fifos/M00_AXIS]
 connect_bd_intf_net -intf_net [get_bd_intf_nets axis_interconnect_0_M00_AXIS] [get_bd_intf_pins mcdma2fifos/M00_AXIS] [get_bd_intf_pins system_ila_0/SLOT_0_AXIS]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets axis_interconnect_0_M00_AXIS]
@@ -1338,6 +1335,9 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets input_fifo_ch7_M_AXIS] [get_bd_i
   connect_bd_intf_net -intf_net multiplier_0_M00_AXIS1 [get_bd_intf_pins output_fifo/S_AXIS] [get_bd_intf_pins rls_mini_dsp/m_axis]
 connect_bd_intf_net -intf_net [get_bd_intf_nets multiplier_0_M00_AXIS1] [get_bd_intf_pins output_fifo/S_AXIS] [get_bd_intf_pins system_ila_0/SLOT_8_AXIS]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets multiplier_0_M00_AXIS1]
+  connect_bd_intf_net -intf_net output_fifo_M_AXIS [get_bd_intf_pins mcdma/S_AXIS_S2MM] [get_bd_intf_pins output_fifo/M_AXIS]
+connect_bd_intf_net -intf_net [get_bd_intf_nets output_fifo_M_AXIS] [get_bd_intf_pins output_fifo/M_AXIS] [get_bd_intf_pins system_ila_1/SLOT_8_AXIS]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets output_fifo_M_AXIS]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins gpio/S_AXI] [get_bd_intf_pins smc_ps2pl/M00_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins mcdma/S_AXI_LITE] [get_bd_intf_pins smc_ps2pl/M01_AXI]
   connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins ps/S_AXI_HPC0_FPD] [get_bd_intf_pins smc_pl2ps/M00_AXI]
@@ -1345,7 +1345,7 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets multiplier_0_M00_AXIS1] [get_bd_
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_LPD [get_bd_intf_pins ps/M_AXI_HPM0_LPD] [get_bd_intf_pins smc_ps2pl/S00_AXI]
 
   # Create port connections
-  connect_bd_net -net aresetn_1 [get_bd_pins FIFOS/aresetn] [get_bd_pins util_reduced_logic_0/Res]
+  connect_bd_net -net aresetn_1 [get_bd_pins FIFOS/aresetn] [get_bd_pins output_fifo/s_axis_aresetn] [get_bd_pins util_reduced_logic_0/Res]
   connect_bd_net -net axcache_coherent_dout [get_bd_pins axcache_coherent/dout] [get_bd_pins ps/saxigp0_arcache] [get_bd_pins ps/saxigp0_awcache]
   connect_bd_net -net axi_mcdma_0_mm2s_ch1_introut [get_bd_pins mcdma/mm2s_ch1_introut] [get_bd_pins mm2s_irqs/In0] [get_bd_pins system_ila_0/probe0]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axi_mcdma_0_mm2s_ch1_introut]
@@ -1365,45 +1365,45 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets multiplier_0_M00_AXIS1] [get_bd_
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axi_mcdma_0_mm2s_ch8_introut]
   connect_bd_net -net axi_mcdma_0_s2mm_ch1_introut [get_bd_pins mcdma/s2mm_ch1_introut] [get_bd_pins ps/pl_ps_irq1] [get_bd_pins system_ila_0/probe8]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axi_mcdma_0_s2mm_ch1_introut]
-  connect_bd_net -net axis_rd_data_count [get_bd_pins FIFOS/rd_data_count_ch5] [get_bd_pins system_ila_1/probe13]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count]
-  connect_bd_net -net axis_rd_data_count_1 [get_bd_pins FIFOS/rd_data_count_ch2] [get_bd_pins system_ila_1/probe10]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_1]
-  connect_bd_net -net axis_rd_data_count_2 [get_bd_pins FIFOS/rd_data_count_ch0] [get_bd_pins system_ila_1/probe8]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_2]
-  connect_bd_net -net axis_rd_data_count_3 [get_bd_pins FIFOS/rd_data_count_ch3] [get_bd_pins system_ila_1/probe11]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_3]
-  connect_bd_net -net axis_rd_data_count_4 [get_bd_pins FIFOS/rd_data_count_ch7] [get_bd_pins system_ila_1/probe15]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_4]
-  connect_bd_net -net axis_rd_data_count_5 [get_bd_pins FIFOS/rd_data_count_ch4] [get_bd_pins system_ila_1/probe12]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_5]
-  connect_bd_net -net axis_rd_data_count_6 [get_bd_pins FIFOS/rd_data_count_ch6] [get_bd_pins system_ila_1/probe14]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_6]
-  connect_bd_net -net axis_rd_data_count_7 [get_bd_pins FIFOS/rd_data_count_ch1] [get_bd_pins system_ila_1/probe9]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_7]
   connect_bd_net -net axis_rd_data_count_8 [get_bd_pins output_fifo/axis_rd_data_count] [get_bd_pins system_ila_1/probe17]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_rd_data_count_8]
-  connect_bd_net -net axis_wr_data_count [get_bd_pins FIFOS/wr_data_count_ch5] [get_bd_pins system_ila_1/probe5]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count]
-  connect_bd_net -net axis_wr_data_count_1 [get_bd_pins FIFOS/wr_data_count_ch3] [get_bd_pins system_ila_1/probe3]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_1]
-  connect_bd_net -net axis_wr_data_count_2 [get_bd_pins FIFOS/wr_data_count_ch2] [get_bd_pins system_ila_1/probe2]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_2]
-  connect_bd_net -net axis_wr_data_count_4 [get_bd_pins FIFOS/wr_data_count_ch7] [get_bd_pins system_ila_1/probe7]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_4]
-  connect_bd_net -net axis_wr_data_count_5 [get_bd_pins FIFOS/wr_data_count_ch6] [get_bd_pins system_ila_1/probe6]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_5]
-  connect_bd_net -net axis_wr_data_count_6 [get_bd_pins FIFOS/wr_data_count_ch4] [get_bd_pins system_ila_1/probe4]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_6]
-  connect_bd_net -net axis_wr_data_count_7 [get_bd_pins FIFOS/wr_data_count_ch1] [get_bd_pins system_ila_1/probe1]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_7]
   connect_bd_net -net axis_wr_data_count_8 [get_bd_pins output_fifo/axis_wr_data_count] [get_bd_pins system_ila_1/probe16]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets axis_wr_data_count_8]
   connect_bd_net -net axprot_unsecure_dout [get_bd_pins axprot_unsecure/dout] [get_bd_pins ps/saxigp0_arprot] [get_bd_pins ps/saxigp0_awprot]
-  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins gpio/s_axi_aresetn] [get_bd_pins mcdma/axi_resetn] [get_bd_pins mcdma2fifos/ARESETN] [get_bd_pins mcdma2fifos/M00_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M01_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M02_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M03_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M04_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M05_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M06_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M07_AXIS_ARESETN] [get_bd_pins mcdma2fifos/S00_AXIS_ARESETN] [get_bd_pins output_fifo/s_axis_aresetn] [get_bd_pins proc_sys_reset/peripheral_aresetn] [get_bd_pins rls_mini_dsp/aresetn] [get_bd_pins rls_mini_dsp/s00_axi_aresetn] [get_bd_pins smc_pl2ps/aresetn] [get_bd_pins smc_ps2pl/ARESETN] [get_bd_pins smc_ps2pl/M00_ARESETN] [get_bd_pins smc_ps2pl/M01_ARESETN] [get_bd_pins smc_ps2pl/M02_ARESETN] [get_bd_pins smc_ps2pl/S00_ARESETN] [get_bd_pins smc_ps2pl/S01_ARESETN] [get_bd_pins system_ila_0/resetn] [get_bd_pins system_ila_1/resetn] [get_bd_pins xlconcat_0/In0]
+  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins gpio/s_axi_aresetn] [get_bd_pins mcdma/axi_resetn] [get_bd_pins mcdma2fifos/ARESETN] [get_bd_pins mcdma2fifos/M00_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M01_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M02_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M03_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M04_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M05_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M06_AXIS_ARESETN] [get_bd_pins mcdma2fifos/M07_AXIS_ARESETN] [get_bd_pins mcdma2fifos/S00_AXIS_ARESETN] [get_bd_pins proc_sys_reset/peripheral_aresetn] [get_bd_pins rls_mini_dsp/aresetn] [get_bd_pins rls_mini_dsp/s00_axi_aresetn] [get_bd_pins smc_pl2ps/aresetn] [get_bd_pins smc_ps2pl/ARESETN] [get_bd_pins smc_ps2pl/M00_ARESETN] [get_bd_pins smc_ps2pl/M01_ARESETN] [get_bd_pins smc_ps2pl/M02_ARESETN] [get_bd_pins smc_ps2pl/S00_ARESETN] [get_bd_pins smc_ps2pl/S01_ARESETN] [get_bd_pins system_ila_0/resetn] [get_bd_pins system_ila_1/resetn] [get_bd_pins xlconcat_0/In0]
+  connect_bd_net -net rd_data_count_ch0 [get_bd_pins FIFOS/rd_data_count_ch0] [get_bd_pins system_ila_1/probe8]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch0]
+  connect_bd_net -net rd_data_count_ch1 [get_bd_pins FIFOS/rd_data_count_ch1] [get_bd_pins system_ila_1/probe9]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch1]
+  connect_bd_net -net rd_data_count_ch2 [get_bd_pins FIFOS/rd_data_count_ch2] [get_bd_pins system_ila_1/probe10]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch2]
+  connect_bd_net -net rd_data_count_ch3 [get_bd_pins FIFOS/rd_data_count_ch3] [get_bd_pins system_ila_1/probe11]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch3]
+  connect_bd_net -net rd_data_count_ch4 [get_bd_pins FIFOS/rd_data_count_ch4] [get_bd_pins system_ila_1/probe12]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch4]
+  connect_bd_net -net rd_data_count_ch5 [get_bd_pins FIFOS/rd_data_count_ch5] [get_bd_pins system_ila_1/probe13]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch5]
+  connect_bd_net -net rd_data_count_ch6 [get_bd_pins FIFOS/rd_data_count_ch6] [get_bd_pins system_ila_1/probe14]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch6]
+  connect_bd_net -net rd_data_count_ch7 [get_bd_pins FIFOS/rd_data_count_ch7] [get_bd_pins system_ila_1/probe15]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets rd_data_count_ch7]
   connect_bd_net -net rls_mini_dsp_kill [get_bd_pins rls_mini_dsp/kill] [get_bd_pins xlconcat_0/In1]
-  connect_bd_net -net wr_data_count_3 [get_bd_pins FIFOS/wr_data_count_ch0] [get_bd_pins system_ila_1/probe0]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_3]
+  connect_bd_net -net wr_data_count_ch0 [get_bd_pins FIFOS/wr_data_count_ch0] [get_bd_pins system_ila_1/probe0]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch0]
+  connect_bd_net -net wr_data_count_ch1 [get_bd_pins FIFOS/wr_data_count_ch1] [get_bd_pins system_ila_1/probe1]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch1]
+  connect_bd_net -net wr_data_count_ch2 [get_bd_pins FIFOS/wr_data_count_ch2] [get_bd_pins system_ila_1/probe2]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch2]
+  connect_bd_net -net wr_data_count_ch3 [get_bd_pins FIFOS/wr_data_count_ch3] [get_bd_pins system_ila_1/probe3]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch3]
+  connect_bd_net -net wr_data_count_ch4 [get_bd_pins FIFOS/wr_data_count_ch4] [get_bd_pins system_ila_1/probe4]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch4]
+  connect_bd_net -net wr_data_count_ch5 [get_bd_pins FIFOS/wr_data_count_ch5] [get_bd_pins system_ila_1/probe5]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch5]
+  connect_bd_net -net wr_data_count_ch6 [get_bd_pins FIFOS/wr_data_count_ch6] [get_bd_pins system_ila_1/probe6]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch6]
+  connect_bd_net -net wr_data_count_ch7 [get_bd_pins FIFOS/wr_data_count_ch7] [get_bd_pins system_ila_1/probe7]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_count_ch7]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins mm2s_irqs/dout] [get_bd_pins ps/pl_ps_irq0]
   connect_bd_net -net xlconcat_0_dout1 [get_bd_pins util_reduced_logic_0/Op1] [get_bd_pins xlconcat_0/dout]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins FIFOS/aclk] [get_bd_pins gpio/s_axi_aclk] [get_bd_pins mcdma/s_axi_aclk] [get_bd_pins mcdma/s_axi_lite_aclk] [get_bd_pins mcdma2fifos/ACLK] [get_bd_pins mcdma2fifos/M00_AXIS_ACLK] [get_bd_pins mcdma2fifos/M01_AXIS_ACLK] [get_bd_pins mcdma2fifos/M02_AXIS_ACLK] [get_bd_pins mcdma2fifos/M03_AXIS_ACLK] [get_bd_pins mcdma2fifos/M04_AXIS_ACLK] [get_bd_pins mcdma2fifos/M05_AXIS_ACLK] [get_bd_pins mcdma2fifos/M06_AXIS_ACLK] [get_bd_pins mcdma2fifos/M07_AXIS_ACLK] [get_bd_pins mcdma2fifos/S00_AXIS_ACLK] [get_bd_pins output_fifo/s_axis_aclk] [get_bd_pins proc_sys_reset/slowest_sync_clk] [get_bd_pins ps/maxihpm0_fpd_aclk] [get_bd_pins ps/maxihpm0_lpd_aclk] [get_bd_pins ps/pl_clk0] [get_bd_pins ps/saxihpc0_fpd_aclk] [get_bd_pins rls_mini_dsp/aclk] [get_bd_pins rls_mini_dsp/s00_axi_aclk] [get_bd_pins smc_pl2ps/aclk] [get_bd_pins smc_ps2pl/ACLK] [get_bd_pins smc_ps2pl/M00_ACLK] [get_bd_pins smc_ps2pl/M01_ACLK] [get_bd_pins smc_ps2pl/M02_ACLK] [get_bd_pins smc_ps2pl/S00_ACLK] [get_bd_pins smc_ps2pl/S01_ACLK] [get_bd_pins system_ila_0/clk] [get_bd_pins system_ila_1/clk]
@@ -1452,5 +1452,9 @@ create_root_design ""
 make_wrapper -files [get_files ./${_xil_proj_name_}/${_xil_proj_name_}.srcs/sources_1/bd/${design_name}/${design_name}.bd] -top
 add_files -norecurse ./${_xil_proj_name_}/${_xil_proj_name_}.srcs/sources_1/bd/${design_name}/hdl/${design_name}_wrapper.v
 
-add_files -fileset constrs_1 -norecurse $script_folder/../constrains/gpio.xdc
-import_files -fileset constrs_1 /$script_folder/../constrains/gpio.xdc
+set xdc_files [glob -nocomplain "$script_folder/../constrains/*.xdc"]
+if {[llength $xdc_files] > 0} {
+    add_files -fileset constrs_1 -norecurse $xdc_files
+} else {
+    send_msg_id "Custom-001" "WARNING" "No XDC files found in the constrains folder!"
+}
