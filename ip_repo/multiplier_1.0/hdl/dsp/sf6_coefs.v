@@ -1,0 +1,9 @@
+localparam COEF_SF_6 = 192'h2aabb61ab61ad556aaac0000b61ad5562aabb61a00005555;
+localparam COEF_SF_6_BRACKETS = {
+  16'd0, 16'd21845,
+  16'd10923, 16'd46618,
+  16'd46618, 16'd54614,
+  16'd43692, 16'd0,
+  16'd46618, 16'd54614,
+  16'd10923, 16'd46618
+};

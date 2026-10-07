@@ -24,7 +24,7 @@ UBOOT_DTB ?= $(DTB)
 BOOT_BIF ?= $(OUTPUT_DIR)/boot.bif
 BOOT_BIN ?= $(OUTPUT_DIR)/BOOT.bin
 
-.PHONY: all vivado_project vivado_impl export_hardware fsbl pmufw arm_tfw dts dtb uboot verify_boot bootbin clean help
+.PHONY: all vivado_project vivado_impl export_hardware fsbl pmufw arm_tfw dts dtb uboot verify_boot bootbin clean help venv-install
 
 all: vivado_project vivado_impl export_hardware fsbl pmufw arm_tfw dts dtb uboot bootbin
 
@@ -75,3 +75,13 @@ clean:
 
 help:
 	@echo "Targets: all vivado_project vivado_impl export_hardware fsbl pmufw arm_tfw dts dtb uboot bootbin  clean"
+
+venv:
+	python3 -m venv venv
+
+venv-install: venv
+	. venv/bin/activate && pip install -r requirements.txt
+
+create-regs: venv-install
+	. venv/bin/activate && cd ip_repo/multiplier_1.0 && python write_regs.py && corsair
+

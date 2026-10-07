@@ -1,0 +1,2 @@
+MAJ_VER = 3
+MIN_VER=2

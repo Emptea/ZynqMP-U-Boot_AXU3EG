@@ -1,0 +1,1758 @@
+-   name: COMPENSATION_MODE
+    description: ""
+    address: 16
+    bitfields:
+
+    -   name: MODE
+        description: Compensation mode
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_0
+    description: ""
+    address: 20
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_1
+    description: ""
+    address: 24
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_2
+    description: ""
+    address: 28
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_3
+    description: ""
+    address: 32
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_4
+    description: ""
+    address: 36
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_5
+    description: ""
+    address: 40
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_6
+    description: ""
+    address: 44
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MANUAL_COMPENSATION_7
+    description: ""
+    address: 48
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_0
+    description: ""
+    address: 52
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_1
+    description: ""
+    address: 56
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_2
+    description: ""
+    address: 60
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_3
+    description: ""
+    address: 64
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_4
+    description: ""
+    address: 68
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_5
+    description: ""
+    address: 72
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_6
+    description: ""
+    address: 76
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_0_7
+    description: ""
+    address: 80
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_0
+    description: ""
+    address: 84
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_1
+    description: ""
+    address: 88
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_2
+    description: ""
+    address: 92
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_3
+    description: ""
+    address: 96
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_4
+    description: ""
+    address: 100
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_5
+    description: ""
+    address: 104
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_6
+    description: ""
+    address: 108
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_1_7
+    description: ""
+    address: 112
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_0
+    description: ""
+    address: 116
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_1
+    description: ""
+    address: 120
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_2
+    description: ""
+    address: 124
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_3
+    description: ""
+    address: 128
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_4
+    description: ""
+    address: 132
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_5
+    description: ""
+    address: 136
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_6
+    description: ""
+    address: 140
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_2_7
+    description: ""
+    address: 144
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_0
+    description: ""
+    address: 148
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_1
+    description: ""
+    address: 152
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_2
+    description: ""
+    address: 156
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_3
+    description: ""
+    address: 160
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_4
+    description: ""
+    address: 164
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_5
+    description: ""
+    address: 168
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_6
+    description: ""
+    address: 172
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_3_7
+    description: ""
+    address: 176
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_0
+    description: ""
+    address: 180
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_1
+    description: ""
+    address: 184
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_2
+    description: ""
+    address: 188
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_3
+    description: ""
+    address: 192
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_4
+    description: ""
+    address: 196
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_5
+    description: ""
+    address: 200
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_6
+    description: ""
+    address: 204
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_4_7
+    description: ""
+    address: 208
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_0
+    description: ""
+    address: 212
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_1
+    description: ""
+    address: 216
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_2
+    description: ""
+    address: 220
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_3
+    description: ""
+    address: 224
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_4
+    description: ""
+    address: 228
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_5
+    description: ""
+    address: 232
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_6
+    description: ""
+    address: 236
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_5_7
+    description: ""
+    address: 240
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_0
+    description: ""
+    address: 244
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_1
+    description: ""
+    address: 248
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_2
+    description: ""
+    address: 252
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_3
+    description: ""
+    address: 256
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_4
+    description: ""
+    address: 260
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_5
+    description: ""
+    address: 264
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_6
+    description: ""
+    address: 268
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_6_7
+    description: ""
+    address: 272
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_0
+    description: ""
+    address: 276
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_1
+    description: ""
+    address: 280
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_2
+    description: ""
+    address: 284
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_3
+    description: ""
+    address: 288
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_4
+    description: ""
+    address: 292
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_5
+    description: ""
+    address: 296
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_6
+    description: ""
+    address: 300
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_7
+    description: ""
+    address: 304
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MOTION_SELECTOR
+    description: ""
+    address: 308
+    bitfields:
+
+    -   name: FILTER
+        description: Motion selector filter control
+        reset: 0
+        width: 8
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+    -   name: ONOFF
+        description: Motion selector on/off
+        reset: 0
+        width: 1
+        lsb: 8
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_0
+    description: ""
+    address: 312
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_1
+    description: ""
+    address: 316
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_2
+    description: ""
+    address: 320
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_3
+    description: ""
+    address: 324
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_4
+    description: ""
+    address: 328
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_5
+    description: ""
+    address: 332
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_6
+    description: ""
+    address: 336
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_ANGLE_7
+    description: ""
+    address: 340
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: OUTPUT_SOURCE
+    description: ""
+    address: 344
+    bitfields:
+
+    -   name: SOURCE
+        description: Source for output data
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+    -   name: SOURCE_CHANNEL
+        description: Source channel for output data (if exists)
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+
+-   name: APU_RANK
+    description: ""
+    address: 348
+    bitfields:
+
+    -   name: RANK
+        description: rank for APU
+        reset: 0
+        width: 8
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+    -   name: WINDOW
+        description: window length
+        reset: 0
+        width: 8
+        lsb: 8
+        access: rw
+        hardware: o
+        enums: []
+-   name: DETECTOR_LEVEL_0
+    description: ""
+    address: 352
+    bitfields:
+
+    -   name: LEVEL
+        description: detector comparation level
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DETECTOR_LEVEL_1
+    description: ""
+    address: 356
+    bitfields:
+
+    -   name: LEVEL
+        description: detector comparation level
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: AZIMUTH_ANGLE
+    description: ""
+    address: 360
+    bitfields:
+
+    -   name: ANGLE
+        description: 2**32 = 2 pi
+        reset: 0
+        width: 32
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: APPLY
+    description: ""
+    address: 364
+    bitfields:
+
+    -   name: APPLY
+        description: XOR to apply reg changes
+        reset: 0
+        width: 1
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: COMPENSATION_REFERENCE
+    description: ""
+    address: 368
+    bitfields:
+
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
