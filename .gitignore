@@ -17,3 +17,4 @@ psu*
 *.gz
 *.str
 __pycache__
+*_old

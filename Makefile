@@ -4,10 +4,10 @@ BOOTGEN ?= bootgen
 NPROC ?= $(shell nproc)
 
 VIVADO_SDK_PATH ?= /tools/Xilinx/SDK/2019.1/
-ARM_TFW_DIR ?= /home/a/tools/arm-trusted-firmware/
-DEVICE_TREE_XLNX_DIR ?= /home/a/tools/device-tree-xlnx/
-U_BOOT_XLNX_DIR ?= /home/a/tools/u-boot-xlnx/
-LINUX_XLNX_PATH ?= /home/a/tools/linux-xlnx/
+ARM_TFW_DIR ?= /home/emptea/tools/arm-trusted-firmware/
+DEVICE_TREE_XLNX_DIR ?= /home/emptea/tools/device-tree-xlnx/
+U_BOOT_XLNX_DIR ?= /home/emptea/tools/u-boot-xlnx/
+LINUX_XLNX_PATH ?= /home/emptea/tools/linux-xlnx/
 OUTPUT_DIR ?= output
 SCRIPTS_DIR ?= scripts
 

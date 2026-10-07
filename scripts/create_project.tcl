@@ -370,7 +370,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch0, and set properties
   set input_fifo_ch0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch0 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -382,7 +382,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch1, and set properties
   set input_fifo_ch1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch1 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -394,7 +394,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch2, and set properties
   set input_fifo_ch2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch2 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -406,7 +406,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch3, and set properties
   set input_fifo_ch3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch3 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -418,7 +418,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch4, and set properties
   set input_fifo_ch4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch4 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -430,7 +430,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch5, and set properties
   set input_fifo_ch5 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch5 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -442,7 +442,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch6, and set properties
   set input_fifo_ch6 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch6 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -454,7 +454,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch7, and set properties
   set input_fifo_ch7 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch7 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -625,7 +625,7 @@ proc create_root_design { parentCell } {
   # Create instance: output_fifo, and set properties
   set output_fifo [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 output_fifo ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {2048} \
+   CONFIG.FIFO_DEPTH {8192} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \

@@ -2685,8 +2685,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>multiplier_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>202</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-09-25T16:12:48Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>203</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-10-07T14:19:29Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3356e698_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5038dec8_ARCHIVE_LOCATION">/home/a/ZynqMP-U-Boot_AXU3EG/ip_repo/multiplier_1.0</xilinx:tag>
@@ -4158,6 +4158,10 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4de42eeb_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@168baf3b_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2fde2359_ARCHIVE_LOCATION">/code/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b4ec3f7_ARCHIVE_LOCATION">/home/emptea/RLS_mini/fpga/rls_mini_current/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@79644135_ARCHIVE_LOCATION">/home/emptea/RLS_mini/fpga/rls_mini_current/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20a1b1ba_ARCHIVE_LOCATION">/home/emptea/RLS_mini/fpga/rls_mini_current/ip_repo/multiplier_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55c32e4_ARCHIVE_LOCATION">/home/emptea/RLS_mini/fpga/rls_mini_current/ip_repo/multiplier_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
