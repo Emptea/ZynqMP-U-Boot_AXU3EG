@@ -1,11 +1,12 @@
 regmap:
 -   name: IP_VER
-    description: IP version
-    address: 0
+    description: ""
+    address: 16
     bitfields:
+
     -   name: MAJ_VER
         description: Major IP version
-        reset: 2
+        reset: 3
         width: 16
         lsb: 16
         access: ro
@@ -13,51 +14,29 @@ regmap:
         enums: []
     -   name: MIN_VER
         description: Minor IP version
-        reset: 0
+        reset: 2
         width: 16
         lsb: 0
         access: ro
         hardware: f
         enums: []
--   name: KILL
-    description: Synchronous reset register
-    address: 4
+-   name: RESET
+    description: ""
+    address: 20
     bitfields:
-    -   name: KILL
-        description: Kill
+
+    -   name: RESET
+        description: Sends reset pulse on access
         reset: 1
         width: 1
         lsb: 0
         access: rw
-        hardware: o
+        hardware: oa
         enums: []
--   name: TEST_POINT
-    description: Test point control register
-    address: 8
-    bitfields:
-    -   name: TEST_POINT
-        description: Test point
-        reset: 0
-        width: 3
-        lsb: 0
-        access: rw
-        hardware: o
-        enums: []
--   name: CHANNEL
-    description: Output channel control register
-    address: 12
-    bitfields:
-    -   name: TEST_POINT
-        description: Test point
-        reset: 0
-        width: 3
-        lsb: 0
-        access: rw
-        hardware: o
-        enums: []
+
 -   name: COMPENSATION_MODE
     description: ""
-    address: 16
+    address: 24
     bitfields:
 
     -   name: MODE
@@ -69,48 +48,6 @@ regmap:
         hardware: o
         enums: []
 -   name: MANUAL_COMPENSATION_0
-    description: ""
-    address: 20
-    bitfields:
-
-    -   name: IMAG
-        description: Imaginary part, signed 2s complement, 2**14 = 1.0
-        reset: 0
-        width: 16
-        lsb: 16
-        access: rw
-        hardware: o
-        enums: []
-    -   name: REAL
-        description: Real part, signed 2s complement, 2**14 = 1.0
-        reset: 0
-        width: 16
-        lsb: 0
-        access: rw
-        hardware: o
-        enums: []
--   name: MANUAL_COMPENSATION_1
-    description: ""
-    address: 24
-    bitfields:
-
-    -   name: IMAG
-        description: Imaginary part, signed 2s complement, 2**14 = 1.0
-        reset: 0
-        width: 16
-        lsb: 16
-        access: rw
-        hardware: o
-        enums: []
-    -   name: REAL
-        description: Real part, signed 2s complement, 2**14 = 1.0
-        reset: 0
-        width: 16
-        lsb: 0
-        access: rw
-        hardware: o
-        enums: []
--   name: MANUAL_COMPENSATION_2
     description: ""
     address: 28
     bitfields:
@@ -131,7 +68,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: MANUAL_COMPENSATION_3
+-   name: MANUAL_COMPENSATION_1
     description: ""
     address: 32
     bitfields:
@@ -152,7 +89,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: MANUAL_COMPENSATION_4
+-   name: MANUAL_COMPENSATION_2
     description: ""
     address: 36
     bitfields:
@@ -173,7 +110,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: MANUAL_COMPENSATION_5
+-   name: MANUAL_COMPENSATION_3
     description: ""
     address: 40
     bitfields:
@@ -194,7 +131,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: MANUAL_COMPENSATION_6
+-   name: MANUAL_COMPENSATION_4
     description: ""
     address: 44
     bitfields:
@@ -215,7 +152,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: MANUAL_COMPENSATION_7
+-   name: MANUAL_COMPENSATION_5
     description: ""
     address: 48
     bitfields:
@@ -236,7 +173,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_0
+-   name: MANUAL_COMPENSATION_6
     description: ""
     address: 52
     bitfields:
@@ -257,7 +194,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_1
+-   name: MANUAL_COMPENSATION_7
     description: ""
     address: 56
     bitfields:
@@ -278,7 +215,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_2
+-   name: DIAGRAM_0_0
     description: ""
     address: 60
     bitfields:
@@ -299,7 +236,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_3
+-   name: DIAGRAM_0_1
     description: ""
     address: 64
     bitfields:
@@ -320,7 +257,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_4
+-   name: DIAGRAM_0_2
     description: ""
     address: 68
     bitfields:
@@ -341,7 +278,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_5
+-   name: DIAGRAM_0_3
     description: ""
     address: 72
     bitfields:
@@ -362,7 +299,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_6
+-   name: DIAGRAM_0_4
     description: ""
     address: 76
     bitfields:
@@ -383,7 +320,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_0_7
+-   name: DIAGRAM_0_5
     description: ""
     address: 80
     bitfields:
@@ -404,7 +341,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_0
+-   name: DIAGRAM_0_6
     description: ""
     address: 84
     bitfields:
@@ -425,7 +362,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_1
+-   name: DIAGRAM_0_7
     description: ""
     address: 88
     bitfields:
@@ -446,7 +383,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_2
+-   name: DIAGRAM_1_0
     description: ""
     address: 92
     bitfields:
@@ -467,7 +404,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_3
+-   name: DIAGRAM_1_1
     description: ""
     address: 96
     bitfields:
@@ -488,7 +425,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_4
+-   name: DIAGRAM_1_2
     description: ""
     address: 100
     bitfields:
@@ -509,7 +446,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_5
+-   name: DIAGRAM_1_3
     description: ""
     address: 104
     bitfields:
@@ -530,7 +467,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_6
+-   name: DIAGRAM_1_4
     description: ""
     address: 108
     bitfields:
@@ -551,7 +488,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_1_7
+-   name: DIAGRAM_1_5
     description: ""
     address: 112
     bitfields:
@@ -572,7 +509,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_0
+-   name: DIAGRAM_1_6
     description: ""
     address: 116
     bitfields:
@@ -593,7 +530,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_1
+-   name: DIAGRAM_1_7
     description: ""
     address: 120
     bitfields:
@@ -614,7 +551,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_2
+-   name: DIAGRAM_2_0
     description: ""
     address: 124
     bitfields:
@@ -635,7 +572,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_3
+-   name: DIAGRAM_2_1
     description: ""
     address: 128
     bitfields:
@@ -656,7 +593,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_4
+-   name: DIAGRAM_2_2
     description: ""
     address: 132
     bitfields:
@@ -677,7 +614,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_5
+-   name: DIAGRAM_2_3
     description: ""
     address: 136
     bitfields:
@@ -698,7 +635,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_6
+-   name: DIAGRAM_2_4
     description: ""
     address: 140
     bitfields:
@@ -719,7 +656,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_2_7
+-   name: DIAGRAM_2_5
     description: ""
     address: 144
     bitfields:
@@ -740,7 +677,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_0
+-   name: DIAGRAM_2_6
     description: ""
     address: 148
     bitfields:
@@ -761,7 +698,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_1
+-   name: DIAGRAM_2_7
     description: ""
     address: 152
     bitfields:
@@ -782,7 +719,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_2
+-   name: DIAGRAM_3_0
     description: ""
     address: 156
     bitfields:
@@ -803,7 +740,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_3
+-   name: DIAGRAM_3_1
     description: ""
     address: 160
     bitfields:
@@ -824,7 +761,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_4
+-   name: DIAGRAM_3_2
     description: ""
     address: 164
     bitfields:
@@ -845,7 +782,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_5
+-   name: DIAGRAM_3_3
     description: ""
     address: 168
     bitfields:
@@ -866,7 +803,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_6
+-   name: DIAGRAM_3_4
     description: ""
     address: 172
     bitfields:
@@ -887,7 +824,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_3_7
+-   name: DIAGRAM_3_5
     description: ""
     address: 176
     bitfields:
@@ -908,7 +845,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_0
+-   name: DIAGRAM_3_6
     description: ""
     address: 180
     bitfields:
@@ -929,7 +866,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_1
+-   name: DIAGRAM_3_7
     description: ""
     address: 184
     bitfields:
@@ -950,7 +887,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_2
+-   name: DIAGRAM_4_0
     description: ""
     address: 188
     bitfields:
@@ -971,7 +908,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_3
+-   name: DIAGRAM_4_1
     description: ""
     address: 192
     bitfields:
@@ -992,7 +929,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_4
+-   name: DIAGRAM_4_2
     description: ""
     address: 196
     bitfields:
@@ -1013,7 +950,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_5
+-   name: DIAGRAM_4_3
     description: ""
     address: 200
     bitfields:
@@ -1034,7 +971,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_6
+-   name: DIAGRAM_4_4
     description: ""
     address: 204
     bitfields:
@@ -1055,7 +992,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_4_7
+-   name: DIAGRAM_4_5
     description: ""
     address: 208
     bitfields:
@@ -1076,7 +1013,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_0
+-   name: DIAGRAM_4_6
     description: ""
     address: 212
     bitfields:
@@ -1097,7 +1034,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_1
+-   name: DIAGRAM_4_7
     description: ""
     address: 216
     bitfields:
@@ -1118,7 +1055,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_2
+-   name: DIAGRAM_5_0
     description: ""
     address: 220
     bitfields:
@@ -1139,7 +1076,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_3
+-   name: DIAGRAM_5_1
     description: ""
     address: 224
     bitfields:
@@ -1160,7 +1097,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_4
+-   name: DIAGRAM_5_2
     description: ""
     address: 228
     bitfields:
@@ -1181,7 +1118,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_5
+-   name: DIAGRAM_5_3
     description: ""
     address: 232
     bitfields:
@@ -1202,7 +1139,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_6
+-   name: DIAGRAM_5_4
     description: ""
     address: 236
     bitfields:
@@ -1223,7 +1160,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_5_7
+-   name: DIAGRAM_5_5
     description: ""
     address: 240
     bitfields:
@@ -1244,7 +1181,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_0
+-   name: DIAGRAM_5_6
     description: ""
     address: 244
     bitfields:
@@ -1265,7 +1202,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_1
+-   name: DIAGRAM_5_7
     description: ""
     address: 248
     bitfields:
@@ -1286,7 +1223,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_2
+-   name: DIAGRAM_6_0
     description: ""
     address: 252
     bitfields:
@@ -1307,7 +1244,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_3
+-   name: DIAGRAM_6_1
     description: ""
     address: 256
     bitfields:
@@ -1328,7 +1265,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_4
+-   name: DIAGRAM_6_2
     description: ""
     address: 260
     bitfields:
@@ -1349,7 +1286,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_5
+-   name: DIAGRAM_6_3
     description: ""
     address: 264
     bitfields:
@@ -1370,7 +1307,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_6
+-   name: DIAGRAM_6_4
     description: ""
     address: 268
     bitfields:
@@ -1391,7 +1328,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_6_7
+-   name: DIAGRAM_6_5
     description: ""
     address: 272
     bitfields:
@@ -1412,7 +1349,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_0
+-   name: DIAGRAM_6_6
     description: ""
     address: 276
     bitfields:
@@ -1433,7 +1370,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_1
+-   name: DIAGRAM_6_7
     description: ""
     address: 280
     bitfields:
@@ -1454,7 +1391,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_2
+-   name: DIAGRAM_7_0
     description: ""
     address: 284
     bitfields:
@@ -1475,7 +1412,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_3
+-   name: DIAGRAM_7_1
     description: ""
     address: 288
     bitfields:
@@ -1496,7 +1433,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_4
+-   name: DIAGRAM_7_2
     description: ""
     address: 292
     bitfields:
@@ -1517,7 +1454,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_5
+-   name: DIAGRAM_7_3
     description: ""
     address: 296
     bitfields:
@@ -1538,7 +1475,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_6
+-   name: DIAGRAM_7_4
     description: ""
     address: 300
     bitfields:
@@ -1559,7 +1496,7 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: DIAGRAM_7_7
+-   name: DIAGRAM_7_5
     description: ""
     address: 304
     bitfields:
@@ -1580,9 +1517,51 @@ regmap:
         access: rw
         hardware: o
         enums: []
--   name: MOTION_SELECTOR
+-   name: DIAGRAM_7_6
     description: ""
     address: 308
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: DIAGRAM_7_7
+    description: ""
+    address: 312
+    bitfields:
+
+    -   name: IMAG
+        description: Imaginary part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 16
+        access: rw
+        hardware: o
+        enums: []
+    -   name: REAL
+        description: Real part, signed 2s complement, 2**14 = 1.0
+        reset: 0
+        width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: MOTION_SELECTOR
+    description: ""
+    address: 316
     bitfields:
 
     -   name: FILTER
@@ -1603,7 +1582,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_0
     description: ""
-    address: 312
+    address: 320
     bitfields:
 
     -   name: ANGLE
@@ -1616,7 +1595,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_1
     description: ""
-    address: 316
+    address: 324
     bitfields:
 
     -   name: ANGLE
@@ -1629,7 +1608,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_2
     description: ""
-    address: 320
+    address: 328
     bitfields:
 
     -   name: ANGLE
@@ -1642,7 +1621,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_3
     description: ""
-    address: 324
+    address: 332
     bitfields:
 
     -   name: ANGLE
@@ -1655,7 +1634,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_4
     description: ""
-    address: 328
+    address: 336
     bitfields:
 
     -   name: ANGLE
@@ -1668,7 +1647,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_5
     description: ""
-    address: 332
+    address: 340
     bitfields:
 
     -   name: ANGLE
@@ -1681,7 +1660,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_6
     description: ""
-    address: 336
+    address: 344
     bitfields:
 
     -   name: ANGLE
@@ -1694,7 +1673,7 @@ regmap:
         enums: []
 -   name: DIAGRAM_ANGLE_7
     description: ""
-    address: 340
+    address: 348
     bitfields:
 
     -   name: ANGLE
@@ -1707,7 +1686,7 @@ regmap:
         enums: []
 -   name: OUTPUT_SOURCE
     description: ""
-    address: 344
+    address: 352
     bitfields:
 
     -   name: SOURCE
@@ -1729,7 +1708,7 @@ regmap:
 
 -   name: APU_RANK
     description: ""
-    address: 348
+    address: 356
     bitfields:
 
     -   name: RANK
@@ -1750,7 +1729,7 @@ regmap:
         enums: []
 -   name: DETECTOR_LEVEL_0
     description: ""
-    address: 352
+    address: 360
     bitfields:
 
     -   name: LEVEL
@@ -1763,7 +1742,7 @@ regmap:
         enums: []
 -   name: DETECTOR_LEVEL_1
     description: ""
-    address: 356
+    address: 364
     bitfields:
 
     -   name: LEVEL
@@ -1776,7 +1755,7 @@ regmap:
         enums: []
 -   name: AZIMUTH_ANGLE
     description: ""
-    address: 360
+    address: 368
     bitfields:
 
     -   name: ANGLE
@@ -1789,7 +1768,7 @@ regmap:
         enums: []
 -   name: APPLY
     description: ""
-    address: 364
+    address: 372
     bitfields:
 
     -   name: APPLY
@@ -1798,17 +1777,30 @@ regmap:
         width: 1
         lsb: 0
         access: rw
-        hardware: o
+        hardware: oa
         enums: []
 -   name: COMPENSATION_REFERENCE
     description: ""
-    address: 368
+    address: 376
     bitfields:
 
     -   name: REAL
         description: Real part, signed 2s complement, 2**14 = 1.0
         reset: 0
         width: 16
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+-   name: CHANNEL_MASK
+    description: ""
+    address: 380
+    bitfields:
+
+    -   name: CHANNEL_MASK_ENABLE
+        description: enable channels by mask, "1" - enabled, lsb - channel 1
+        reset: 255
+        width: 8
         lsb: 0
         access: rw
         hardware: o

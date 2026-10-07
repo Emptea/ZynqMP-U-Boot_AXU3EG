@@ -8,20 +8,12 @@ module regs #(
     // System
     input clk,
     input rst,
-
-    output reg o_reset,
-    output reg o_apply,
     // ip_ver.min_ver
     // ip_ver.maj_ver
 
-    // kill.kill
-    output  csr_kill_kill_out,
-
-    // test_point.test_point
-    output [2:0] csr_test_point_test_point_out,
-
-    // channel.test_point
-    output [2:0] csr_channel_test_point_out,
+    // reset.reset
+    output csr_reset_reset_waccess,
+    output  csr_reset_reset_out,
 
     // compensation_mode.mode
     output [31:0] csr_compensation_mode_mode_out,
@@ -435,10 +427,14 @@ module regs #(
     output [31:0] csr_azimuth_angle_angle_out,
 
     // apply.apply
+    output csr_apply_apply_waccess,
     output  csr_apply_apply_out,
 
     // compensation_reference.real
     output [15:0] csr_compensation_reference_real_out,
+
+    // channel_mask.channel_mask_enable
+    output [7:0] csr_channel_mask_channel_mask_enable_out,
 
     // AXI
     input  [ADDR_W-1:0] axil_awaddr,
@@ -564,13 +560,13 @@ wire              ren;
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x0] - ip_ver - IP version
+// [0x10] - ip_ver - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_ip_ver_rdata;
 
 
 wire csr_ip_ver_ren;
-assign csr_ip_ver_ren = ren && (raddr == 11'h0);
+assign csr_ip_ver_ren = ren && (raddr == 11'h10);
 reg csr_ip_ver_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -591,7 +587,7 @@ assign csr_ip_ver_rdata[15:0] = csr_ip_ver_min_ver_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
-        csr_ip_ver_min_ver_ff <= 16'h0;
+        csr_ip_ver_min_ver_ff <= 16'h2;
     end else  begin
       begin
             csr_ip_ver_min_ver_ff <= csr_ip_ver_min_ver_ff;
@@ -612,7 +608,7 @@ assign csr_ip_ver_rdata[31:16] = csr_ip_ver_maj_ver_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
-        csr_ip_ver_maj_ver_ff <= 16'h2;
+        csr_ip_ver_maj_ver_ff <= 16'h3;
     end else  begin
       begin
             csr_ip_ver_maj_ver_ff <= csr_ip_ver_maj_ver_ff;
@@ -623,48 +619,46 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x4] - kill - Synchronous reset register
+// [0x14] - reset - 
 //------------------------------------------------------------------------------
-wire [31:0] csr_kill_rdata;
-assign csr_kill_rdata[31:1] = 31'h0;
+wire [31:0] csr_reset_rdata;
+assign csr_reset_rdata[31:1] = 31'h0;
 
-wire csr_kill_wen;
-assign csr_kill_wen = wen && (waddr == 11'h4);
+wire csr_reset_wen;
+assign csr_reset_wen = wen && (waddr == 11'h14);
 
-wire csr_kill_ren;
-assign csr_kill_ren = ren && (raddr == 11'h4);
-reg csr_kill_ren_ff;
+wire csr_reset_ren;
+assign csr_reset_ren = ren && (raddr == 11'h14);
+reg csr_reset_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
-        csr_kill_ren_ff <= 1'b1;
+        csr_reset_ren_ff <= 1'b0;
     end else begin
-        csr_kill_ren_ff <= csr_kill_ren;
+        csr_reset_ren_ff <= csr_reset_ren;
     end
 end
 //---------------------
 // Bit field:
-// kill[0] - kill - Kill
-// access: rw, hardware: o
+// reset[0] - reset - Sends reset pulse on access
+// access: rw, hardware: oa
 //---------------------
-reg  csr_kill_kill_ff;
+assign csr_reset_reset_waccess = wready && csr_reset_wen;
+reg  csr_reset_reset_ff;
 
-assign csr_kill_rdata[0] = csr_kill_kill_ff;
+assign csr_reset_rdata[0] = csr_reset_reset_ff;
 
-assign csr_kill_kill_out = csr_kill_kill_ff;
+assign csr_reset_reset_out = csr_reset_reset_ff;
 
 always @(posedge clk) begin
     if (!rst) begin
-        csr_kill_kill_ff <= 1'b0;
-        o_reset <= 0;
+        csr_reset_reset_ff <= 1'b1;
     end else  begin
-     if (csr_kill_wen) begin
+     if (csr_reset_wen) begin
             if (wstrb[0]) begin
-                csr_kill_kill_ff <= wdata[0];
-                o_reset <= 1;
+                csr_reset_reset_ff <= wdata[0];
             end
         end else begin
-            csr_kill_kill_ff <= csr_kill_kill_ff;
-            o_reset <= 0;
+            csr_reset_reset_ff <= csr_reset_reset_ff;
         end
     end
 end
@@ -672,107 +666,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x8] - test_point - Test point control register
-//------------------------------------------------------------------------------
-wire [31:0] csr_test_point_rdata;
-assign csr_test_point_rdata[31:3] = 29'h0;
-
-wire csr_test_point_wen;
-assign csr_test_point_wen = wen && (waddr == 11'h8);
-
-wire csr_test_point_ren;
-assign csr_test_point_ren = ren && (raddr == 11'h8);
-reg csr_test_point_ren_ff;
-always @(posedge clk) begin
-    if (!rst) begin
-        csr_test_point_ren_ff <= 1'b0;
-    end else begin
-        csr_test_point_ren_ff <= csr_test_point_ren;
-    end
-end
-//---------------------
-// Bit field:
-// test_point[2:0] - test_point - Test point
-// access: rw, hardware: o
-//---------------------
-reg [2:0] csr_test_point_test_point_ff;
-
-assign csr_test_point_rdata[2:0] = csr_test_point_test_point_ff;
-
-assign csr_test_point_test_point_out = csr_test_point_test_point_ff;
-
-always @(posedge clk) begin
-    if (!rst) begin
-        csr_test_point_test_point_ff <= 3'h0;
-    end else  begin
-     if (csr_test_point_wen) begin
-            if (wstrb[0]) begin
-                csr_test_point_test_point_ff[2:0] <= wdata[2:0];
-            end
-        end else begin
-            csr_test_point_test_point_ff <= csr_test_point_test_point_ff;
-        end
-    end
-end
-
-
-//------------------------------------------------------------------------------
-// CSR:
-// [0xc] - channel - Output channel control register
-//------------------------------------------------------------------------------
-wire [31:0] csr_channel_rdata;
-assign csr_channel_rdata[31:3] = 29'h0;
-
-wire csr_channel_wen;
-assign csr_channel_wen = wen && (waddr == 11'hc);
-
-wire csr_channel_ren;
-assign csr_channel_ren = ren && (raddr == 11'hc);
-reg csr_channel_ren_ff;
-always @(posedge clk) begin
-    if (!rst) begin
-        csr_channel_ren_ff <= 1'b0;
-    end else begin
-        csr_channel_ren_ff <= csr_channel_ren;
-    end
-end
-//---------------------
-// Bit field:
-// channel[2:0] - test_point - Test point
-// access: rw, hardware: o
-//---------------------
-reg [2:0] csr_channel_test_point_ff;
-
-assign csr_channel_rdata[2:0] = csr_channel_test_point_ff;
-
-assign csr_channel_test_point_out = csr_channel_test_point_ff;
-
-always @(posedge clk) begin
-    if (!rst) begin
-        csr_channel_test_point_ff <= 3'h0;
-    end else  begin
-     if (csr_channel_wen) begin
-            if (wstrb[0]) begin
-                csr_channel_test_point_ff[2:0] <= wdata[2:0];
-            end
-        end else begin
-            csr_channel_test_point_ff <= csr_channel_test_point_ff;
-        end
-    end
-end
-
-
-//------------------------------------------------------------------------------
-// CSR:
-// [0x10] - compensation_mode - 
+// [0x18] - compensation_mode - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_compensation_mode_rdata;
 
 wire csr_compensation_mode_wen;
-assign csr_compensation_mode_wen = wen && (waddr == 11'h10);
+assign csr_compensation_mode_wen = wen && (waddr == 11'h18);
 
 wire csr_compensation_mode_ren;
-assign csr_compensation_mode_ren = ren && (raddr == 11'h10);
+assign csr_compensation_mode_ren = ren && (raddr == 11'h18);
 reg csr_compensation_mode_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -818,15 +720,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x14] - manual_compensation_0 - 
+// [0x1c] - manual_compensation_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_0_rdata;
 
 wire csr_manual_compensation_0_wen;
-assign csr_manual_compensation_0_wen = wen && (waddr == 11'h14);
+assign csr_manual_compensation_0_wen = wen && (waddr == 11'h1c);
 
 wire csr_manual_compensation_0_ren;
-assign csr_manual_compensation_0_ren = ren && (raddr == 11'h14);
+assign csr_manual_compensation_0_ren = ren && (raddr == 11'h1c);
 reg csr_manual_compensation_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -895,15 +797,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x18] - manual_compensation_1 - 
+// [0x20] - manual_compensation_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_1_rdata;
 
 wire csr_manual_compensation_1_wen;
-assign csr_manual_compensation_1_wen = wen && (waddr == 11'h18);
+assign csr_manual_compensation_1_wen = wen && (waddr == 11'h20);
 
 wire csr_manual_compensation_1_ren;
-assign csr_manual_compensation_1_ren = ren && (raddr == 11'h18);
+assign csr_manual_compensation_1_ren = ren && (raddr == 11'h20);
 reg csr_manual_compensation_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -972,15 +874,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x1c] - manual_compensation_2 - 
+// [0x24] - manual_compensation_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_2_rdata;
 
 wire csr_manual_compensation_2_wen;
-assign csr_manual_compensation_2_wen = wen && (waddr == 11'h1c);
+assign csr_manual_compensation_2_wen = wen && (waddr == 11'h24);
 
 wire csr_manual_compensation_2_ren;
-assign csr_manual_compensation_2_ren = ren && (raddr == 11'h1c);
+assign csr_manual_compensation_2_ren = ren && (raddr == 11'h24);
 reg csr_manual_compensation_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1049,15 +951,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x20] - manual_compensation_3 - 
+// [0x28] - manual_compensation_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_3_rdata;
 
 wire csr_manual_compensation_3_wen;
-assign csr_manual_compensation_3_wen = wen && (waddr == 11'h20);
+assign csr_manual_compensation_3_wen = wen && (waddr == 11'h28);
 
 wire csr_manual_compensation_3_ren;
-assign csr_manual_compensation_3_ren = ren && (raddr == 11'h20);
+assign csr_manual_compensation_3_ren = ren && (raddr == 11'h28);
 reg csr_manual_compensation_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1126,15 +1028,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x24] - manual_compensation_4 - 
+// [0x2c] - manual_compensation_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_4_rdata;
 
 wire csr_manual_compensation_4_wen;
-assign csr_manual_compensation_4_wen = wen && (waddr == 11'h24);
+assign csr_manual_compensation_4_wen = wen && (waddr == 11'h2c);
 
 wire csr_manual_compensation_4_ren;
-assign csr_manual_compensation_4_ren = ren && (raddr == 11'h24);
+assign csr_manual_compensation_4_ren = ren && (raddr == 11'h2c);
 reg csr_manual_compensation_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1203,15 +1105,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x28] - manual_compensation_5 - 
+// [0x30] - manual_compensation_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_5_rdata;
 
 wire csr_manual_compensation_5_wen;
-assign csr_manual_compensation_5_wen = wen && (waddr == 11'h28);
+assign csr_manual_compensation_5_wen = wen && (waddr == 11'h30);
 
 wire csr_manual_compensation_5_ren;
-assign csr_manual_compensation_5_ren = ren && (raddr == 11'h28);
+assign csr_manual_compensation_5_ren = ren && (raddr == 11'h30);
 reg csr_manual_compensation_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1280,15 +1182,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x2c] - manual_compensation_6 - 
+// [0x34] - manual_compensation_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_6_rdata;
 
 wire csr_manual_compensation_6_wen;
-assign csr_manual_compensation_6_wen = wen && (waddr == 11'h2c);
+assign csr_manual_compensation_6_wen = wen && (waddr == 11'h34);
 
 wire csr_manual_compensation_6_ren;
-assign csr_manual_compensation_6_ren = ren && (raddr == 11'h2c);
+assign csr_manual_compensation_6_ren = ren && (raddr == 11'h34);
 reg csr_manual_compensation_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1357,15 +1259,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x30] - manual_compensation_7 - 
+// [0x38] - manual_compensation_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_manual_compensation_7_rdata;
 
 wire csr_manual_compensation_7_wen;
-assign csr_manual_compensation_7_wen = wen && (waddr == 11'h30);
+assign csr_manual_compensation_7_wen = wen && (waddr == 11'h38);
 
 wire csr_manual_compensation_7_ren;
-assign csr_manual_compensation_7_ren = ren && (raddr == 11'h30);
+assign csr_manual_compensation_7_ren = ren && (raddr == 11'h38);
 reg csr_manual_compensation_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1434,15 +1336,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x34] - diagram_0_0 - 
+// [0x3c] - diagram_0_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_0_rdata;
 
 wire csr_diagram_0_0_wen;
-assign csr_diagram_0_0_wen = wen && (waddr == 11'h34);
+assign csr_diagram_0_0_wen = wen && (waddr == 11'h3c);
 
 wire csr_diagram_0_0_ren;
-assign csr_diagram_0_0_ren = ren && (raddr == 11'h34);
+assign csr_diagram_0_0_ren = ren && (raddr == 11'h3c);
 reg csr_diagram_0_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1511,15 +1413,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x38] - diagram_0_1 - 
+// [0x40] - diagram_0_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_1_rdata;
 
 wire csr_diagram_0_1_wen;
-assign csr_diagram_0_1_wen = wen && (waddr == 11'h38);
+assign csr_diagram_0_1_wen = wen && (waddr == 11'h40);
 
 wire csr_diagram_0_1_ren;
-assign csr_diagram_0_1_ren = ren && (raddr == 11'h38);
+assign csr_diagram_0_1_ren = ren && (raddr == 11'h40);
 reg csr_diagram_0_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1588,15 +1490,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x3c] - diagram_0_2 - 
+// [0x44] - diagram_0_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_2_rdata;
 
 wire csr_diagram_0_2_wen;
-assign csr_diagram_0_2_wen = wen && (waddr == 11'h3c);
+assign csr_diagram_0_2_wen = wen && (waddr == 11'h44);
 
 wire csr_diagram_0_2_ren;
-assign csr_diagram_0_2_ren = ren && (raddr == 11'h3c);
+assign csr_diagram_0_2_ren = ren && (raddr == 11'h44);
 reg csr_diagram_0_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1665,15 +1567,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x40] - diagram_0_3 - 
+// [0x48] - diagram_0_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_3_rdata;
 
 wire csr_diagram_0_3_wen;
-assign csr_diagram_0_3_wen = wen && (waddr == 11'h40);
+assign csr_diagram_0_3_wen = wen && (waddr == 11'h48);
 
 wire csr_diagram_0_3_ren;
-assign csr_diagram_0_3_ren = ren && (raddr == 11'h40);
+assign csr_diagram_0_3_ren = ren && (raddr == 11'h48);
 reg csr_diagram_0_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1742,15 +1644,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x44] - diagram_0_4 - 
+// [0x4c] - diagram_0_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_4_rdata;
 
 wire csr_diagram_0_4_wen;
-assign csr_diagram_0_4_wen = wen && (waddr == 11'h44);
+assign csr_diagram_0_4_wen = wen && (waddr == 11'h4c);
 
 wire csr_diagram_0_4_ren;
-assign csr_diagram_0_4_ren = ren && (raddr == 11'h44);
+assign csr_diagram_0_4_ren = ren && (raddr == 11'h4c);
 reg csr_diagram_0_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1819,15 +1721,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x48] - diagram_0_5 - 
+// [0x50] - diagram_0_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_5_rdata;
 
 wire csr_diagram_0_5_wen;
-assign csr_diagram_0_5_wen = wen && (waddr == 11'h48);
+assign csr_diagram_0_5_wen = wen && (waddr == 11'h50);
 
 wire csr_diagram_0_5_ren;
-assign csr_diagram_0_5_ren = ren && (raddr == 11'h48);
+assign csr_diagram_0_5_ren = ren && (raddr == 11'h50);
 reg csr_diagram_0_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1896,15 +1798,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x4c] - diagram_0_6 - 
+// [0x54] - diagram_0_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_6_rdata;
 
 wire csr_diagram_0_6_wen;
-assign csr_diagram_0_6_wen = wen && (waddr == 11'h4c);
+assign csr_diagram_0_6_wen = wen && (waddr == 11'h54);
 
 wire csr_diagram_0_6_ren;
-assign csr_diagram_0_6_ren = ren && (raddr == 11'h4c);
+assign csr_diagram_0_6_ren = ren && (raddr == 11'h54);
 reg csr_diagram_0_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -1973,15 +1875,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x50] - diagram_0_7 - 
+// [0x58] - diagram_0_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_0_7_rdata;
 
 wire csr_diagram_0_7_wen;
-assign csr_diagram_0_7_wen = wen && (waddr == 11'h50);
+assign csr_diagram_0_7_wen = wen && (waddr == 11'h58);
 
 wire csr_diagram_0_7_ren;
-assign csr_diagram_0_7_ren = ren && (raddr == 11'h50);
+assign csr_diagram_0_7_ren = ren && (raddr == 11'h58);
 reg csr_diagram_0_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2050,15 +1952,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x54] - diagram_1_0 - 
+// [0x5c] - diagram_1_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_0_rdata;
 
 wire csr_diagram_1_0_wen;
-assign csr_diagram_1_0_wen = wen && (waddr == 11'h54);
+assign csr_diagram_1_0_wen = wen && (waddr == 11'h5c);
 
 wire csr_diagram_1_0_ren;
-assign csr_diagram_1_0_ren = ren && (raddr == 11'h54);
+assign csr_diagram_1_0_ren = ren && (raddr == 11'h5c);
 reg csr_diagram_1_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2127,15 +2029,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x58] - diagram_1_1 - 
+// [0x60] - diagram_1_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_1_rdata;
 
 wire csr_diagram_1_1_wen;
-assign csr_diagram_1_1_wen = wen && (waddr == 11'h58);
+assign csr_diagram_1_1_wen = wen && (waddr == 11'h60);
 
 wire csr_diagram_1_1_ren;
-assign csr_diagram_1_1_ren = ren && (raddr == 11'h58);
+assign csr_diagram_1_1_ren = ren && (raddr == 11'h60);
 reg csr_diagram_1_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2204,15 +2106,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x5c] - diagram_1_2 - 
+// [0x64] - diagram_1_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_2_rdata;
 
 wire csr_diagram_1_2_wen;
-assign csr_diagram_1_2_wen = wen && (waddr == 11'h5c);
+assign csr_diagram_1_2_wen = wen && (waddr == 11'h64);
 
 wire csr_diagram_1_2_ren;
-assign csr_diagram_1_2_ren = ren && (raddr == 11'h5c);
+assign csr_diagram_1_2_ren = ren && (raddr == 11'h64);
 reg csr_diagram_1_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2281,15 +2183,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x60] - diagram_1_3 - 
+// [0x68] - diagram_1_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_3_rdata;
 
 wire csr_diagram_1_3_wen;
-assign csr_diagram_1_3_wen = wen && (waddr == 11'h60);
+assign csr_diagram_1_3_wen = wen && (waddr == 11'h68);
 
 wire csr_diagram_1_3_ren;
-assign csr_diagram_1_3_ren = ren && (raddr == 11'h60);
+assign csr_diagram_1_3_ren = ren && (raddr == 11'h68);
 reg csr_diagram_1_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2358,15 +2260,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x64] - diagram_1_4 - 
+// [0x6c] - diagram_1_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_4_rdata;
 
 wire csr_diagram_1_4_wen;
-assign csr_diagram_1_4_wen = wen && (waddr == 11'h64);
+assign csr_diagram_1_4_wen = wen && (waddr == 11'h6c);
 
 wire csr_diagram_1_4_ren;
-assign csr_diagram_1_4_ren = ren && (raddr == 11'h64);
+assign csr_diagram_1_4_ren = ren && (raddr == 11'h6c);
 reg csr_diagram_1_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2435,15 +2337,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x68] - diagram_1_5 - 
+// [0x70] - diagram_1_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_5_rdata;
 
 wire csr_diagram_1_5_wen;
-assign csr_diagram_1_5_wen = wen && (waddr == 11'h68);
+assign csr_diagram_1_5_wen = wen && (waddr == 11'h70);
 
 wire csr_diagram_1_5_ren;
-assign csr_diagram_1_5_ren = ren && (raddr == 11'h68);
+assign csr_diagram_1_5_ren = ren && (raddr == 11'h70);
 reg csr_diagram_1_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2512,15 +2414,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x6c] - diagram_1_6 - 
+// [0x74] - diagram_1_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_6_rdata;
 
 wire csr_diagram_1_6_wen;
-assign csr_diagram_1_6_wen = wen && (waddr == 11'h6c);
+assign csr_diagram_1_6_wen = wen && (waddr == 11'h74);
 
 wire csr_diagram_1_6_ren;
-assign csr_diagram_1_6_ren = ren && (raddr == 11'h6c);
+assign csr_diagram_1_6_ren = ren && (raddr == 11'h74);
 reg csr_diagram_1_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2589,15 +2491,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x70] - diagram_1_7 - 
+// [0x78] - diagram_1_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_1_7_rdata;
 
 wire csr_diagram_1_7_wen;
-assign csr_diagram_1_7_wen = wen && (waddr == 11'h70);
+assign csr_diagram_1_7_wen = wen && (waddr == 11'h78);
 
 wire csr_diagram_1_7_ren;
-assign csr_diagram_1_7_ren = ren && (raddr == 11'h70);
+assign csr_diagram_1_7_ren = ren && (raddr == 11'h78);
 reg csr_diagram_1_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2666,15 +2568,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x74] - diagram_2_0 - 
+// [0x7c] - diagram_2_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_0_rdata;
 
 wire csr_diagram_2_0_wen;
-assign csr_diagram_2_0_wen = wen && (waddr == 11'h74);
+assign csr_diagram_2_0_wen = wen && (waddr == 11'h7c);
 
 wire csr_diagram_2_0_ren;
-assign csr_diagram_2_0_ren = ren && (raddr == 11'h74);
+assign csr_diagram_2_0_ren = ren && (raddr == 11'h7c);
 reg csr_diagram_2_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2743,15 +2645,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x78] - diagram_2_1 - 
+// [0x80] - diagram_2_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_1_rdata;
 
 wire csr_diagram_2_1_wen;
-assign csr_diagram_2_1_wen = wen && (waddr == 11'h78);
+assign csr_diagram_2_1_wen = wen && (waddr == 11'h80);
 
 wire csr_diagram_2_1_ren;
-assign csr_diagram_2_1_ren = ren && (raddr == 11'h78);
+assign csr_diagram_2_1_ren = ren && (raddr == 11'h80);
 reg csr_diagram_2_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2820,15 +2722,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x7c] - diagram_2_2 - 
+// [0x84] - diagram_2_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_2_rdata;
 
 wire csr_diagram_2_2_wen;
-assign csr_diagram_2_2_wen = wen && (waddr == 11'h7c);
+assign csr_diagram_2_2_wen = wen && (waddr == 11'h84);
 
 wire csr_diagram_2_2_ren;
-assign csr_diagram_2_2_ren = ren && (raddr == 11'h7c);
+assign csr_diagram_2_2_ren = ren && (raddr == 11'h84);
 reg csr_diagram_2_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2897,15 +2799,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x80] - diagram_2_3 - 
+// [0x88] - diagram_2_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_3_rdata;
 
 wire csr_diagram_2_3_wen;
-assign csr_diagram_2_3_wen = wen && (waddr == 11'h80);
+assign csr_diagram_2_3_wen = wen && (waddr == 11'h88);
 
 wire csr_diagram_2_3_ren;
-assign csr_diagram_2_3_ren = ren && (raddr == 11'h80);
+assign csr_diagram_2_3_ren = ren && (raddr == 11'h88);
 reg csr_diagram_2_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -2974,15 +2876,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x84] - diagram_2_4 - 
+// [0x8c] - diagram_2_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_4_rdata;
 
 wire csr_diagram_2_4_wen;
-assign csr_diagram_2_4_wen = wen && (waddr == 11'h84);
+assign csr_diagram_2_4_wen = wen && (waddr == 11'h8c);
 
 wire csr_diagram_2_4_ren;
-assign csr_diagram_2_4_ren = ren && (raddr == 11'h84);
+assign csr_diagram_2_4_ren = ren && (raddr == 11'h8c);
 reg csr_diagram_2_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3051,15 +2953,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x88] - diagram_2_5 - 
+// [0x90] - diagram_2_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_5_rdata;
 
 wire csr_diagram_2_5_wen;
-assign csr_diagram_2_5_wen = wen && (waddr == 11'h88);
+assign csr_diagram_2_5_wen = wen && (waddr == 11'h90);
 
 wire csr_diagram_2_5_ren;
-assign csr_diagram_2_5_ren = ren && (raddr == 11'h88);
+assign csr_diagram_2_5_ren = ren && (raddr == 11'h90);
 reg csr_diagram_2_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3128,15 +3030,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x8c] - diagram_2_6 - 
+// [0x94] - diagram_2_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_6_rdata;
 
 wire csr_diagram_2_6_wen;
-assign csr_diagram_2_6_wen = wen && (waddr == 11'h8c);
+assign csr_diagram_2_6_wen = wen && (waddr == 11'h94);
 
 wire csr_diagram_2_6_ren;
-assign csr_diagram_2_6_ren = ren && (raddr == 11'h8c);
+assign csr_diagram_2_6_ren = ren && (raddr == 11'h94);
 reg csr_diagram_2_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3205,15 +3107,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x90] - diagram_2_7 - 
+// [0x98] - diagram_2_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_2_7_rdata;
 
 wire csr_diagram_2_7_wen;
-assign csr_diagram_2_7_wen = wen && (waddr == 11'h90);
+assign csr_diagram_2_7_wen = wen && (waddr == 11'h98);
 
 wire csr_diagram_2_7_ren;
-assign csr_diagram_2_7_ren = ren && (raddr == 11'h90);
+assign csr_diagram_2_7_ren = ren && (raddr == 11'h98);
 reg csr_diagram_2_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3282,15 +3184,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x94] - diagram_3_0 - 
+// [0x9c] - diagram_3_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_0_rdata;
 
 wire csr_diagram_3_0_wen;
-assign csr_diagram_3_0_wen = wen && (waddr == 11'h94);
+assign csr_diagram_3_0_wen = wen && (waddr == 11'h9c);
 
 wire csr_diagram_3_0_ren;
-assign csr_diagram_3_0_ren = ren && (raddr == 11'h94);
+assign csr_diagram_3_0_ren = ren && (raddr == 11'h9c);
 reg csr_diagram_3_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3359,15 +3261,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x98] - diagram_3_1 - 
+// [0xa0] - diagram_3_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_1_rdata;
 
 wire csr_diagram_3_1_wen;
-assign csr_diagram_3_1_wen = wen && (waddr == 11'h98);
+assign csr_diagram_3_1_wen = wen && (waddr == 11'ha0);
 
 wire csr_diagram_3_1_ren;
-assign csr_diagram_3_1_ren = ren && (raddr == 11'h98);
+assign csr_diagram_3_1_ren = ren && (raddr == 11'ha0);
 reg csr_diagram_3_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3436,15 +3338,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x9c] - diagram_3_2 - 
+// [0xa4] - diagram_3_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_2_rdata;
 
 wire csr_diagram_3_2_wen;
-assign csr_diagram_3_2_wen = wen && (waddr == 11'h9c);
+assign csr_diagram_3_2_wen = wen && (waddr == 11'ha4);
 
 wire csr_diagram_3_2_ren;
-assign csr_diagram_3_2_ren = ren && (raddr == 11'h9c);
+assign csr_diagram_3_2_ren = ren && (raddr == 11'ha4);
 reg csr_diagram_3_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3513,15 +3415,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xa0] - diagram_3_3 - 
+// [0xa8] - diagram_3_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_3_rdata;
 
 wire csr_diagram_3_3_wen;
-assign csr_diagram_3_3_wen = wen && (waddr == 11'ha0);
+assign csr_diagram_3_3_wen = wen && (waddr == 11'ha8);
 
 wire csr_diagram_3_3_ren;
-assign csr_diagram_3_3_ren = ren && (raddr == 11'ha0);
+assign csr_diagram_3_3_ren = ren && (raddr == 11'ha8);
 reg csr_diagram_3_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3590,15 +3492,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xa4] - diagram_3_4 - 
+// [0xac] - diagram_3_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_4_rdata;
 
 wire csr_diagram_3_4_wen;
-assign csr_diagram_3_4_wen = wen && (waddr == 11'ha4);
+assign csr_diagram_3_4_wen = wen && (waddr == 11'hac);
 
 wire csr_diagram_3_4_ren;
-assign csr_diagram_3_4_ren = ren && (raddr == 11'ha4);
+assign csr_diagram_3_4_ren = ren && (raddr == 11'hac);
 reg csr_diagram_3_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3667,15 +3569,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xa8] - diagram_3_5 - 
+// [0xb0] - diagram_3_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_5_rdata;
 
 wire csr_diagram_3_5_wen;
-assign csr_diagram_3_5_wen = wen && (waddr == 11'ha8);
+assign csr_diagram_3_5_wen = wen && (waddr == 11'hb0);
 
 wire csr_diagram_3_5_ren;
-assign csr_diagram_3_5_ren = ren && (raddr == 11'ha8);
+assign csr_diagram_3_5_ren = ren && (raddr == 11'hb0);
 reg csr_diagram_3_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3744,15 +3646,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xac] - diagram_3_6 - 
+// [0xb4] - diagram_3_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_6_rdata;
 
 wire csr_diagram_3_6_wen;
-assign csr_diagram_3_6_wen = wen && (waddr == 11'hac);
+assign csr_diagram_3_6_wen = wen && (waddr == 11'hb4);
 
 wire csr_diagram_3_6_ren;
-assign csr_diagram_3_6_ren = ren && (raddr == 11'hac);
+assign csr_diagram_3_6_ren = ren && (raddr == 11'hb4);
 reg csr_diagram_3_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3821,15 +3723,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xb0] - diagram_3_7 - 
+// [0xb8] - diagram_3_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_3_7_rdata;
 
 wire csr_diagram_3_7_wen;
-assign csr_diagram_3_7_wen = wen && (waddr == 11'hb0);
+assign csr_diagram_3_7_wen = wen && (waddr == 11'hb8);
 
 wire csr_diagram_3_7_ren;
-assign csr_diagram_3_7_ren = ren && (raddr == 11'hb0);
+assign csr_diagram_3_7_ren = ren && (raddr == 11'hb8);
 reg csr_diagram_3_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3898,15 +3800,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xb4] - diagram_4_0 - 
+// [0xbc] - diagram_4_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_0_rdata;
 
 wire csr_diagram_4_0_wen;
-assign csr_diagram_4_0_wen = wen && (waddr == 11'hb4);
+assign csr_diagram_4_0_wen = wen && (waddr == 11'hbc);
 
 wire csr_diagram_4_0_ren;
-assign csr_diagram_4_0_ren = ren && (raddr == 11'hb4);
+assign csr_diagram_4_0_ren = ren && (raddr == 11'hbc);
 reg csr_diagram_4_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -3975,15 +3877,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xb8] - diagram_4_1 - 
+// [0xc0] - diagram_4_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_1_rdata;
 
 wire csr_diagram_4_1_wen;
-assign csr_diagram_4_1_wen = wen && (waddr == 11'hb8);
+assign csr_diagram_4_1_wen = wen && (waddr == 11'hc0);
 
 wire csr_diagram_4_1_ren;
-assign csr_diagram_4_1_ren = ren && (raddr == 11'hb8);
+assign csr_diagram_4_1_ren = ren && (raddr == 11'hc0);
 reg csr_diagram_4_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4052,15 +3954,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xbc] - diagram_4_2 - 
+// [0xc4] - diagram_4_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_2_rdata;
 
 wire csr_diagram_4_2_wen;
-assign csr_diagram_4_2_wen = wen && (waddr == 11'hbc);
+assign csr_diagram_4_2_wen = wen && (waddr == 11'hc4);
 
 wire csr_diagram_4_2_ren;
-assign csr_diagram_4_2_ren = ren && (raddr == 11'hbc);
+assign csr_diagram_4_2_ren = ren && (raddr == 11'hc4);
 reg csr_diagram_4_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4129,15 +4031,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xc0] - diagram_4_3 - 
+// [0xc8] - diagram_4_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_3_rdata;
 
 wire csr_diagram_4_3_wen;
-assign csr_diagram_4_3_wen = wen && (waddr == 11'hc0);
+assign csr_diagram_4_3_wen = wen && (waddr == 11'hc8);
 
 wire csr_diagram_4_3_ren;
-assign csr_diagram_4_3_ren = ren && (raddr == 11'hc0);
+assign csr_diagram_4_3_ren = ren && (raddr == 11'hc8);
 reg csr_diagram_4_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4206,15 +4108,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xc4] - diagram_4_4 - 
+// [0xcc] - diagram_4_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_4_rdata;
 
 wire csr_diagram_4_4_wen;
-assign csr_diagram_4_4_wen = wen && (waddr == 11'hc4);
+assign csr_diagram_4_4_wen = wen && (waddr == 11'hcc);
 
 wire csr_diagram_4_4_ren;
-assign csr_diagram_4_4_ren = ren && (raddr == 11'hc4);
+assign csr_diagram_4_4_ren = ren && (raddr == 11'hcc);
 reg csr_diagram_4_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4283,15 +4185,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xc8] - diagram_4_5 - 
+// [0xd0] - diagram_4_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_5_rdata;
 
 wire csr_diagram_4_5_wen;
-assign csr_diagram_4_5_wen = wen && (waddr == 11'hc8);
+assign csr_diagram_4_5_wen = wen && (waddr == 11'hd0);
 
 wire csr_diagram_4_5_ren;
-assign csr_diagram_4_5_ren = ren && (raddr == 11'hc8);
+assign csr_diagram_4_5_ren = ren && (raddr == 11'hd0);
 reg csr_diagram_4_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4360,15 +4262,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xcc] - diagram_4_6 - 
+// [0xd4] - diagram_4_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_6_rdata;
 
 wire csr_diagram_4_6_wen;
-assign csr_diagram_4_6_wen = wen && (waddr == 11'hcc);
+assign csr_diagram_4_6_wen = wen && (waddr == 11'hd4);
 
 wire csr_diagram_4_6_ren;
-assign csr_diagram_4_6_ren = ren && (raddr == 11'hcc);
+assign csr_diagram_4_6_ren = ren && (raddr == 11'hd4);
 reg csr_diagram_4_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4437,15 +4339,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xd0] - diagram_4_7 - 
+// [0xd8] - diagram_4_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_4_7_rdata;
 
 wire csr_diagram_4_7_wen;
-assign csr_diagram_4_7_wen = wen && (waddr == 11'hd0);
+assign csr_diagram_4_7_wen = wen && (waddr == 11'hd8);
 
 wire csr_diagram_4_7_ren;
-assign csr_diagram_4_7_ren = ren && (raddr == 11'hd0);
+assign csr_diagram_4_7_ren = ren && (raddr == 11'hd8);
 reg csr_diagram_4_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4514,15 +4416,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xd4] - diagram_5_0 - 
+// [0xdc] - diagram_5_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_0_rdata;
 
 wire csr_diagram_5_0_wen;
-assign csr_diagram_5_0_wen = wen && (waddr == 11'hd4);
+assign csr_diagram_5_0_wen = wen && (waddr == 11'hdc);
 
 wire csr_diagram_5_0_ren;
-assign csr_diagram_5_0_ren = ren && (raddr == 11'hd4);
+assign csr_diagram_5_0_ren = ren && (raddr == 11'hdc);
 reg csr_diagram_5_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4591,15 +4493,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xd8] - diagram_5_1 - 
+// [0xe0] - diagram_5_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_1_rdata;
 
 wire csr_diagram_5_1_wen;
-assign csr_diagram_5_1_wen = wen && (waddr == 11'hd8);
+assign csr_diagram_5_1_wen = wen && (waddr == 11'he0);
 
 wire csr_diagram_5_1_ren;
-assign csr_diagram_5_1_ren = ren && (raddr == 11'hd8);
+assign csr_diagram_5_1_ren = ren && (raddr == 11'he0);
 reg csr_diagram_5_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4668,15 +4570,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xdc] - diagram_5_2 - 
+// [0xe4] - diagram_5_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_2_rdata;
 
 wire csr_diagram_5_2_wen;
-assign csr_diagram_5_2_wen = wen && (waddr == 11'hdc);
+assign csr_diagram_5_2_wen = wen && (waddr == 11'he4);
 
 wire csr_diagram_5_2_ren;
-assign csr_diagram_5_2_ren = ren && (raddr == 11'hdc);
+assign csr_diagram_5_2_ren = ren && (raddr == 11'he4);
 reg csr_diagram_5_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4745,15 +4647,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xe0] - diagram_5_3 - 
+// [0xe8] - diagram_5_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_3_rdata;
 
 wire csr_diagram_5_3_wen;
-assign csr_diagram_5_3_wen = wen && (waddr == 11'he0);
+assign csr_diagram_5_3_wen = wen && (waddr == 11'he8);
 
 wire csr_diagram_5_3_ren;
-assign csr_diagram_5_3_ren = ren && (raddr == 11'he0);
+assign csr_diagram_5_3_ren = ren && (raddr == 11'he8);
 reg csr_diagram_5_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4822,15 +4724,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xe4] - diagram_5_4 - 
+// [0xec] - diagram_5_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_4_rdata;
 
 wire csr_diagram_5_4_wen;
-assign csr_diagram_5_4_wen = wen && (waddr == 11'he4);
+assign csr_diagram_5_4_wen = wen && (waddr == 11'hec);
 
 wire csr_diagram_5_4_ren;
-assign csr_diagram_5_4_ren = ren && (raddr == 11'he4);
+assign csr_diagram_5_4_ren = ren && (raddr == 11'hec);
 reg csr_diagram_5_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4899,15 +4801,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xe8] - diagram_5_5 - 
+// [0xf0] - diagram_5_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_5_rdata;
 
 wire csr_diagram_5_5_wen;
-assign csr_diagram_5_5_wen = wen && (waddr == 11'he8);
+assign csr_diagram_5_5_wen = wen && (waddr == 11'hf0);
 
 wire csr_diagram_5_5_ren;
-assign csr_diagram_5_5_ren = ren && (raddr == 11'he8);
+assign csr_diagram_5_5_ren = ren && (raddr == 11'hf0);
 reg csr_diagram_5_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -4976,15 +4878,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xec] - diagram_5_6 - 
+// [0xf4] - diagram_5_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_6_rdata;
 
 wire csr_diagram_5_6_wen;
-assign csr_diagram_5_6_wen = wen && (waddr == 11'hec);
+assign csr_diagram_5_6_wen = wen && (waddr == 11'hf4);
 
 wire csr_diagram_5_6_ren;
-assign csr_diagram_5_6_ren = ren && (raddr == 11'hec);
+assign csr_diagram_5_6_ren = ren && (raddr == 11'hf4);
 reg csr_diagram_5_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5053,15 +4955,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xf0] - diagram_5_7 - 
+// [0xf8] - diagram_5_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_5_7_rdata;
 
 wire csr_diagram_5_7_wen;
-assign csr_diagram_5_7_wen = wen && (waddr == 11'hf0);
+assign csr_diagram_5_7_wen = wen && (waddr == 11'hf8);
 
 wire csr_diagram_5_7_ren;
-assign csr_diagram_5_7_ren = ren && (raddr == 11'hf0);
+assign csr_diagram_5_7_ren = ren && (raddr == 11'hf8);
 reg csr_diagram_5_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5130,15 +5032,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xf4] - diagram_6_0 - 
+// [0xfc] - diagram_6_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_0_rdata;
 
 wire csr_diagram_6_0_wen;
-assign csr_diagram_6_0_wen = wen && (waddr == 11'hf4);
+assign csr_diagram_6_0_wen = wen && (waddr == 11'hfc);
 
 wire csr_diagram_6_0_ren;
-assign csr_diagram_6_0_ren = ren && (raddr == 11'hf4);
+assign csr_diagram_6_0_ren = ren && (raddr == 11'hfc);
 reg csr_diagram_6_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5207,15 +5109,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xf8] - diagram_6_1 - 
+// [0x100] - diagram_6_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_1_rdata;
 
 wire csr_diagram_6_1_wen;
-assign csr_diagram_6_1_wen = wen && (waddr == 11'hf8);
+assign csr_diagram_6_1_wen = wen && (waddr == 11'h100);
 
 wire csr_diagram_6_1_ren;
-assign csr_diagram_6_1_ren = ren && (raddr == 11'hf8);
+assign csr_diagram_6_1_ren = ren && (raddr == 11'h100);
 reg csr_diagram_6_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5284,15 +5186,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0xfc] - diagram_6_2 - 
+// [0x104] - diagram_6_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_2_rdata;
 
 wire csr_diagram_6_2_wen;
-assign csr_diagram_6_2_wen = wen && (waddr == 11'hfc);
+assign csr_diagram_6_2_wen = wen && (waddr == 11'h104);
 
 wire csr_diagram_6_2_ren;
-assign csr_diagram_6_2_ren = ren && (raddr == 11'hfc);
+assign csr_diagram_6_2_ren = ren && (raddr == 11'h104);
 reg csr_diagram_6_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5361,15 +5263,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x100] - diagram_6_3 - 
+// [0x108] - diagram_6_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_3_rdata;
 
 wire csr_diagram_6_3_wen;
-assign csr_diagram_6_3_wen = wen && (waddr == 11'h100);
+assign csr_diagram_6_3_wen = wen && (waddr == 11'h108);
 
 wire csr_diagram_6_3_ren;
-assign csr_diagram_6_3_ren = ren && (raddr == 11'h100);
+assign csr_diagram_6_3_ren = ren && (raddr == 11'h108);
 reg csr_diagram_6_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5438,15 +5340,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x104] - diagram_6_4 - 
+// [0x10c] - diagram_6_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_4_rdata;
 
 wire csr_diagram_6_4_wen;
-assign csr_diagram_6_4_wen = wen && (waddr == 11'h104);
+assign csr_diagram_6_4_wen = wen && (waddr == 11'h10c);
 
 wire csr_diagram_6_4_ren;
-assign csr_diagram_6_4_ren = ren && (raddr == 11'h104);
+assign csr_diagram_6_4_ren = ren && (raddr == 11'h10c);
 reg csr_diagram_6_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5515,15 +5417,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x108] - diagram_6_5 - 
+// [0x110] - diagram_6_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_5_rdata;
 
 wire csr_diagram_6_5_wen;
-assign csr_diagram_6_5_wen = wen && (waddr == 11'h108);
+assign csr_diagram_6_5_wen = wen && (waddr == 11'h110);
 
 wire csr_diagram_6_5_ren;
-assign csr_diagram_6_5_ren = ren && (raddr == 11'h108);
+assign csr_diagram_6_5_ren = ren && (raddr == 11'h110);
 reg csr_diagram_6_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5592,15 +5494,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x10c] - diagram_6_6 - 
+// [0x114] - diagram_6_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_6_rdata;
 
 wire csr_diagram_6_6_wen;
-assign csr_diagram_6_6_wen = wen && (waddr == 11'h10c);
+assign csr_diagram_6_6_wen = wen && (waddr == 11'h114);
 
 wire csr_diagram_6_6_ren;
-assign csr_diagram_6_6_ren = ren && (raddr == 11'h10c);
+assign csr_diagram_6_6_ren = ren && (raddr == 11'h114);
 reg csr_diagram_6_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5669,15 +5571,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x110] - diagram_6_7 - 
+// [0x118] - diagram_6_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_6_7_rdata;
 
 wire csr_diagram_6_7_wen;
-assign csr_diagram_6_7_wen = wen && (waddr == 11'h110);
+assign csr_diagram_6_7_wen = wen && (waddr == 11'h118);
 
 wire csr_diagram_6_7_ren;
-assign csr_diagram_6_7_ren = ren && (raddr == 11'h110);
+assign csr_diagram_6_7_ren = ren && (raddr == 11'h118);
 reg csr_diagram_6_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5746,15 +5648,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x114] - diagram_7_0 - 
+// [0x11c] - diagram_7_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_0_rdata;
 
 wire csr_diagram_7_0_wen;
-assign csr_diagram_7_0_wen = wen && (waddr == 11'h114);
+assign csr_diagram_7_0_wen = wen && (waddr == 11'h11c);
 
 wire csr_diagram_7_0_ren;
-assign csr_diagram_7_0_ren = ren && (raddr == 11'h114);
+assign csr_diagram_7_0_ren = ren && (raddr == 11'h11c);
 reg csr_diagram_7_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5823,15 +5725,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x118] - diagram_7_1 - 
+// [0x120] - diagram_7_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_1_rdata;
 
 wire csr_diagram_7_1_wen;
-assign csr_diagram_7_1_wen = wen && (waddr == 11'h118);
+assign csr_diagram_7_1_wen = wen && (waddr == 11'h120);
 
 wire csr_diagram_7_1_ren;
-assign csr_diagram_7_1_ren = ren && (raddr == 11'h118);
+assign csr_diagram_7_1_ren = ren && (raddr == 11'h120);
 reg csr_diagram_7_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5900,15 +5802,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x11c] - diagram_7_2 - 
+// [0x124] - diagram_7_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_2_rdata;
 
 wire csr_diagram_7_2_wen;
-assign csr_diagram_7_2_wen = wen && (waddr == 11'h11c);
+assign csr_diagram_7_2_wen = wen && (waddr == 11'h124);
 
 wire csr_diagram_7_2_ren;
-assign csr_diagram_7_2_ren = ren && (raddr == 11'h11c);
+assign csr_diagram_7_2_ren = ren && (raddr == 11'h124);
 reg csr_diagram_7_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -5977,15 +5879,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x120] - diagram_7_3 - 
+// [0x128] - diagram_7_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_3_rdata;
 
 wire csr_diagram_7_3_wen;
-assign csr_diagram_7_3_wen = wen && (waddr == 11'h120);
+assign csr_diagram_7_3_wen = wen && (waddr == 11'h128);
 
 wire csr_diagram_7_3_ren;
-assign csr_diagram_7_3_ren = ren && (raddr == 11'h120);
+assign csr_diagram_7_3_ren = ren && (raddr == 11'h128);
 reg csr_diagram_7_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6054,15 +5956,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x124] - diagram_7_4 - 
+// [0x12c] - diagram_7_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_4_rdata;
 
 wire csr_diagram_7_4_wen;
-assign csr_diagram_7_4_wen = wen && (waddr == 11'h124);
+assign csr_diagram_7_4_wen = wen && (waddr == 11'h12c);
 
 wire csr_diagram_7_4_ren;
-assign csr_diagram_7_4_ren = ren && (raddr == 11'h124);
+assign csr_diagram_7_4_ren = ren && (raddr == 11'h12c);
 reg csr_diagram_7_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6131,15 +6033,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x128] - diagram_7_5 - 
+// [0x130] - diagram_7_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_5_rdata;
 
 wire csr_diagram_7_5_wen;
-assign csr_diagram_7_5_wen = wen && (waddr == 11'h128);
+assign csr_diagram_7_5_wen = wen && (waddr == 11'h130);
 
 wire csr_diagram_7_5_ren;
-assign csr_diagram_7_5_ren = ren && (raddr == 11'h128);
+assign csr_diagram_7_5_ren = ren && (raddr == 11'h130);
 reg csr_diagram_7_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6208,15 +6110,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x12c] - diagram_7_6 - 
+// [0x134] - diagram_7_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_6_rdata;
 
 wire csr_diagram_7_6_wen;
-assign csr_diagram_7_6_wen = wen && (waddr == 11'h12c);
+assign csr_diagram_7_6_wen = wen && (waddr == 11'h134);
 
 wire csr_diagram_7_6_ren;
-assign csr_diagram_7_6_ren = ren && (raddr == 11'h12c);
+assign csr_diagram_7_6_ren = ren && (raddr == 11'h134);
 reg csr_diagram_7_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6285,15 +6187,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x130] - diagram_7_7 - 
+// [0x138] - diagram_7_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_7_7_rdata;
 
 wire csr_diagram_7_7_wen;
-assign csr_diagram_7_7_wen = wen && (waddr == 11'h130);
+assign csr_diagram_7_7_wen = wen && (waddr == 11'h138);
 
 wire csr_diagram_7_7_ren;
-assign csr_diagram_7_7_ren = ren && (raddr == 11'h130);
+assign csr_diagram_7_7_ren = ren && (raddr == 11'h138);
 reg csr_diagram_7_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6362,16 +6264,16 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x134] - motion_selector - 
+// [0x13c] - motion_selector - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_motion_selector_rdata;
 assign csr_motion_selector_rdata[31:9] = 23'h0;
 
 wire csr_motion_selector_wen;
-assign csr_motion_selector_wen = wen && (waddr == 11'h134);
+assign csr_motion_selector_wen = wen && (waddr == 11'h13c);
 
 wire csr_motion_selector_ren;
-assign csr_motion_selector_ren = ren && (raddr == 11'h134);
+assign csr_motion_selector_ren = ren && (raddr == 11'h13c);
 reg csr_motion_selector_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6434,15 +6336,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x138] - diagram_angle_0 - 
+// [0x140] - diagram_angle_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_0_rdata;
 
 wire csr_diagram_angle_0_wen;
-assign csr_diagram_angle_0_wen = wen && (waddr == 11'h138);
+assign csr_diagram_angle_0_wen = wen && (waddr == 11'h140);
 
 wire csr_diagram_angle_0_ren;
-assign csr_diagram_angle_0_ren = ren && (raddr == 11'h138);
+assign csr_diagram_angle_0_ren = ren && (raddr == 11'h140);
 reg csr_diagram_angle_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6488,15 +6390,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x13c] - diagram_angle_1 - 
+// [0x144] - diagram_angle_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_1_rdata;
 
 wire csr_diagram_angle_1_wen;
-assign csr_diagram_angle_1_wen = wen && (waddr == 11'h13c);
+assign csr_diagram_angle_1_wen = wen && (waddr == 11'h144);
 
 wire csr_diagram_angle_1_ren;
-assign csr_diagram_angle_1_ren = ren && (raddr == 11'h13c);
+assign csr_diagram_angle_1_ren = ren && (raddr == 11'h144);
 reg csr_diagram_angle_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6542,15 +6444,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x140] - diagram_angle_2 - 
+// [0x148] - diagram_angle_2 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_2_rdata;
 
 wire csr_diagram_angle_2_wen;
-assign csr_diagram_angle_2_wen = wen && (waddr == 11'h140);
+assign csr_diagram_angle_2_wen = wen && (waddr == 11'h148);
 
 wire csr_diagram_angle_2_ren;
-assign csr_diagram_angle_2_ren = ren && (raddr == 11'h140);
+assign csr_diagram_angle_2_ren = ren && (raddr == 11'h148);
 reg csr_diagram_angle_2_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6596,15 +6498,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x144] - diagram_angle_3 - 
+// [0x14c] - diagram_angle_3 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_3_rdata;
 
 wire csr_diagram_angle_3_wen;
-assign csr_diagram_angle_3_wen = wen && (waddr == 11'h144);
+assign csr_diagram_angle_3_wen = wen && (waddr == 11'h14c);
 
 wire csr_diagram_angle_3_ren;
-assign csr_diagram_angle_3_ren = ren && (raddr == 11'h144);
+assign csr_diagram_angle_3_ren = ren && (raddr == 11'h14c);
 reg csr_diagram_angle_3_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6650,15 +6552,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x148] - diagram_angle_4 - 
+// [0x150] - diagram_angle_4 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_4_rdata;
 
 wire csr_diagram_angle_4_wen;
-assign csr_diagram_angle_4_wen = wen && (waddr == 11'h148);
+assign csr_diagram_angle_4_wen = wen && (waddr == 11'h150);
 
 wire csr_diagram_angle_4_ren;
-assign csr_diagram_angle_4_ren = ren && (raddr == 11'h148);
+assign csr_diagram_angle_4_ren = ren && (raddr == 11'h150);
 reg csr_diagram_angle_4_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6704,15 +6606,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x14c] - diagram_angle_5 - 
+// [0x154] - diagram_angle_5 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_5_rdata;
 
 wire csr_diagram_angle_5_wen;
-assign csr_diagram_angle_5_wen = wen && (waddr == 11'h14c);
+assign csr_diagram_angle_5_wen = wen && (waddr == 11'h154);
 
 wire csr_diagram_angle_5_ren;
-assign csr_diagram_angle_5_ren = ren && (raddr == 11'h14c);
+assign csr_diagram_angle_5_ren = ren && (raddr == 11'h154);
 reg csr_diagram_angle_5_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6758,15 +6660,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x150] - diagram_angle_6 - 
+// [0x158] - diagram_angle_6 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_6_rdata;
 
 wire csr_diagram_angle_6_wen;
-assign csr_diagram_angle_6_wen = wen && (waddr == 11'h150);
+assign csr_diagram_angle_6_wen = wen && (waddr == 11'h158);
 
 wire csr_diagram_angle_6_ren;
-assign csr_diagram_angle_6_ren = ren && (raddr == 11'h150);
+assign csr_diagram_angle_6_ren = ren && (raddr == 11'h158);
 reg csr_diagram_angle_6_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6812,15 +6714,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x154] - diagram_angle_7 - 
+// [0x15c] - diagram_angle_7 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_diagram_angle_7_rdata;
 
 wire csr_diagram_angle_7_wen;
-assign csr_diagram_angle_7_wen = wen && (waddr == 11'h154);
+assign csr_diagram_angle_7_wen = wen && (waddr == 11'h15c);
 
 wire csr_diagram_angle_7_ren;
-assign csr_diagram_angle_7_ren = ren && (raddr == 11'h154);
+assign csr_diagram_angle_7_ren = ren && (raddr == 11'h15c);
 reg csr_diagram_angle_7_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6866,15 +6768,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x158] - output_source - 
+// [0x160] - output_source - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_output_source_rdata;
 
 wire csr_output_source_wen;
-assign csr_output_source_wen = wen && (waddr == 11'h158);
+assign csr_output_source_wen = wen && (waddr == 11'h160);
 
 wire csr_output_source_ren;
-assign csr_output_source_ren = ren && (raddr == 11'h158);
+assign csr_output_source_ren = ren && (raddr == 11'h160);
 reg csr_output_source_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -6943,16 +6845,16 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x15c] - apu_rank - 
+// [0x164] - apu_rank - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_apu_rank_rdata;
 assign csr_apu_rank_rdata[31:16] = 16'h0;
 
 wire csr_apu_rank_wen;
-assign csr_apu_rank_wen = wen && (waddr == 11'h15c);
+assign csr_apu_rank_wen = wen && (waddr == 11'h164);
 
 wire csr_apu_rank_ren;
-assign csr_apu_rank_ren = ren && (raddr == 11'h15c);
+assign csr_apu_rank_ren = ren && (raddr == 11'h164);
 reg csr_apu_rank_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -7015,15 +6917,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x160] - detector_level_0 - 
+// [0x168] - detector_level_0 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_detector_level_0_rdata;
 
 wire csr_detector_level_0_wen;
-assign csr_detector_level_0_wen = wen && (waddr == 11'h160);
+assign csr_detector_level_0_wen = wen && (waddr == 11'h168);
 
 wire csr_detector_level_0_ren;
-assign csr_detector_level_0_ren = ren && (raddr == 11'h160);
+assign csr_detector_level_0_ren = ren && (raddr == 11'h168);
 reg csr_detector_level_0_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -7069,15 +6971,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x164] - detector_level_1 - 
+// [0x16c] - detector_level_1 - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_detector_level_1_rdata;
 
 wire csr_detector_level_1_wen;
-assign csr_detector_level_1_wen = wen && (waddr == 11'h164);
+assign csr_detector_level_1_wen = wen && (waddr == 11'h16c);
 
 wire csr_detector_level_1_ren;
-assign csr_detector_level_1_ren = ren && (raddr == 11'h164);
+assign csr_detector_level_1_ren = ren && (raddr == 11'h16c);
 reg csr_detector_level_1_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -7123,15 +7025,15 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x168] - azimuth_angle - 
+// [0x170] - azimuth_angle - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_azimuth_angle_rdata;
 
 wire csr_azimuth_angle_wen;
-assign csr_azimuth_angle_wen = wen && (waddr == 11'h168);
+assign csr_azimuth_angle_wen = wen && (waddr == 11'h170);
 
 wire csr_azimuth_angle_ren;
-assign csr_azimuth_angle_ren = ren && (raddr == 11'h168);
+assign csr_azimuth_angle_ren = ren && (raddr == 11'h170);
 reg csr_azimuth_angle_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -7177,16 +7079,16 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x16c] - apply - 
+// [0x174] - apply - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_apply_rdata;
 assign csr_apply_rdata[31:1] = 31'h0;
 
 wire csr_apply_wen;
-assign csr_apply_wen = wen && (waddr == 11'h16c);
+assign csr_apply_wen = wen && (waddr == 11'h174);
 
 wire csr_apply_ren;
-assign csr_apply_ren = ren && (raddr == 11'h16c);
+assign csr_apply_ren = ren && (raddr == 11'h174);
 reg csr_apply_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -7198,8 +7100,9 @@ end
 //---------------------
 // Bit field:
 // apply[0] - apply - XOR to apply reg changes
-// access: rw, hardware: o
+// access: rw, hardware: oa
 //---------------------
+assign csr_apply_apply_waccess = wready && csr_apply_wen;
 reg  csr_apply_apply_ff;
 
 assign csr_apply_rdata[0] = csr_apply_apply_ff;
@@ -7209,15 +7112,12 @@ assign csr_apply_apply_out = csr_apply_apply_ff;
 always @(posedge clk) begin
     if (!rst) begin
         csr_apply_apply_ff <= 1'b0;
-        o_apply <= 0;
     end else  begin
      if (csr_apply_wen) begin
             if (wstrb[0]) begin
                 csr_apply_apply_ff <= wdata[0];
-                o_apply <= 1;
             end
         end else begin
-            o_apply <= 0;
             csr_apply_apply_ff <= csr_apply_apply_ff;
         end
     end
@@ -7226,16 +7126,16 @@ end
 
 //------------------------------------------------------------------------------
 // CSR:
-// [0x170] - compensation_reference - 
+// [0x178] - compensation_reference - 
 //------------------------------------------------------------------------------
 wire [31:0] csr_compensation_reference_rdata;
 assign csr_compensation_reference_rdata[31:16] = 16'h0;
 
 wire csr_compensation_reference_wen;
-assign csr_compensation_reference_wen = wen && (waddr == 11'h170);
+assign csr_compensation_reference_wen = wen && (waddr == 11'h178);
 
 wire csr_compensation_reference_ren;
-assign csr_compensation_reference_ren = ren && (raddr == 11'h170);
+assign csr_compensation_reference_ren = ren && (raddr == 11'h178);
 reg csr_compensation_reference_ren_ff;
 always @(posedge clk) begin
     if (!rst) begin
@@ -7274,6 +7174,52 @@ end
 
 
 //------------------------------------------------------------------------------
+// CSR:
+// [0x17c] - channel_mask - 
+//------------------------------------------------------------------------------
+wire [31:0] csr_channel_mask_rdata;
+assign csr_channel_mask_rdata[31:8] = 24'h0;
+
+wire csr_channel_mask_wen;
+assign csr_channel_mask_wen = wen && (waddr == 11'h17c);
+
+wire csr_channel_mask_ren;
+assign csr_channel_mask_ren = ren && (raddr == 11'h17c);
+reg csr_channel_mask_ren_ff;
+always @(posedge clk) begin
+    if (!rst) begin
+        csr_channel_mask_ren_ff <= 1'b0;
+    end else begin
+        csr_channel_mask_ren_ff <= csr_channel_mask_ren;
+    end
+end
+//---------------------
+// Bit field:
+// channel_mask[7:0] - channel_mask_enable - enable channels by mask, "1" - enabled, lsb - channel 1
+// access: rw, hardware: o
+//---------------------
+reg [7:0] csr_channel_mask_channel_mask_enable_ff;
+
+assign csr_channel_mask_rdata[7:0] = csr_channel_mask_channel_mask_enable_ff;
+
+assign csr_channel_mask_channel_mask_enable_out = csr_channel_mask_channel_mask_enable_ff;
+
+always @(posedge clk) begin
+    if (!rst) begin
+        csr_channel_mask_channel_mask_enable_ff <= 8'hff;
+    end else  begin
+     if (csr_channel_mask_wen) begin
+            if (wstrb[0]) begin
+                csr_channel_mask_channel_mask_enable_ff[7:0] <= wdata[7:0];
+            end
+        end else begin
+            csr_channel_mask_channel_mask_enable_ff <= csr_channel_mask_channel_mask_enable_ff;
+        end
+    end
+end
+
+
+//------------------------------------------------------------------------------
 // Write ready
 //------------------------------------------------------------------------------
 assign wready = 1'b1;
@@ -7287,99 +7233,98 @@ always @(posedge clk) begin
         rdata_ff <= 32'h0;
     end else if (ren) begin
         case (raddr)
-            11'h0: rdata_ff <= csr_ip_ver_rdata;
-            11'h4: rdata_ff <= csr_kill_rdata;
-            11'h8: rdata_ff <= csr_test_point_rdata;
-            11'hc: rdata_ff <= csr_channel_rdata;
-            11'h10: rdata_ff <= csr_compensation_mode_rdata;
-            11'h14: rdata_ff <= csr_manual_compensation_0_rdata;
-            11'h18: rdata_ff <= csr_manual_compensation_1_rdata;
-            11'h1c: rdata_ff <= csr_manual_compensation_2_rdata;
-            11'h20: rdata_ff <= csr_manual_compensation_3_rdata;
-            11'h24: rdata_ff <= csr_manual_compensation_4_rdata;
-            11'h28: rdata_ff <= csr_manual_compensation_5_rdata;
-            11'h2c: rdata_ff <= csr_manual_compensation_6_rdata;
-            11'h30: rdata_ff <= csr_manual_compensation_7_rdata;
-            11'h34: rdata_ff <= csr_diagram_0_0_rdata;
-            11'h38: rdata_ff <= csr_diagram_0_1_rdata;
-            11'h3c: rdata_ff <= csr_diagram_0_2_rdata;
-            11'h40: rdata_ff <= csr_diagram_0_3_rdata;
-            11'h44: rdata_ff <= csr_diagram_0_4_rdata;
-            11'h48: rdata_ff <= csr_diagram_0_5_rdata;
-            11'h4c: rdata_ff <= csr_diagram_0_6_rdata;
-            11'h50: rdata_ff <= csr_diagram_0_7_rdata;
-            11'h54: rdata_ff <= csr_diagram_1_0_rdata;
-            11'h58: rdata_ff <= csr_diagram_1_1_rdata;
-            11'h5c: rdata_ff <= csr_diagram_1_2_rdata;
-            11'h60: rdata_ff <= csr_diagram_1_3_rdata;
-            11'h64: rdata_ff <= csr_diagram_1_4_rdata;
-            11'h68: rdata_ff <= csr_diagram_1_5_rdata;
-            11'h6c: rdata_ff <= csr_diagram_1_6_rdata;
-            11'h70: rdata_ff <= csr_diagram_1_7_rdata;
-            11'h74: rdata_ff <= csr_diagram_2_0_rdata;
-            11'h78: rdata_ff <= csr_diagram_2_1_rdata;
-            11'h7c: rdata_ff <= csr_diagram_2_2_rdata;
-            11'h80: rdata_ff <= csr_diagram_2_3_rdata;
-            11'h84: rdata_ff <= csr_diagram_2_4_rdata;
-            11'h88: rdata_ff <= csr_diagram_2_5_rdata;
-            11'h8c: rdata_ff <= csr_diagram_2_6_rdata;
-            11'h90: rdata_ff <= csr_diagram_2_7_rdata;
-            11'h94: rdata_ff <= csr_diagram_3_0_rdata;
-            11'h98: rdata_ff <= csr_diagram_3_1_rdata;
-            11'h9c: rdata_ff <= csr_diagram_3_2_rdata;
-            11'ha0: rdata_ff <= csr_diagram_3_3_rdata;
-            11'ha4: rdata_ff <= csr_diagram_3_4_rdata;
-            11'ha8: rdata_ff <= csr_diagram_3_5_rdata;
-            11'hac: rdata_ff <= csr_diagram_3_6_rdata;
-            11'hb0: rdata_ff <= csr_diagram_3_7_rdata;
-            11'hb4: rdata_ff <= csr_diagram_4_0_rdata;
-            11'hb8: rdata_ff <= csr_diagram_4_1_rdata;
-            11'hbc: rdata_ff <= csr_diagram_4_2_rdata;
-            11'hc0: rdata_ff <= csr_diagram_4_3_rdata;
-            11'hc4: rdata_ff <= csr_diagram_4_4_rdata;
-            11'hc8: rdata_ff <= csr_diagram_4_5_rdata;
-            11'hcc: rdata_ff <= csr_diagram_4_6_rdata;
-            11'hd0: rdata_ff <= csr_diagram_4_7_rdata;
-            11'hd4: rdata_ff <= csr_diagram_5_0_rdata;
-            11'hd8: rdata_ff <= csr_diagram_5_1_rdata;
-            11'hdc: rdata_ff <= csr_diagram_5_2_rdata;
-            11'he0: rdata_ff <= csr_diagram_5_3_rdata;
-            11'he4: rdata_ff <= csr_diagram_5_4_rdata;
-            11'he8: rdata_ff <= csr_diagram_5_5_rdata;
-            11'hec: rdata_ff <= csr_diagram_5_6_rdata;
-            11'hf0: rdata_ff <= csr_diagram_5_7_rdata;
-            11'hf4: rdata_ff <= csr_diagram_6_0_rdata;
-            11'hf8: rdata_ff <= csr_diagram_6_1_rdata;
-            11'hfc: rdata_ff <= csr_diagram_6_2_rdata;
-            11'h100: rdata_ff <= csr_diagram_6_3_rdata;
-            11'h104: rdata_ff <= csr_diagram_6_4_rdata;
-            11'h108: rdata_ff <= csr_diagram_6_5_rdata;
-            11'h10c: rdata_ff <= csr_diagram_6_6_rdata;
-            11'h110: rdata_ff <= csr_diagram_6_7_rdata;
-            11'h114: rdata_ff <= csr_diagram_7_0_rdata;
-            11'h118: rdata_ff <= csr_diagram_7_1_rdata;
-            11'h11c: rdata_ff <= csr_diagram_7_2_rdata;
-            11'h120: rdata_ff <= csr_diagram_7_3_rdata;
-            11'h124: rdata_ff <= csr_diagram_7_4_rdata;
-            11'h128: rdata_ff <= csr_diagram_7_5_rdata;
-            11'h12c: rdata_ff <= csr_diagram_7_6_rdata;
-            11'h130: rdata_ff <= csr_diagram_7_7_rdata;
-            11'h134: rdata_ff <= csr_motion_selector_rdata;
-            11'h138: rdata_ff <= csr_diagram_angle_0_rdata;
-            11'h13c: rdata_ff <= csr_diagram_angle_1_rdata;
-            11'h140: rdata_ff <= csr_diagram_angle_2_rdata;
-            11'h144: rdata_ff <= csr_diagram_angle_3_rdata;
-            11'h148: rdata_ff <= csr_diagram_angle_4_rdata;
-            11'h14c: rdata_ff <= csr_diagram_angle_5_rdata;
-            11'h150: rdata_ff <= csr_diagram_angle_6_rdata;
-            11'h154: rdata_ff <= csr_diagram_angle_7_rdata;
-            11'h158: rdata_ff <= csr_output_source_rdata;
-            11'h15c: rdata_ff <= csr_apu_rank_rdata;
-            11'h160: rdata_ff <= csr_detector_level_0_rdata;
-            11'h164: rdata_ff <= csr_detector_level_1_rdata;
-            11'h168: rdata_ff <= csr_azimuth_angle_rdata;
-            11'h16c: rdata_ff <= csr_apply_rdata;
-            11'h170: rdata_ff <= csr_compensation_reference_rdata;
+            11'h10: rdata_ff <= csr_ip_ver_rdata;
+            11'h14: rdata_ff <= csr_reset_rdata;
+            11'h18: rdata_ff <= csr_compensation_mode_rdata;
+            11'h1c: rdata_ff <= csr_manual_compensation_0_rdata;
+            11'h20: rdata_ff <= csr_manual_compensation_1_rdata;
+            11'h24: rdata_ff <= csr_manual_compensation_2_rdata;
+            11'h28: rdata_ff <= csr_manual_compensation_3_rdata;
+            11'h2c: rdata_ff <= csr_manual_compensation_4_rdata;
+            11'h30: rdata_ff <= csr_manual_compensation_5_rdata;
+            11'h34: rdata_ff <= csr_manual_compensation_6_rdata;
+            11'h38: rdata_ff <= csr_manual_compensation_7_rdata;
+            11'h3c: rdata_ff <= csr_diagram_0_0_rdata;
+            11'h40: rdata_ff <= csr_diagram_0_1_rdata;
+            11'h44: rdata_ff <= csr_diagram_0_2_rdata;
+            11'h48: rdata_ff <= csr_diagram_0_3_rdata;
+            11'h4c: rdata_ff <= csr_diagram_0_4_rdata;
+            11'h50: rdata_ff <= csr_diagram_0_5_rdata;
+            11'h54: rdata_ff <= csr_diagram_0_6_rdata;
+            11'h58: rdata_ff <= csr_diagram_0_7_rdata;
+            11'h5c: rdata_ff <= csr_diagram_1_0_rdata;
+            11'h60: rdata_ff <= csr_diagram_1_1_rdata;
+            11'h64: rdata_ff <= csr_diagram_1_2_rdata;
+            11'h68: rdata_ff <= csr_diagram_1_3_rdata;
+            11'h6c: rdata_ff <= csr_diagram_1_4_rdata;
+            11'h70: rdata_ff <= csr_diagram_1_5_rdata;
+            11'h74: rdata_ff <= csr_diagram_1_6_rdata;
+            11'h78: rdata_ff <= csr_diagram_1_7_rdata;
+            11'h7c: rdata_ff <= csr_diagram_2_0_rdata;
+            11'h80: rdata_ff <= csr_diagram_2_1_rdata;
+            11'h84: rdata_ff <= csr_diagram_2_2_rdata;
+            11'h88: rdata_ff <= csr_diagram_2_3_rdata;
+            11'h8c: rdata_ff <= csr_diagram_2_4_rdata;
+            11'h90: rdata_ff <= csr_diagram_2_5_rdata;
+            11'h94: rdata_ff <= csr_diagram_2_6_rdata;
+            11'h98: rdata_ff <= csr_diagram_2_7_rdata;
+            11'h9c: rdata_ff <= csr_diagram_3_0_rdata;
+            11'ha0: rdata_ff <= csr_diagram_3_1_rdata;
+            11'ha4: rdata_ff <= csr_diagram_3_2_rdata;
+            11'ha8: rdata_ff <= csr_diagram_3_3_rdata;
+            11'hac: rdata_ff <= csr_diagram_3_4_rdata;
+            11'hb0: rdata_ff <= csr_diagram_3_5_rdata;
+            11'hb4: rdata_ff <= csr_diagram_3_6_rdata;
+            11'hb8: rdata_ff <= csr_diagram_3_7_rdata;
+            11'hbc: rdata_ff <= csr_diagram_4_0_rdata;
+            11'hc0: rdata_ff <= csr_diagram_4_1_rdata;
+            11'hc4: rdata_ff <= csr_diagram_4_2_rdata;
+            11'hc8: rdata_ff <= csr_diagram_4_3_rdata;
+            11'hcc: rdata_ff <= csr_diagram_4_4_rdata;
+            11'hd0: rdata_ff <= csr_diagram_4_5_rdata;
+            11'hd4: rdata_ff <= csr_diagram_4_6_rdata;
+            11'hd8: rdata_ff <= csr_diagram_4_7_rdata;
+            11'hdc: rdata_ff <= csr_diagram_5_0_rdata;
+            11'he0: rdata_ff <= csr_diagram_5_1_rdata;
+            11'he4: rdata_ff <= csr_diagram_5_2_rdata;
+            11'he8: rdata_ff <= csr_diagram_5_3_rdata;
+            11'hec: rdata_ff <= csr_diagram_5_4_rdata;
+            11'hf0: rdata_ff <= csr_diagram_5_5_rdata;
+            11'hf4: rdata_ff <= csr_diagram_5_6_rdata;
+            11'hf8: rdata_ff <= csr_diagram_5_7_rdata;
+            11'hfc: rdata_ff <= csr_diagram_6_0_rdata;
+            11'h100: rdata_ff <= csr_diagram_6_1_rdata;
+            11'h104: rdata_ff <= csr_diagram_6_2_rdata;
+            11'h108: rdata_ff <= csr_diagram_6_3_rdata;
+            11'h10c: rdata_ff <= csr_diagram_6_4_rdata;
+            11'h110: rdata_ff <= csr_diagram_6_5_rdata;
+            11'h114: rdata_ff <= csr_diagram_6_6_rdata;
+            11'h118: rdata_ff <= csr_diagram_6_7_rdata;
+            11'h11c: rdata_ff <= csr_diagram_7_0_rdata;
+            11'h120: rdata_ff <= csr_diagram_7_1_rdata;
+            11'h124: rdata_ff <= csr_diagram_7_2_rdata;
+            11'h128: rdata_ff <= csr_diagram_7_3_rdata;
+            11'h12c: rdata_ff <= csr_diagram_7_4_rdata;
+            11'h130: rdata_ff <= csr_diagram_7_5_rdata;
+            11'h134: rdata_ff <= csr_diagram_7_6_rdata;
+            11'h138: rdata_ff <= csr_diagram_7_7_rdata;
+            11'h13c: rdata_ff <= csr_motion_selector_rdata;
+            11'h140: rdata_ff <= csr_diagram_angle_0_rdata;
+            11'h144: rdata_ff <= csr_diagram_angle_1_rdata;
+            11'h148: rdata_ff <= csr_diagram_angle_2_rdata;
+            11'h14c: rdata_ff <= csr_diagram_angle_3_rdata;
+            11'h150: rdata_ff <= csr_diagram_angle_4_rdata;
+            11'h154: rdata_ff <= csr_diagram_angle_5_rdata;
+            11'h158: rdata_ff <= csr_diagram_angle_6_rdata;
+            11'h15c: rdata_ff <= csr_diagram_angle_7_rdata;
+            11'h160: rdata_ff <= csr_output_source_rdata;
+            11'h164: rdata_ff <= csr_apu_rank_rdata;
+            11'h168: rdata_ff <= csr_detector_level_0_rdata;
+            11'h16c: rdata_ff <= csr_detector_level_1_rdata;
+            11'h170: rdata_ff <= csr_azimuth_angle_rdata;
+            11'h174: rdata_ff <= csr_apply_rdata;
+            11'h178: rdata_ff <= csr_compensation_reference_rdata;
+            11'h17c: rdata_ff <= csr_channel_mask_rdata;
             default: rdata_ff <= 32'h0;
         endcase
     end else begin

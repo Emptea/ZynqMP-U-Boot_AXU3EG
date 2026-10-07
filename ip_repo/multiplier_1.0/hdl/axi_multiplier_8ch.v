@@ -11,7 +11,12 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
                          parameter DIAGRAM_NUMBER = 8,
                          parameter CHANNEL_NUMBER = 8,
                          parameter BIT_WIDTH = 16,
-                         parameter ANGLE_WIDTH = 32
+                         parameter ANGLE_WIDTH = 32,
+                        parameter MEM_DATA_BITS          = 32,  //external memory user interface data width
+                        parameter ADDR_BITS              = 23,  //external memory user interface address width
+                        parameter BUSRT_BITS             = 10,  //external memory user interface burst width
+                        parameter BURST_SIZE             = 128, //burst size,
+                        parameter MEM_MASK_BITS          = 16
                         )
                         (
 
@@ -82,13 +87,47 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
                          output wire s07_axis_tready, 
                          input wire [AXIS_TDATA_WIDTH-1 : 0] s07_axis_tdata, 
                          input wire s07_axis_tlast, 
-                         input wire s07_axis_tvalid);
+                         input wire s07_axis_tvalid,
+                        input                            mem_rst,
+                        input                            mem_clk,
+                        output                        rd_burst_req,
+                        output                        wr_burst_req,
+                        output [BUSRT_BITS - 1:0]     rd_burst_len,
+                        output [BUSRT_BITS - 1:0]     wr_burst_len,
+                        output [ADDR_BITS - 1:0]      rd_burst_addr,
+                        output [ADDR_BITS - 1:0]      wr_burst_addr,
+                        input                            rd_burst_data_valid,
+                        input                            wr_burst_data_req,
+                        input[MEM_DATA_BITS - 1:0]       rd_burst_data,
+                        output [MEM_DATA_BITS - 1:0]  wr_burst_data,
+                        output [MEM_MASK_BITS - 1:0]  wr_burst_mask,
+                        input                            rd_burst_finish,
+                        input                            wr_burst_finish,
+                        output                        heartbeat,
+
+                        input [7: 0]i_enabled_channels
+
+                         );
                          
     wire [N_MULTS-1:0] mults_output_tvalid;
     wire [N_MULTS-1:0] mults_output_tlast;
     wire [AXIS_TDATA_WIDTH-1:0] mults_output_tdata [0:N_MULTS-1];
     wire dsp_data_last;
+
+    localparam SIGNAL_WIDTH = BIT_WIDTH;
+    localparam INPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH * CHANNEL_NUMBER;
+    localparam OUTPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH;
+    localparam COMPENSATION_COEF_WIDTH = 24;
+    localparam DIAGRAM_COEF_WIDTH = 16;
+    localparam COMPENSATION_COEF_LEVEL_ONE = 14;
+    localparam DIAGRAM_COEF_LEVEL_ONE = 14;
+
+    wire [INPUT_DATA_WIDTH - 1: 0]input_data;
+    wire [CHANNEL_NUMBER - 1: 0]request_data_from_fifo;
+    wire [CHANNEL_NUMBER - 1: 0]input_data_valid;
     
+    
+    assign m_axis_tlast = dsp_data_last;
     /*
     genvar i;
     generate
@@ -127,7 +166,14 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
                                      i == 5 ? s05_axis_tlast :
                                      i == 6 ? s06_axis_tlast :
                                      i == 7 ? s07_axis_tlast : 1'b0),
-                .s00_axis_tready     (mults_tready[i]),
+                .s00_axis_tready     (i == 0 ? s00_axis_tready :
+                                     i == 1 ? s01_axis_tready :
+                                     i == 2 ? s02_axis_tready :
+                                     i == 3 ? s03_axis_tready :
+                                     i == 4 ? s04_axis_tready :
+                                     i == 5 ? s05_axis_tready :
+                                     i == 6 ? s06_axis_tready :
+                                     i == 7 ? s07_axis_tready : 1'b0),
                 .m00_axis_tready     (m_axis_tready),
                 .m00_axis_tdata      (mults_output_tdata[i]),
                 .m00_axis_tvalid     (mults_output_tvalid[i]),
@@ -151,20 +197,6 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
     end    
 */    
 
-    localparam SIGNAL_WIDTH = BIT_WIDTH;
-    localparam INPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH * CHANNEL_NUMBER;
-    localparam OUTPUT_DATA_WIDTH = 2 * SIGNAL_WIDTH;
-    localparam COMPENSATION_COEF_WIDTH = 16;
-    localparam DIAGRAM_COEF_WIDTH = 16;
-    localparam COMPENSATION_COEF_LEVEL_ONE = 14;
-    localparam DIAGRAM_COEF_LEVEL_ONE = 14;
-
-    wire [CHANNEL_NUMBER - 1: 0]request_data_from_fifo;
-
-    wire [INPUT_DATA_WIDTH - 1: 0]input_data;
-    wire [CHANNEL_NUMBER - 1: 0]request_data_from_fifo;
-    wire [CHANNEL_NUMBER - 1: 0]input_data_valid;
-
     assign input_data = {
         s07_axis_tdata,
         s06_axis_tdata,
@@ -187,8 +219,24 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
         s00_axis_tvalid
     };
 
+    wire mem_reset_from_controls;
+
+    SyncStart
+        #(
+            .SYNC_LENGTH(3)
+        )
+        inst_sync_kill
+        (
+            .i_start(i_reset_from_controls),
+            .i_src_clock(aclk),
+            .i_dst_clock(mem_clk),
+
+            .o_start(mem_reset_from_controls)
+        );
+
     Dsp
         #(
+            .WEIGHT_COEF_FILE("/code/ip_repo/multiplier_1.0/hdl/dsp/weight_coef.hex"),
             .INPUT_DATA_WIDTH(INPUT_DATA_WIDTH),
             .OUTPUT_DATA_WIDTH(OUTPUT_DATA_WIDTH),
             .SIGNAL_WIDTH(SIGNAL_WIDTH),
@@ -198,7 +246,13 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
             .DIAGRAM_COEF_WIDTH(DIAGRAM_COEF_WIDTH),
             .COMPENSATION_COEF_LEVEL_ONE(COMPENSATION_COEF_LEVEL_ONE),
             .DIAGRAM_COEF_LEVEL_ONE(DIAGRAM_COEF_LEVEL_ONE),
-            .ANGLE_WIDTH(ANGLE_WIDTH)
+            .ANGLE_WIDTH(ANGLE_WIDTH),
+            .MEM_DATA_BITS(MEM_DATA_BITS),
+            .ADDR_BITS(ADDR_BITS),
+            .BUSRT_BITS(BUSRT_BITS),
+            .BURST_SIZE(BURST_SIZE),
+            .MEM_MASK_BITS(MEM_MASK_BITS)
+
         )
         inst_dsp
         (
@@ -229,7 +283,27 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
             .o_data(m_axis_tdata),
             .o_data_valid(m_axis_tvalid),
             .i_awaiting_data(m_axis_tready),
-            .o_data_last(dsp_data_last)
+            .o_data_last(dsp_data_last),
+
+            .mem_rst                            (mem_reset_from_controls | mem_rst),
+            .mem_clk                        (mem_clk                  ),
+            .rd_burst_req                   (rd_burst_req             ),
+            .wr_burst_req                   (wr_burst_req             ),
+            .rd_burst_len                   (rd_burst_len             ),
+            .wr_burst_len                   (wr_burst_len             ),
+            .rd_burst_addr                  (rd_burst_addr            ),
+            .wr_burst_addr                  (wr_burst_addr            ),
+            .rd_burst_data_valid            (rd_burst_data_valid      ),
+            .wr_burst_data_req              (wr_burst_data_req        ),
+            .rd_burst_data                  (rd_burst_data            ),
+            .wr_burst_data                  (wr_burst_data            ),
+            .rd_burst_finish                (rd_burst_finish          ),
+            .wr_burst_finish                (wr_burst_finish          ),
+            .heartbeat                      (heartbeat                ),
+            .wr_burst_mask                  (wr_burst_mask            ),
+
+
+            .i_enabled_channels(i_enabled_channels)
         );
 
 
@@ -245,5 +319,4 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
             s00_axis_tready
         } = request_data_from_fifo;
 
-    assign m_axis_tlast = dsp_data_last;
 endmodule

@@ -24,8 +24,9 @@ module OutputChannelSelector
         parameter BIT_WIDTH = 16
     )
     (
-	input [CHANNEL_NUMBER * BIT_WIDTH - 1: 0]i_data,
-	input [2: 0]i_channel_number,
+	input [BIT_WIDTH - 1: 0]i_data,
+	input [2: 0]i_current_channel_number,
+	input [2: 0]i_selected_channel_number,
 	input i_data_started,
 	input i_data_finished,
 	input i_data_valid,
@@ -38,16 +39,19 @@ module OutputChannelSelector
 	output reg o_data_valid
 );
 
-	integer i;
-	
+
 	always @(posedge i_clock)
 	begin
-			for(i = 0; i < CHANNEL_NUMBER; i = i + 1)
-			begin
-				if(i[2: 0] == i_channel_number) o_data = i_data[BIT_WIDTH * i +: BIT_WIDTH];
-			end			
-			
+		if(i_current_channel_number == i_selected_channel_number) 
+		begin
+			o_data = i_data;
 			o_data_valid = i_data_valid;
+		end
+		else
+		begin
+			o_data = 0;
+			o_data_valid = 0;
+		end
 	end
 
 	always @(posedge i_clock)

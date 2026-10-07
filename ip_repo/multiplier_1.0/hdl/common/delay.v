@@ -3,17 +3,29 @@
 module v_reg_delay
   #(
     parameter p_delay_length = 2,
-    parameter p_bit_width = 8
+    parameter p_bit_width = 8,
+    parameter CLOCK_ENABLE = "NO"
   )  
   (
     input [p_bit_width - 1: 0]i_data,
     input i_clock,
     input i_data_valid, // not used, compatibility purpose
     input i_reset, // not used, compatibility purpose
+    input i_clock_enable,
     output [p_bit_width - 1: 0]o_data
   );
+  wire clock_enable;
 
   generate
+    if(CLOCK_ENABLE == "YES")
+    begin
+      assign clock_enable = i_clock_enable;
+    end
+    else
+    begin
+      assign clock_enable = 1;
+    end
+
     if(p_delay_length == 0)
     begin
       assign o_data = i_data;
@@ -32,9 +44,12 @@ module v_reg_delay
 
       always @(posedge i_clock)
       begin
-        data[0] <= i_data;
-        for(i = 1; i < p_delay_length; i = i + 1)
-          data[i] <= data[i - 1];
+        if(clock_enable)
+        begin
+          data[0] <= i_data;
+          for(i = 1; i < p_delay_length; i = i + 1)
+            data[i] <= data[i - 1];
+        end
       end
 
       assign o_data = data[p_delay_length - 1];

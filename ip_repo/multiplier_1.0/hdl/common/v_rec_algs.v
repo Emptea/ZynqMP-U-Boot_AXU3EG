@@ -12,23 +12,25 @@ module vRecDiv
 	parameter n=42;
 	parameter m=32;
 	
-	input [n-1:0]iNum;
-	input [m-1:0]iDeNom;
+	input signed [n-1:0]iNum;
+	input signed [m-1:0]iDeNom;
 	input iStart;
 	input C;
 	
-	output reg [n-1:0]oDiv;
+	reg NomSign, DeNomSign;
+	
+	output reg signed [n-1:0]oDiv;
 	output reg [m-1:0]oRem;
 	output reg oRdy;
 	
-(* mark_debug = "true" *)	reg Init;
-	reg [n-1:0]Div;
-	reg [n+m-1:0]Nom;
-	reg [m-1:0]DeNom;
+	reg Init;
+	reg signed [n-1:0]Div;
+	reg signed [n+m-1:0]Nom;
+	reg signed [m-1:0]DeNom;
 	
 	wire [m-1:0]NomNil=0;
 	
-(* mark_debug = "true" *)	reg [m-1:0]Cnt;
+	reg [m-1:0]Cnt;
 	
 	wire Carry;
 	wire [m:0]Sub;
@@ -40,7 +42,19 @@ module vRecDiv
 		if(iStart) Init<=1;
 		else if (Init & Cnt==n) Init<=0;
 		
-		if(iStart) Nom<={NomNil, iNum};
+		if(iStart) 
+		begin
+			if(iNum < 0) 
+			begin
+				Nom<={NomNil, -iNum};
+				NomSign <= 1;
+			end
+			else
+			begin
+				Nom<={NomNil, iNum};
+				NomSign <= 0;
+			end
+		end
 		else if(~Carry)
 		begin
 			Nom[n:0]<={Nom[n-2:0], 1'b0};
@@ -48,7 +62,19 @@ module vRecDiv
 		end
 		else Nom[n+m-1:0]<={Nom[n+m-2:0], 1'b0};
 		
-		if(iStart) DeNom[m-1:0]<=iDeNom;
+		if(iStart) 
+		begin
+			if(iDeNom < 0)
+			begin
+				DeNom[m-1:0]<=-iDeNom;
+				DeNomSign <= 1;
+			end
+			else
+			begin
+				DeNom[m-1:0]<=iDeNom;
+				DeNomSign <= 0;
+			end
+		end
 
 		if(iStart) Cnt<=0;
 		else Cnt<=Cnt+1;
@@ -57,7 +83,11 @@ module vRecDiv
 		if(Init & Cnt==n) oRdy<=1;
 		else oRdy<=0;
 		
-		if(Init & Cnt==n) oDiv<=Div;
+		if(Init & Cnt==n) 
+		begin
+			if(NomSign ^ DeNomSign) oDiv<=-Div;
+			else                    oDiv<=Div;
+		end
 		if(Init & Cnt==n) oRem<=Nom[n+m-1:n];
 		
 		// Work	

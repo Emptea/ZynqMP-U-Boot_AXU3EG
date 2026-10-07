@@ -26,9 +26,24 @@ module OutputDriver
 (* mark_debug = "true" *)				
 		input i_awaiting_data,
 
+		input [63: 0]i_input_frame_timestamp,
+		input [31: 0]i_frame_number,
+
+		input [15: 0]i_output_source,
+		input [15: 0]i_output_source_channel,
+
+		input [7: 0]i_last_on_packet_count,
+
+
 (* mark_debug = "true" *)				
-		output reg o_finished
+		output reg o_finished,
+
+(* mark_debug = "true" *)				
+		output reg o_enable_source_change
+
 	);
+
+	reg is_last_packet;
 
 (* mark_debug = "true" *)		
 	reg [BIT_WIDTH - 1: 0]data_to_mem;
@@ -54,6 +69,26 @@ module OutputDriver
 	localparam e_finish = 4;
 	localparam e_pre_send_1 = 5;
 	localparam e_pre_send_2 = 6;
+	localparam e_check_send_header = 7;
+	localparam e_send_header = 8;
+
+
+	localparam DELIMITER_WIDTH = 64;
+	localparam TIMESTAMP_WIDTH = 64;
+	localparam FRAME_NUMBER_WIDTH = 32;
+	localparam OUTPUT_SOURCE_WIDTH = 16;
+	localparam OUTPUT_SOURCE_CHANNEL_WIDTH = 16;
+
+	localparam HEADER_WIDTH = DELIMITER_WIDTH + TIMESTAMP_WIDTH + FRAME_NUMBER_WIDTH + OUTPUT_SOURCE_WIDTH + OUTPUT_SOURCE_CHANNEL_WIDTH;
+
+	localparam HEADER_SIZE = HEADER_WIDTH / 32;
+
+	reg [HEADER_WIDTH - 1: 0]header;
+	integer header_counter;
+
+	reg [63: 0]input_frame_timestamp;
+	reg [31: 0]frame_number;
+	reg [7: 0]counter_packets;
 
 	v_ram_2_port
 		#(
@@ -75,12 +110,16 @@ module OutputDriver
 
 	always @(posedge i_clock)
 	begin
+		if(counter_packets == 0) o_enable_source_change <= 1;
+		else o_enable_source_change <= 0;
+
 		if(i_reset)
 		begin
 			state <= e_wait;
 			o_data_valid <= 0;
 			o_data_last <= 0;
 			o_finished <= 0;
+			counter_packets <= 0;
 		end
 		else
 		begin
@@ -88,11 +127,24 @@ module OutputDriver
 				e_wait:
 				begin
 					if(i_start) state <= e_save;
+					if(i_start) counter_packets <= counter_packets + 1;
 
 					counter_save <= 0;
 					write_address <= 0;
 					read_address <= 0;
 					o_finished <= 0;
+
+					header_counter = HEADER_SIZE;
+
+					header <= {
+						i_output_source,
+						i_output_source_channel,
+						i_input_frame_timestamp,
+						i_frame_number,
+						32'hfedcba98,
+						32'h01234567
+					};
+
 				end
 
 				e_save:
@@ -103,7 +155,28 @@ module OutputDriver
 
 					if(i_data_valid) counter_save <= counter_save + 1;
 
-					if(i_finished) state <= e_check_send;
+					if(i_finished) state <= e_check_send_header;
+				end
+
+				e_check_send_header:
+				begin
+					if(counter_packets >= i_last_on_packet_count) is_last_packet <= 1;
+					else is_last_packet <= 0;
+
+					if(header_counter != 0) state <= e_send_header;
+					else state <= e_pre_send_1;
+
+					o_data_valid <= 0;
+				end
+
+				e_send_header:
+				begin
+					header_counter <= header_counter - 1;
+
+					state <= e_check_send_header;
+
+					o_data_valid <= 1;
+					{header, o_data} <= header;
 				end
 
 				e_check_send:
@@ -135,11 +208,13 @@ module OutputDriver
 
 					o_data_valid <= 1'b1;
 
-					if(counter_save == 1) o_data_last <= 1'b1;
+					if(counter_save == 1) o_data_last <= is_last_packet;
 				end
 
 				e_finish:
 				begin
+					if(is_last_packet) counter_packets <= 0;
+					
 					state <= e_wait;
 
 					o_finished <= 1'b1;

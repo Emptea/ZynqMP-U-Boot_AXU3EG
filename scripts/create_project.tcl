@@ -370,7 +370,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch0, and set properties
   set input_fifo_ch0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch0 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -382,7 +382,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch1, and set properties
   set input_fifo_ch1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch1 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -394,7 +394,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch2, and set properties
   set input_fifo_ch2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch2 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -406,7 +406,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch3, and set properties
   set input_fifo_ch3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch3 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -418,7 +418,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch4, and set properties
   set input_fifo_ch4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch4 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -430,7 +430,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch5, and set properties
   set input_fifo_ch5 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch5 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -442,7 +442,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch6, and set properties
   set input_fifo_ch6 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch6 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -454,7 +454,7 @@ proc create_hier_cell_FIFOS { parentCell nameHier } {
   # Create instance: input_fifo_ch7, and set properties
   set input_fifo_ch7 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 input_fifo_ch7 ]
   set_property -dict [ list \
-   CONFIG.FIFO_DEPTH {8192} \
+   CONFIG.FIFO_DEPTH {2048} \
    CONFIG.FIFO_MEMORY_TYPE {block} \
    CONFIG.HAS_RD_DATA_COUNT {1} \
    CONFIG.HAS_TKEEP {1} \
@@ -547,6 +547,10 @@ proc create_root_design { parentCell } {
 
 
   # Create interface ports
+  set c0_sys_clk [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 c0_sys_clk ]
+
+  set ddr4_pl [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:ddr4_rtl:1.0 ddr4_pl ]
+
   set led_pl [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 led_pl ]
 
 
@@ -1308,6 +1312,7 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets axis_interconnect_0_M06_AXIS] [g
   connect_bd_intf_net -intf_net axis_interconnect_0_M07_AXIS [get_bd_intf_pins FIFOS/S_AXIS_CH7] [get_bd_intf_pins mcdma2fifos/M07_AXIS]
 connect_bd_intf_net -intf_net [get_bd_intf_nets axis_interconnect_0_M07_AXIS] [get_bd_intf_pins mcdma2fifos/M07_AXIS] [get_bd_intf_pins system_ila_0/SLOT_7_AXIS]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets axis_interconnect_0_M07_AXIS]
+  connect_bd_intf_net -intf_net c0_sys_clk_1 [get_bd_intf_ports c0_sys_clk] [get_bd_intf_pins rls_mini_dsp/ddr4_clk]
   connect_bd_intf_net -intf_net input_fifo_ch0_M_AXIS [get_bd_intf_pins FIFOS/M_AXIS_CH0] [get_bd_intf_pins rls_mini_dsp/s00_axis]
 connect_bd_intf_net -intf_net [get_bd_intf_nets input_fifo_ch0_M_AXIS] [get_bd_intf_pins FIFOS/M_AXIS_CH0] [get_bd_intf_pins system_ila_1/SLOT_0_AXIS]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets input_fifo_ch0_M_AXIS]
@@ -1340,6 +1345,7 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets output_fifo_M_AXIS] [get_bd_intf
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_intf_nets output_fifo_M_AXIS]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins gpio/S_AXI] [get_bd_intf_pins smc_ps2pl/M00_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins mcdma/S_AXI_LITE] [get_bd_intf_pins smc_ps2pl/M01_AXI]
+  connect_bd_intf_net -intf_net rls_mini_dsp_ddr4 [get_bd_intf_ports ddr4_pl] [get_bd_intf_pins rls_mini_dsp/ddr4]
   connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins ps/S_AXI_HPC0_FPD] [get_bd_intf_pins smc_pl2ps/M00_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins ps/M_AXI_HPM0_FPD] [get_bd_intf_pins smc_ps2pl/S01_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_LPD [get_bd_intf_pins ps/M_AXI_HPM0_LPD] [get_bd_intf_pins smc_ps2pl/S00_AXI]

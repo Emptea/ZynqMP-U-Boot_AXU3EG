@@ -16,3 +16,4 @@ psu*
 *.img
 *.gz
 *.str
+__pycache__

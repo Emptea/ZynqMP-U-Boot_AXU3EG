@@ -1,5 +1,58 @@
+from versions import MAJ_VER, MIN_VER
+
 START_ADDRESS = 16
 ADDRESS_SIZE = 4
+
+maj_ver = MAJ_VER
+min_ver = MIN_VER + 1
+
+with open("versions.py", "w") as f:
+    f.write(f"MAJ_VER = {maj_ver}\nMIN_VER={min_ver}\n")
+
+IP_VER = \
+f'''
+    -   name: MAJ_VER
+        description: Major IP version
+        reset: {maj_ver}
+        width: 16
+        lsb: 16
+        access: ro
+        hardware: f
+        enums: []
+    -   name: MIN_VER
+        description: Minor IP version
+        reset: {min_ver}
+        width: 16
+        lsb: 0
+        access: ro
+        hardware: f
+        enums: []
+'''
+
+CHANNEL_MASK_LAYOUT =  \
+'''
+    -   name: CHANNEL_MASK_ENABLE
+        description: enable channels by mask, "1" - enabled, lsb - channel 1
+        reset: 255
+        width: 8
+        lsb: 0
+        access: rw
+        hardware: o
+        enums: []
+'''
+
+RESET_LAYOUT = \
+'''
+    -   name: RESET
+        description: Sends reset pulse on access
+        reset: 1
+        width: 1
+        lsb: 0
+        access: rw
+        hardware: oa
+        enums: []
+
+'''
 
 COMPLEX = \
 '''
@@ -138,11 +191,13 @@ APPLY = \
         width: 1
         lsb: 0
         access: rw
-        hardware: o
+        hardware: oa
         enums: []
 '''
 
 regs_template = [
+    {"name": "IP_VER", "bits": IP_VER},
+    {"name": "RESET", "bits": RESET_LAYOUT},
 	{"name": "COMPENSATION_MODE", "bits": COMPENSATION_MODE},
 	{"name": "MANUAL_COMPENSATION", "length": 8, "bits": COMPLEX},	
 	*[{"name": f"DIAGRAM_{i}", "length": 8, "bits": COMPLEX} for i in range(8)],	
@@ -154,9 +209,10 @@ regs_template = [
 	{"name": "AZIMUTH_ANGLE", "bits": ANGLE},
 	{"name": "APPLY", "bits": APPLY},
     {"name": "COMPENSATION_REFERENCE", "bits": COMPENSATION_REFERENCE_LAYOUT},
+    {"name": "CHANNEL_MASK", "bits": CHANNEL_MASK_LAYOUT},
 ]
 
-text = ""
+text = "regmap:\n"
 
 address = START_ADDRESS
 
@@ -182,5 +238,5 @@ for reg in regs_template:
 		address += ADDRESS_SIZE
 
 
-with open("write", "w") as f:
+with open("regs.yaml", "w") as f:
 	f.write(text)			

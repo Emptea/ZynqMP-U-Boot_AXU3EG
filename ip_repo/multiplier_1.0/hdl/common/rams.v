@@ -1,6 +1,5 @@
 // A parameterized, inferable, true dual-port, dual-clock block RAM in Verilog.
 
-
 module v_ram_2_port
 	#(
 		parameter p_data_width = 8,
@@ -40,11 +39,68 @@ module v_ram_2_port
 	end
  	
 endmodule
+
+module v_ram_2_port_ena
+  #(
+    parameter p_data_width = 8,
+    parameter p_word_count = 1024,
+    parameter p_addr_width = 10,
+    parameter p_init_file = ""
+  )
+  (
+    input [p_data_width - 1: 0]i_data,
+    input i_read_clock_enable,
+    input i_write_clock_enable,
+    input i_data_valid,
+    input [p_addr_width - 1: 0]i_read_addr,
+    input [p_addr_width - 1: 0]i_write_addr,
+    input i_read_clock,
+    input i_write_clock,
+    
+    output reg [p_data_width - 1: 0]o_data
+  );
  
+  reg [p_data_width - 1:0] mem [p_word_count - 1: 0];
+  reg [p_addr_width - 1:0] read_addr;
+  reg [p_addr_width - 1:0] write_addr;
+  reg [p_data_width - 1:0] data;
+  reg data_valid;
+
+  initial
+  begin
+   if(p_init_file != "")
+    begin
+      $readmemh(p_init_file, mem);
+    end
+  end
+  
+  always @(posedge i_write_clock)
+  begin
+    if(i_write_clock_enable)
+    begin
+      data <= i_data;
+      data_valid <= i_data_valid;
+      write_addr <= i_write_addr;
+    
+      if(data_valid) mem[write_addr] <= data;
+    end
+  end
+ 
+  always @(posedge i_read_clock)
+  begin
+    if(i_read_clock_enable)
+    begin
+      read_addr <= i_read_addr;
+      o_data <= mem[read_addr];
+    end
+  end
+  
+endmodule 
 module v_ram 
 	#(
 		parameter DATA = 8,
-		parameter ADDR = 8
+		parameter ADDR = 8,
+    parameter p_init_file = ""
 	)
 	(
 		input   wire    a_clk,
@@ -57,6 +113,14 @@ module v_ram
 
 	// Shared memory
 	reg [DATA-1:0] mem [(2**ADDR)-1:0];
+
+  initial
+  begin
+   if(p_init_file != "")
+    begin
+      $readmemh(p_init_file, mem);
+    end
+  end
 	 
 	always @(posedge a_clk) 
 	begin
@@ -190,6 +254,73 @@ module v_2port_mem
 
     //for (i = 0; i < p_word_count; i = i + 1)
       //$display("Address %d, data %x", i, mem[i][p_data_width - 1: 0]);
+  end
+  
+  initial
+  begin
+      o_data_1 = 0;
+      o_data_2 = 0;
+  end  
+  // Port A
+  always @(posedge i_clock_1) 
+  begin
+    o_data_1      <= mem[i_data_1_addr];
+    
+    if(i_data_1_wren) 
+    begin
+      o_data_1           <= i_data_1;
+      mem[i_data_1_addr] <= i_data_1;
+    end
+  end
+  
+  // Port B
+  always @(posedge i_clock_2) 
+  begin
+    o_data_2      <= mem[i_data_2_addr];
+    
+    if(i_data_2_wren) 
+    begin
+      o_data_2           <= i_data_2;
+      mem[i_data_2_addr] <= i_data_2;
+    end
+  end
+endmodule
+
+module v_2port_mem_ena
+  #(
+    parameter p_init_file = "",
+    parameter p_addr_width = 8,
+    parameter p_word_count = 256,
+    parameter p_data_width = 8
+  )
+  (
+    // Port A
+    input   wire                           i_clock_1,
+    input   wire                           i_data_1_wren,
+    input   wire    [p_addr_width - 1: 0]  i_data_1_addr,
+    input   wire    [p_data_width - 1: 0]  i_data_1,
+    input   wire                           i_clock_1_ena,
+    output  reg     [p_data_width - 1: 0]  o_data_1,
+     
+    // Port B
+    input   wire                           i_clock_2,
+    input   wire                           i_data_2_wren,
+    input   wire    [p_addr_width - 1: 0]  i_data_2_addr,
+    input   wire    [p_data_width - 1: 0]  i_data_2,
+    input   wire                           i_clock_2_ena,
+    output  reg     [p_data_width - 1: 0]  o_data_2
+  );
+  // Shared memory
+  reg [p_data_width - 1: 0] mem [p_word_count - 1: 0];
+  
+  reg [31: 0] i;
+  
+  initial
+  begin
+   if(p_init_file != "")
+    begin
+      $readmemh(p_init_file, mem);
+    end
   end
   
   initial

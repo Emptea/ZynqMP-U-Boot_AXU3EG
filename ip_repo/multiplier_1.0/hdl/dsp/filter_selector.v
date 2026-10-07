@@ -10,6 +10,8 @@ module FilterSelecter
 		input i_far_valid,
 		input i_close_valid,
 
+		input [15: 0]i_diagram_number,
+
 		input i_clock,
 		input i_reset,
 
@@ -17,7 +19,8 @@ module FilterSelecter
 		output reg [BIT_WIDTH * CHANNEL_NUMBER - 1: 0]o_close_signal,
 
 		output reg o_far_valid,
-		output reg o_close_valid
+		output reg o_close_valid,
+		output reg [15: 0]o_diagram_number
 	);
 
 	always @(posedge i_clock)
@@ -39,6 +42,8 @@ module FilterSelecter
 
 			if(i_close_valid) o_close_signal <= i_signal;
 			else o_close_signal <= 0;
+
+			o_diagram_number <= i_diagram_number;
 		end
 	end
 endmodule

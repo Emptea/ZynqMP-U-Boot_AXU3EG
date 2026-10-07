@@ -3,16 +3,16 @@
 module OutputSourceSelector
 	#(
 		parameter BIT_WIDTH = 32,
-		parameter SOURCE_NUMBER = 8,
-		parameter CHANNEL_NUMBER = 8
+		parameter SOURCE_NUMBER = 8
 	)
 	(
-		input [BIT_WIDTH * CHANNEL_NUMBER * SOURCE_NUMBER - 1: 0]i_data,
+		input [BIT_WIDTH * SOURCE_NUMBER - 1: 0]i_data,
 		input [SOURCE_NUMBER - 1: 0]i_data_started,
 		input [SOURCE_NUMBER - 1: 0]i_data_finished,
 		input [SOURCE_NUMBER - 1: 0]i_data_valid,
+		input [2: 0]i_selected_channel_number,
 
-		input [15: 0]i_channel_number,
+		input [3 * SOURCE_NUMBER - 1: 0]i_current_channel_number,
 		input [15: 0]i_source_number,
 
 		input i_clock,
@@ -28,7 +28,7 @@ module OutputSourceSelector
 		output reg o_data_finished
 	);
 
-	localparam FULL_WIDTH = BIT_WIDTH * CHANNEL_NUMBER;
+	localparam FULL_WIDTH = BIT_WIDTH;
 
 	wire [BIT_WIDTH - 1: 0]selected_data[SOURCE_NUMBER - 1: 0];
 	wire selected_data_valid[SOURCE_NUMBER - 1: 0];
@@ -42,13 +42,13 @@ module OutputSourceSelector
 		begin: gen_channel_selector
 			OutputChannelSelector
 			    #(
-			        .CHANNEL_NUMBER(CHANNEL_NUMBER),
 			        .BIT_WIDTH(BIT_WIDTH)
 			    )
 			    inst_output_selector
 			    (
 					.i_data(i_data[FULL_WIDTH * i +: FULL_WIDTH]),
-					.i_channel_number(i_channel_number),
+					.i_selected_channel_number(i_selected_channel_number),
+					.i_current_channel_number(i_current_channel_number[3 * i +: 3]),
 					.i_data_valid(i_data_valid[i]),
 					.i_data_started(i_data_started[i]),
 					.i_data_finished(i_data_finished[i]),
@@ -84,7 +84,7 @@ module OutputSourceSelector
 	
 			for(k = 0; k < SOURCE_NUMBER; k = k + 1)
 			begin
-				if(k + 1 == i_source_number)
+				if(k == i_source_number)
 				begin
 					o_data = selected_data[k];
 					o_data_valid = selected_data_valid[k];
