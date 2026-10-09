@@ -62,8 +62,17 @@ set_property PACKAGE_PIN AH6 [get_ports {ddr4_pl_ba[0]}]
 set_property PACKAGE_PIN AD5 [get_ports {ddr4_pl_dm_n[1]}]
 set_property PACKAGE_PIN AG4 [get_ports {ddr4_pl_dm_n[0]}]
 
+############## UART ##################
+set_property IOSTANDARD LVCMOS33 [get_ports RS485_0_RXD]
+set_property PACKAGE_PIN AE13 [get_ports RS485_0_RXD]
+set_property IOSTANDARD LVCMOS33 [get_ports RS485_0_TXD]
+set_property PACKAGE_PIN AH10 [get_ports RS485_0_TXD]
+set_property IOSTANDARD LVCMOS33 [get_ports {RS485_0_DE_tri_o[0]}]
+set_property PACKAGE_PIN B11    [get_ports {RS485_0_DE_tri_o[0]}]
 
-
-
-
-
+set_property IOSTANDARD LVCMOS33 [get_ports RS485_1_RXD]
+set_property PACKAGE_PIN AF13 [get_ports RS485_1_RXD]
+set_property IOSTANDARD LVCMOS33 [get_ports RS485_1_TXD]
+set_property PACKAGE_PIN AG10 [get_ports RS485_1_TXD]
+set_property IOSTANDARD LVCMOS33 [get_ports {RS485_1_DE_tri_o[0]}]
+set_property PACKAGE_PIN A10    [get_ports {RS485_1_DE_tri_o[0]}]

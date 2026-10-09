@@ -236,7 +236,7 @@ module axi_multiplier_8ch #(parameter integer AXI_DATA_WIDTH     = 32,
 
     Dsp
         #(
-            .WEIGHT_COEF_FILE("/code/ip_repo/multiplier_1.0/hdl/dsp/weight_coef.hex"),
+            .WEIGHT_COEF_FILE("/home/emptea/RLS_mini/fpga/rls_mini_current/ip_repo/multiplier_1.0/hdl/dsp/weight_coef.hex"),
             .INPUT_DATA_WIDTH(INPUT_DATA_WIDTH),
             .OUTPUT_DATA_WIDTH(OUTPUT_DATA_WIDTH),
             .SIGNAL_WIDTH(SIGNAL_WIDTH),

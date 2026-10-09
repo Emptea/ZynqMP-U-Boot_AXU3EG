@@ -595,7 +595,14 @@ begin
 		reset_address <= 0;
 		ddr_process_pending_counter <= 0;
 		started_processing <= 0;
+		prev_should_read <= 0;
+		next_wr_burst_data_4 <= 0;
+		next_wr_burst_data_3 <= 0;
+		next_wr_burst_data_2 <= 0;
+		next_wr_burst_data <= 0;
+		total_procesing_time <= 0;
 	end
+	
 	else
 	begin
 		if(start_read) ddr_process_pending_counter <= ddr_process_pending_counter + 1;
