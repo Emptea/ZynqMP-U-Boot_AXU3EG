@@ -4,7 +4,7 @@ cd zynq
 
 set app_name          "fsbl"
 set app_type          "zynqmp_fsbl"
-set hwspec_file       "d_1_wrapper.hwdef"
+set hwspec_file       "d_1_wrapper.hdf"
 set proc_name         "psu_cortexa53_0"
 set project_name      "zynq"
 set project_dir       [pwd]
@@ -13,7 +13,7 @@ set app_dir           [file join $sdk_workspace $app_name]
 set app_release_dir   [file join [pwd] ".." "output" ]
 set app_release_elf   "zynqmp_fsbl.elf"
 
-hsi::open_hw_design [file join $sdk_workspace $hwspec_file]
+hsi::open_hw_design [file join $app_release_dir $hwspec_file]
 
 set sw_fsbl [hsi::create_sw_design $app_name -proc $proc_name -app $app_type]
 
