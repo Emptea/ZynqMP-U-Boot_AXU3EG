@@ -1365,7 +1365,7 @@
 			reset-gpios = <&gpio 173 GPIO_ACTIVE_LOW>;
 		};
 
-		mcdma: axi_mcdma@b0000000 {
+		mcdma: axi_mcdma@a0000000 {
 			#dma-cells = <1>;
 			clock-names = "s_axi_aclk", "s_axi_lite_aclk";
 			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>;
@@ -1375,7 +1375,7 @@
 					  "mm2s_ch7_introut", "mm2s_ch8_introut", "s2mm_ch1_introut";
 			interrupt-parent = <&gic>;
 			interrupts = <0 89 4 0 90 4 0 91 4 0 92 4 0 93 4 0 94 4 0 95 4 0 96 4 0 104 4>;
-			reg = <0x0 0xb0000000 0x0 0x1000>;
+			reg = <0x0 0xa0000000 0x0 0x1000>;
 			xlnx,addrwidth = <0x40>;
 			xlnx,dlytmr-resolution = <0x7d>;
 			xlnx,enable-single-intr = <0x0>;
@@ -1409,7 +1409,7 @@
 			xlnx,sg-use-stsapp-length = <0x0>;
 
 
-			dma-channel@b0000000 {
+			dma-channel@a0000000 {
 				compatible = "xlnx,axi-dma-mm2s-channel";
 				dma-channels = <0x8>;
 				interrupt-parent = <&gic>;
@@ -1417,7 +1417,7 @@
 				xlnx,datawidth = <0x20>;
 				xlnx,device-id = <0x0>;
 			};
-			dma-channel@b0000030 {
+			dma-channel@a0000030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				dma-channels = <0x1>;
 				interrupt-parent = <&gic>;
@@ -1438,12 +1438,12 @@
 			dma-coherent;
 		};
 
-		rls_mini_dsp: multiplier@b0001000 {
+		rls_mini_dsp: multiplier@a0001000 {
 			// compatible = "BMSTU,axi-multiplier-1.0";
 			compatible = "BMSTU,rls_mini_pl";
 			clock-names = "aclk", "s00_axi_aclk";
 			clocks = <&zynqmp_clk 71>, <&zynqmp_clk 71>;
-			reg = <0x0 0xb0001000 0x0 0x1000>;
+			reg = <0x0 0xa0001000 0x0 0x1000>;
 		};
 
 		axi_gpio_0: gpio@80000000 {
